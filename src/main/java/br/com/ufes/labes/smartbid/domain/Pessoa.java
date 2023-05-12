@@ -1,5 +1,6 @@
 package br.com.ufes.labes.smartbid.domain;
 
+import br.com.ufes.labes.smartbid.domain.enumerate.TipoIdentificacao;
 import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;

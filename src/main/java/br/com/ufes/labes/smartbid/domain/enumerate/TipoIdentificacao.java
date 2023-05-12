@@ -1,4 +1,4 @@
-package br.com.ufes.labes.smartbid.domain;
+package br.com.ufes.labes.smartbid.domain.enumerate;
 
 public enum TipoIdentificacao {
     FISICA, JURIDICA
