@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+		<h:outputText value="#{msgsSubsystem['primefaces.title']}" />
+	</ui:define>
+
+	<ui:define name="description">
+		<h:outputText value="#{msgsSubsystem['primefaces.title.description']}" />
+	</ui:define>
+
+	<ui:define name="body">
+		<!-- Clear the breadcrumb. -->
+		<adm:breadcrumb title="#{msgsSubsystem['primefaces.title']}" clear="true" />
+
+        <h:form id="form">
+            <h:panelGroup id="message">
+                <p><h:outputText value="#{msgsSubsystem['primefaces.text.hello']}, #{helloController.name}!" /></p>
+            </h:panelGroup>
+
+            <p><h:outputText value="#{msgsSubsystem['primefaces.text.count']}" />: <h:outputText value="#{helloController.count}" id="count" /></p>
+
+            <p>
+                <p:commandButton value="#{msgsSubsystem['primefaces.button.next']}" update="form" />
+                <p:commandButton value="#{msgsSubsystem['primefaces.button.reset']}" update="count" action="#{helloController.resetCount}" />
+            </p>
+    	</h:form>
+	</ui:define>
+</ui:composition>
+

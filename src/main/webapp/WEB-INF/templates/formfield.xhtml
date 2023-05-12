@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid id="#{fieldName}Field" columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-fluid">
+		<p:outputLabel for="#{fieldName}" value="#{label}:"	rendered="#{not (fieldName != null and facesContext.viewRoot.findComponent(formName).findComponent(fieldName).required)}" />
+		<p:outputLabel for="#{fieldName}" value="#{label}*:" rendered="#{(fieldName != null and facesContext.viewRoot.findComponent(formName).findComponent(fieldName).required)}" />
+		<h:panelGroup>
+			<p:message for="#{fieldName}" rendered="#{fieldName != null}" />
+			<ui:insert />
+		</h:panelGroup>
+	</p:panelGrid>
+
+</ui:composition>
