@@ -2,13 +2,15 @@ package br.com.ufes.labes.smartbid.domain;
 
 import br.com.ufes.labes.smartbid.domain.enumerate.UnidadeMedida;
 import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Item extends PersistentObjectSupport {
@@ -31,8 +33,11 @@ public class Item extends PersistentObjectSupport {
     private UnidadeMedida unidadeMedida;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     private Licitacao licitacao;
+
+    @OneToMany(mappedBy = "item")
+    private Set<Proposta> propostas = new HashSet<>();
 
     // <editor-fold defaultstate="collapsed" desc="Boilerplate">
 
@@ -95,6 +100,21 @@ public class Item extends PersistentObjectSupport {
 
     public void setLicitacao(Licitacao licitacao) {
         this.licitacao = licitacao;
+    }
+
+    public Set<Proposta> getPropostas() {
+        return propostas;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     // </editor-fold>

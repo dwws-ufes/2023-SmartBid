@@ -3,10 +3,7 @@ package br.com.ufes.labes.smartbid.domain;
 import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -19,7 +16,6 @@ public class Proposta extends PersistentObjectSupport {
     private BigDecimal valorAnterior;
 
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dataHora;
 
     @NotNull
@@ -36,7 +32,7 @@ public class Proposta extends PersistentObjectSupport {
     }
 
     public Proposta(final BigDecimal valor, final BigDecimal valorAnterior, final LocalDateTime dataHora,
-                    final Participante participante, final Item item) {
+            final Participante participante, final Item item) {
         this.valor = valor;
         this.valorAnterior = valorAnterior;
         this.dataHora = dataHora;
@@ -82,6 +78,16 @@ public class Proposta extends PersistentObjectSupport {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     // </editor-fold>

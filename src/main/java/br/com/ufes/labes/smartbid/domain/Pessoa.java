@@ -2,10 +2,14 @@ package br.com.ufes.labes.smartbid.domain;
 
 import br.com.ufes.labes.smartbid.domain.enumerate.TipoIdentificacao;
 import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Pessoa extends PersistentObjectSupport {
@@ -28,6 +32,9 @@ public class Pessoa extends PersistentObjectSupport {
     @Enumerated
     @NotNull
     private TipoIdentificacao tipoIdentificacao;
+
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.MERGE)
+    private Set<Participante> participantes = new HashSet<>();
 
     // <editor-fold defaultstate="collapsed" desc="Boilerplate">
     public Pessoa() {
@@ -80,6 +87,18 @@ public class Pessoa extends PersistentObjectSupport {
 
     public void setTipoIdentificacao(final TipoIdentificacao tipoIdentificacao) {
         this.tipoIdentificacao = tipoIdentificacao;
+    }
+
+    public Set<Participante> getParticipantes() {
+        return participantes;
+    }
+
+    public void addParticipante(Participante participante) {
+        this.participantes.add(participante);
+    }
+
+    public void removeParticipante(Participante participante) {
+        this.participantes.remove(participante);
     }
 
     @Override

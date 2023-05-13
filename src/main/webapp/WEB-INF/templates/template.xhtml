@@ -7,17 +7,17 @@
         template="/admin.xhtml">
 
     <ui:define name="head">
-        <title><h:outputText value="JButler Base :: "/><ui:insert name="title"/></title>
+        <title><h:outputText value="SmartBid :: "/><ui:insert name="title"/></title>
         <h:outputStylesheet library="webjars" name="font-awesome/6.1.0/css/all.min-jsf.css"/>
         <h:outputStylesheet library="webjars" name="font-awesome/6.1.0/css/v4-shims.min-jsf.css"/>
     </ui:define>
 
     <ui:define name="logo-lg">
-        <span class="logo-lg"><b>JButler Base</b></span>
+        <span class="logo-lg"><b>SmartBid</b></span>
     </ui:define>
 
     <ui:define name="logo-mini">
-        [JB]
+        [SB]
     </ui:define>
 
     <ui:define name="menu">
@@ -27,6 +27,11 @@
             <li><p:link outcome="/index">
                 <i class="fa fa-home"></i>
                 <span><h:outputText value="#{msgs['menu.home']}"/></span>
+            </p:link></li>
+
+            <li><p:link outcome="/smartbid/pessoa/index">
+                <i class="fa fa-person"></i>
+                <span><h:outputText value="#{msgsSmartbid['pessoa.menu.title']}"/></span>
             </p:link></li>
         </ul>
     </ui:define>
