@@ -16,12 +16,9 @@ public class Participante extends PersistentObjectSupport {
     @Size(max = 255)
     private String justificativaImpedimento;
 
-    @NotNull
-    @Size(max = 20)
     private LocalDateTime dataHoraImpedimento;
 
     @NotNull
-    @Size(max = 20)
     private LocalDateTime dataHoraParticipacao;
 
     @ManyToOne

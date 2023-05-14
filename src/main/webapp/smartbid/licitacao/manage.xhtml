@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<ui:define name="manage">
+    <p:panelGrid columns="4" cellpadding="5" layout="grid" styleClass="ui-fluid card"
+                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
+        <p:outputLabel for="dataPublicacaoField"
+                       value="#{msgsSmartbid['licitacao.field.dataPublicacao']}"/>
+        <h:panelGroup id="dataPublicacaoGroup">
+
+            <p:datePicker id="dataPublicacaoField"
+                          value="#{registerLicitationController.selectedEntity.dataPublicacao}"
+                          pattern="#{msgs['jbutler.format.date.java']}" showButtonBar="true"
+                          mask="true"/>
+            <p:message for="dataPublicacaoField"/>
+        </h:panelGroup>
+
+        <p:outputLabel for="objetoField"
+                       value="#{msgsSmartbid['licitacao.field.objeto']}"/>
+        <h:panelGroup id="objetoGroup">
+            <p:inputText id="objetoField"
+                         value="#{registerLicitationController.selectedEntity.objeto}"
+
+            >
+
+            </p:inputText>
+        </h:panelGroup>
+
+        <p:outputLabel for="criterioJulgamentoField"
+                       value="#{msgsSmartbid['licitacao.field.criterioJulgamento']}"/>
+
+        <h:panelGroup id="criterioJulgamentoGroup">
+            <p:selectOneMenu id="criterioJulgamentoField"
+                             value="#{registerLicitationController.selectedEntity.criterioJulgamento}">
+                <f:selectItem itemLabel="#{msgs['jbutler.crud.text.selectOne']}"
+                              noSelectionOption="true"/>
+                <f:selectItems value="#{registerLicitationController.criteriosJulgamento}"/>
+            </p:selectOneMenu>
+            <p:message for="criterioJulgamentoField"/>
+        </h:panelGroup>
+
+        <p:outputLabel for="dataLicitacaoField"
+                       value="#{msgsSmartbid['licitacao.field.dataLicitacao']}"/>
+        <h:panelGroup id="dataLicitacaoGroup">
+            <p:datePicker id="dataLicitacaoField"
+                          value="#{registerLicitationController.selectedEntity.dataLicitacao}"
+                          pattern="#{msgs['jbutler.format.date.java']}" showButtonBar="true"
+                          mask="true"/>
+            <p:message for="dataLicitacaoField"/>
+        </h:panelGroup>
+
+
+    </p:panelGrid>
+
+
+    <p:commandButton value="#{msgs['jbutler.crud.button.save']}" icon="pi pi-check"
+                     actionListener="#{registerLicitationController.save}"
+                     update=":form:manage-entity-content :form:dt-entities"
+                     process=":form:manage-entity-content :form:dt-entities @this"
+                     oncomplete="if(!args.validationError);"/>
+    <p:commandButton value="#{msgs['jbutler.crud.button.cancel']}" icon="pi pi-times"
+                     onclick="PF('formDialog').hide()"/>
+
+</ui:define>
+
+
+</html>

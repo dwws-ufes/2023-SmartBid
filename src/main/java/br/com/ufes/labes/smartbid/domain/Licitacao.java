@@ -5,23 +5,18 @@ import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Licitacao extends PersistentObjectSupport {
     @NotNull
-    @Size(max = 20)
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime dataLicitacao;
+    private LocalDate dataLicitacao;
 
     @NotNull
-    @Size(max = 255)
     private CriterioJulgamento criterioJulgamento;
 
     @NotNull
@@ -29,8 +24,7 @@ public class Licitacao extends PersistentObjectSupport {
     private String objeto;
 
     @NotNull
-    @Size(max = 20)
-    private LocalDateTime dataPublicacao;
+    private LocalDate dataPublicacao;
 
     @OneToMany(mappedBy = "licitacao", orphanRemoval = true)
     private Set<Participante> participantes = new HashSet<>();
@@ -42,19 +36,19 @@ public class Licitacao extends PersistentObjectSupport {
     public Licitacao() {
     }
 
-    public Licitacao(final LocalDateTime dataLicitacao, final CriterioJulgamento criterioJulgamento,
-            final String objeto, final LocalDateTime dataPublicacao) {
+    public Licitacao(final LocalDate dataLicitacao, final CriterioJulgamento criterioJulgamento, final String objeto,
+            final LocalDate dataPublicacao) {
         this.dataLicitacao = dataLicitacao;
         this.criterioJulgamento = criterioJulgamento;
         this.objeto = objeto;
         this.dataPublicacao = dataPublicacao;
     }
 
-    public LocalDateTime getDataLicitacao() {
+    public LocalDate getDataLicitacao() {
         return dataLicitacao;
     }
 
-    public void setDataLicitacao(LocalDateTime dataLicitacao) {
+    public void setDataLicitacao(LocalDate dataLicitacao) {
         this.dataLicitacao = dataLicitacao;
     }
 
@@ -74,11 +68,11 @@ public class Licitacao extends PersistentObjectSupport {
         this.objeto = objeto;
     }
 
-    public LocalDateTime getDataPublicacao() {
+    public LocalDate getDataPublicacao() {
         return dataPublicacao;
     }
 
-    public void setDataPublicacao(LocalDateTime dataPublicacao) {
+    public void setDataPublicacao(LocalDate dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
     }
 

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:adm="http://github.com/adminfaces"
+        template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">
+        <h:outputText value="#{msgsSmartbid['licitacao.title']}"/>
+    </ui:define>
+
+    <ui:define name="description">
+        <h:outputText value="#{msgsSmartbid['licitacao.title.description']}"/>
+    </ui:define>
+
+    <ui:define name="body">
+
+        <adm:breadcrumb link="/core/licitacao/index" title="#{msgsSmartbid['licitacao.title']}"/>
+
+        <h:form id="form">
+
+            <!-- The listing. -->
+            <p:panel id="panel-list" rendered="${empty registerLicitationController.selectedEntity}"
+                    header="#{msgsSmartbid['licitacao.text.entities']}" styleClass="card no-border">
+                <p:dataTable 
+                             id="dt-entities" widgetVar="dtEntities" var="entity"
+                             value="#{registerLicitationController.entities}"
+                             emptyMessage="#{msgsSmartbid['view.text.emptyMessage']}" reflow="true"
+                             selection="#{registerLicitationController.selectedEntities}" rowKey="#{entity.id}"
+                             paginator="true"
+                             rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                    <p:ajax event="filter" ignoreAutoUpdate="true"/>
+                    <f:facet name="footer">
+                        <!-- New and Delete buttons. -->
+                        <div style="float: right; margin-top: -40px;">
+                            <p:commandButton value="#{msgs['jbutler.crud.button.create']}" icon="pi pi-plus"
+                                             actionListener="#{registerLicitationController.openNew}"
+                                             oncomplete=""
+                                             update=":form:manage-entity-content :form:panel-list"
+                                             style="margin-right: .5rem">
+                                <p:resetInput target=":form:manage-entity-content :form:panel-list"/>
+                            </p:commandButton>
+                            <p:commandButton id="delete-entities-button" value="#{msgs['jbutler.crud.button.delete']}"
+                                             icon="pi pi-trash"
+                                             actionListener="#{registerLicitationController.deleteSelectedEntities}"
+                                             disabled="#{!registerLicitationController.hasSelectedEntities()}"
+                                             update="@this">
+                                <p:confirm header="#{msgs['jbutler.crud.title.confirmation']}"
+                                           message="#{msgsSmartbid['view.text.deleteConfirmation']}"
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                        </div>
+                    </f:facet>
+
+                    <p:ajax event="rowSelect" update="delete-entities-button"/>
+                    <p:ajax event="rowUnselect" update="delete-entities-button"/>
+                    <p:ajax event="rowSelectCheckbox" update="delete-entities-button"/>
+                    <p:ajax event="rowUnselectCheckbox" update="delete-entities-button"/>
+                    <p:ajax event="toggleSelect" update="delete-entities-button"/>
+
+                    <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
+
+                    <!-- My Object data. -->
+                    <p:column headerText="#{msgsSmartbid['licitacao.field.dataPublicacao']}"
+                              sortBy="#{entity.dataPublicacao}"
+                              filterBy="#{entity.dataPublicacao}"
+                              filterStyle="display: none">
+                        <h:outputText value="#{entity.dataPublicacao}">
+                            <f:convertDateTime type="localDate" pattern="#{msgs['jbutler.format.date.java']}"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="#{msgsSmartbid['licitacao.field.criterioJulgamento']}"
+                              sortBy="#{entity.criterioJulgamento}">
+                        <h:outputText value="#{entity.criterioJulgamento}"/>
+                    </p:column>
+                    <p:column headerText="#{msgsSmartbid['licitacao.field.objeto']}"
+                              sortBy="#{entity.objeto}">
+                        <h:outputText value="#{entity.objeto}"/>
+                    </p:column>
+
+                    <p:column exportable="false" style="text-align: center;">
+                        <f:facet name="header">
+                            <i class="pi pi-search"></i>
+                            <p:inputText id="globalFilter" onkeyup="PF('dtEntities').filter()"
+                                         placeholder="#{msgs['jbutler.crud.text.search']}" style="margin-left: 10px;"/>
+                        </f:facet>
+                        <p:commandButton icon="pi pi-pencil" update=":form:manage-entity-content :form:panel-list"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{entity}"
+                                                         target="#{registerLicitationController.selectedEntity}"/>
+                            <p:resetInput target=":form:manage-entity-content :form:panel-list"/>
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-trash" process="@this"
+                                         oncomplete="PF('deleteEntityDialog').show()">
+                            <f:setPropertyActionListener value="#{entity}"
+                                                         target="#{registerLicitationController.selectedEntity}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </p:panel>
+
+            <p:panel id="manage-entity-content" header="#{msgsSmartbid['pessoa.title.detail']}">
+                <p:outputPanel rendered="#{not empty registerLicitationController.selectedEntity}">
+                    <p:panelGrid columns="4" cellpadding="5" layout="grid" styleClass="ui-fluid card"
+                                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
+                        <p:outputLabel for="dataPublicacaoField"
+                                       value="#{msgsSmartbid['licitacao.field.dataPublicacao']}"/>
+                        <h:panelGroup id="dataPublicacaoGroup">
+
+                            <p:datePicker id="dataPublicacaoField"
+                                          value="#{registerLicitationController.selectedEntity.dataPublicacao}"
+                                          pattern="#{msgs['jbutler.format.date.java']}" showButtonBar="true"
+                                          mask="true"/>
+                            <p:message for="dataPublicacaoField"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel for="objetoField"
+                                       value="#{msgsSmartbid['licitacao.field.objeto']}"/>
+                        <h:panelGroup id="objetoGroup">
+                            <p:inputText id="objetoField"
+                                         value="#{registerLicitationController.selectedEntity.objeto}"
+
+                            >
+
+                            </p:inputText>
+                        </h:panelGroup>
+
+                        <p:outputLabel for="criterioJulgamentoField"
+                                       value="#{msgsSmartbid['licitacao.field.criterioJulgamento']}"/>
+
+                        <h:panelGroup id="criterioJulgamentoGroup">
+                            <p:selectOneMenu id="criterioJulgamentoField"
+                                             value="#{registerLicitationController.selectedEntity.criterioJulgamento}">
+                                <f:selectItem itemLabel="#{msgs['jbutler.crud.text.selectOne']}"
+                                              noSelectionOption="true"/>
+                                <f:selectItems value="#{registerLicitationController.criteriosJulgamento}"/>
+                            </p:selectOneMenu>
+                            <p:message for="criterioJulgamentoField"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel for="dataLicitacaoField"
+                                       value="#{msgsSmartbid['licitacao.field.dataLicitacao']}"/>
+                        <h:panelGroup id="dataLicitacaoGroup">
+                            <p:datePicker id="dataLicitacaoField"
+                                          value="#{registerLicitationController.selectedEntity.dataLicitacao}"
+                                          pattern="#{msgs['jbutler.format.date.java']}" showButtonBar="true"
+                                          mask="true"/>
+                            <p:message for="dataLicitacaoField"/>
+                        </h:panelGroup>
+
+
+                    </p:panelGrid>
+
+                    <p:commandButton value="#{msgs['jbutler.crud.button.save']}" icon="pi pi-check"
+                                     actionListener="#{registerLicitationController.save}"
+                                     update="manage-entity-content :form:panel-list"
+                                     process="manage-entity-content :form:panel-list @this"
+                                     oncomplete="if(!args.validationError);"/>
+                    <p:commandButton value="#{msgs['jbutler.crud.button.cancel']}" icon="pi pi-times"
+                                     onclick="PF('formDialog').hide()"/>
+
+                </p:outputPanel>
+            </p:panel>
+
+
+            <!-- Dialog to confirm deletion. -->
+            <p:confirmDialog widgetVar="deleteEntityDialog" showEffect="fade" width="300"
+                             message="#{msgsSmartbid['view.text.deleteConfirmation']}"
+                             header="#{msgs['jbutler.crud.title.confirmation']}" severity="warn">
+                <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
+                                 actionListener="#{registerLicitationController.delete}" process="@this"
+                                 oncomplete="PF('deleteEntityDialog').hide()"/>
+                <p:commandButton value="#{msgs['jbutler.crud.button.no']}" type="button" icon="pi pi-times"
+                                 onclick="PF('deleteEntityDialog').hide()"/>
+            </p:confirmDialog>
+
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

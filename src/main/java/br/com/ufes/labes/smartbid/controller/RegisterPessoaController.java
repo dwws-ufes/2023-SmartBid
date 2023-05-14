@@ -15,8 +15,8 @@ import java.util.Objects;
 
 @Named
 @ViewScoped
-public class PessoaController extends CrudController<Pessoa> {
-    public static final SelectItemGroup TIPOS_DE_IDENTIFICACAO = new SelectItemGroup("Tipos de Identificação");
+public class RegisterPessoaController extends CrudController<Pessoa> {
+    public static final SelectItemGroup TIPOS_DE_IDENTIFICACAO = new SelectItemGroup("Tipo de Identificação");
 
 
     @EJB
@@ -25,7 +25,7 @@ public class PessoaController extends CrudController<Pessoa> {
     private String mask = "999999999999999";
 
     @Inject
-    public PessoaController() {
+    public RegisterPessoaController() {
         super();
         TIPOS_DE_IDENTIFICACAO.setSelectItems(new SelectItem[] { new SelectItem(TipoIdentificacao.FISICA, "Física"),
                 new SelectItem(TipoIdentificacao.JURIDICA, "Jurídica") });

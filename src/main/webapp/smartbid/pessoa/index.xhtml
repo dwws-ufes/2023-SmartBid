@@ -22,26 +22,26 @@
         <h:form id="form">
             <!-- The listing. -->
             <p:panel header="#{msgsSmartbid['pessoa.text.entities']}" styleClass="card no-border">
-                <p:dataTable id="dt-entities" widgetVar="dtEntities" var="entity" value="#{pessoaController.entities}"
-                             emptyMessage="#{msgsSmartbid['pessoa.text.emptyMessage']}" reflow="true"
-                             selection="#{pessoaController.selectedEntities}" rowKey="#{entity.id}" paginator="true"
+                <p:dataTable id="dt-entities" widgetVar="dtEntities" var="entity" value="#{registerPessoaController.entities}"
+                             emptyMessage="#{msgsSmartbid['view.text.emptyMessage']}" reflow="true"
+                             selection="#{registerPessoaController.selectedEntities}" rowKey="#{entity.id}" paginator="true"
                              rows="10" rowSelectMode="add" paginatorPosition="bottom">
                     <p:ajax event="filter" ignoreAutoUpdate="true"/>
                     <f:facet name="footer">
                         <!-- New and Delete buttons. -->
                         <div style="float: right; margin-top: -40px;">
                             <p:commandButton value="#{msgs['jbutler.crud.button.create']}" icon="pi pi-plus"
-                                             actionListener="#{pessoaController.openNew}"
+                                             actionListener="#{registerPessoaController.openNew}"
                                              update=":form:manage-entity-content" oncomplete="PF('formDialog').show()"
                                              style="margin-right: .5rem">
                                 <p:resetInput target=":form:manage-entity-content"/>
                             </p:commandButton>
                             <p:commandButton id="delete-entities-button" value="#{msgs['jbutler.crud.button.delete']}"
                                              icon="pi pi-trash"
-                                             actionListener="#{pessoaController.deleteSelectedEntities}"
-                                             disabled="#{!pessoaController.hasSelectedEntities()}" update="@this">
+                                             actionListener="#{registerPessoaController.deleteSelectedEntities}"
+                                             disabled="#{!registerPessoaController.hasSelectedEntities()}" update="@this">
                                 <p:confirm header="#{msgs['jbutler.crud.title.confirmation']}"
-                                           message="#{msgsSmartbid['pessoa.text.deleteConfirmation']}"
+                                           message="#{msgsSmartbid['view.text.deleteConfirmation']}"
                                            icon="pi pi-exclamation-triangle"/>
                             </p:commandButton>
                         </div>
@@ -56,11 +56,13 @@
                     <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
 
                     <!-- My Object data. -->
-                    <p:column headerText="#{msgsSmartbid['pessoa.field.nome']}" sortBy="#{entity.nome}" filterBy="#{entity.nome}"
+                    <p:column headerText="#{msgsSmartbid['pessoa.field.nome']}" sortBy="#{entity.nome}"
+                              filterBy="#{entity.nome}"
                               filterStyle="display: none">
                         <h:outputText value="#{entity.nome}"/>
                     </p:column>
-                    <p:column headerText="#{msgsSmartbid['pessoa.field.identificacao']}" sortBy="#{entity.identificacao}">
+                    <p:column headerText="#{msgsSmartbid['pessoa.field.identificacao']}"
+                              sortBy="#{entity.identificacao}">
                         <h:outputText value="#{entity.identificacao}"/>
                     </p:column>
                     <p:column headerText="#{msgsSmartbid['pessoa.field.tipoIdentificacao']}"
@@ -76,40 +78,43 @@
                         </f:facet>
                         <p:commandButton icon="pi pi-pencil" update=":form:manage-entity-content"
                                          oncomplete="PF('formDialog').show()" process="@this">
-                            <f:setPropertyActionListener value="#{entity}" target="#{pessoaController.selectedEntity}"/>
+                            <f:setPropertyActionListener value="#{entity}" target="#{registerPessoaController.selectedEntity}"/>
                             <p:resetInput target=":form:manage-entity-content"/>
                         </p:commandButton>
                         <p:commandButton icon="pi pi-trash" process="@this"
                                          oncomplete="PF('deleteEntityDialog').show()">
-                            <f:setPropertyActionListener value="#{entity}" target="#{pessoaController.selectedEntity}"/>
+                            <f:setPropertyActionListener value="#{entity}" target="#{registerPessoaController.selectedEntity}"/>
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
             </p:panel>
 
             <!-- Dialog to create new entities or update existing ones. -->
-            <p:dialog header="#{msgsSmartbid['pessoa.title.detail']}" showEffect="fade" widgetVar="formDialog" responsive="true"
+            <p:dialog header="#{msgsSmartbid['pessoa.title.detail']}" showEffect="fade" widgetVar="formDialog"
+                      responsive="true"
                       width="450" modal="true">
                 <p:outputPanel id="manage-entity-content">
-                    <p:outputPanel rendered="#{not empty pessoaController.selectedEntity}">
+                    <p:outputPanel rendered="#{not empty registerPessoaController.selectedEntity}">
                         <p:panelGrid columns="2" cellpadding="5" layout="grid" styleClass="ui-fluid card"
                                      columnClasses="ui-grid-col-4,ui-grid-col-8">
                             <p:outputLabel for="nomeField" value="#{msgsSmartbid['pessoa.field.nome']}"/>
                             <h:panelGroup id="nomeGroup">
-                                <p:inputText id="nomeField" value="#{pessoaController.selectedEntity.nome}"
+                                <p:inputText id="nomeField" value="#{registerPessoaController.selectedEntity.nome}"
                                 >
                                 </p:inputText>
                                 <p:message for="nomeField"/>
                             </h:panelGroup>
 
-                            <p:outputLabel for="identificacaoField" value="#{msgsSmartbid['pessoa.field.identificacao']}"/>
+                            <p:outputLabel for="identificacaoField"
+                                           value="#{msgsSmartbid['pessoa.field.identificacao']}"/>
                             <h:panelGroup id="identificacaoGroup">
                                 <p:inputMask id="identificacaoField"
-                                             value="#{pessoaController.selectedEntity.identificacao}"
-                                             mask="#{pessoaController.mask}"
+                                             value="#{registerPessoaController.selectedEntity.identificacao}"
+                                             mask="#{registerPessoaController.mask}"
 
                                 >
-                                    <p:ajax event="blur" process="@this" update="identificacaoGroup" listener="#{pessoaController.getMask()}"/>
+                                    <p:ajax event="blur" process="@this" update="identificacaoGroup"
+                                            listener="#{registerPessoaController.getMask()}"/>
                                     <f:validator validatorId="identificacaoValidator"/>
                                 </p:inputMask>
                             </h:panelGroup>
@@ -119,10 +124,10 @@
 
                             <h:panelGroup id="tipoIdentificacaoGroup">
                                 <p:selectOneMenu id="tipoIdentificacaoField"
-                                                 value="#{pessoaController.selectedEntity.tipoIdentificacao}">
+                                                 value="#{registerPessoaController.selectedEntity.tipoIdentificacao}">
                                     <f:selectItem itemLabel="#{msgs['jbutler.crud.text.selectOne']}"
                                                   noSelectionOption="true"/>
-                                    <f:selectItems value="#{pessoaController.tiposIdentificacao}"/>
+                                    <f:selectItems value="#{registerPessoaController.tiposIdentificacao}"/>
                                     <p:ajax event="change" process="@this" update="identificacaoField"/>
                                     <p:ajax event="change" process="@this" update="tipoIdentificacaoField"/>
                                 </p:selectOneMenu>
@@ -131,7 +136,7 @@
 
                             <p:outputLabel for="telefoneField" value="#{msgsSmartbid['pessoa.field.telefone']}"/>
                             <h:panelGroup id="telefoneGroup">
-                                <p:inputText id="telefoneField" value="#{pessoaController.selectedEntity.telefone}"
+                                <p:inputText id="telefoneField" value="#{registerPessoaController.selectedEntity.telefone}"
                                 >
                                 </p:inputText>
                                 <p:message for="telefoneField"/>
@@ -139,7 +144,7 @@
 
                             <p:outputLabel for="emailField" value="#{msgsSmartbid['pessoa.field.email']}"/>
                             <h:panelGroup id="emailGroup">
-                                <p:inputText id="emailField" value="#{pessoaController.selectedEntity.email}"
+                                <p:inputText id="emailField" value="#{registerPessoaController.selectedEntity.email}"
                                 >
                                 </p:inputText>
                                 <p:message for="emailField"/>
@@ -151,7 +156,7 @@
 
                 <f:facet name="footer">
                     <p:commandButton value="#{msgs['jbutler.crud.button.save']}" icon="pi pi-check"
-                                     actionListener="#{pessoaController.save}" update="manage-entity-content"
+                                     actionListener="#{registerPessoaController.save}" update="manage-entity-content"
                                      process="manage-entity-content @this"
                                      oncomplete="if(!args.validationError) PF('formDialog').hide();"/>
                     <p:commandButton value="#{msgs['jbutler.crud.button.cancel']}" icon="pi pi-times"
@@ -161,10 +166,10 @@
 
             <!-- Dialog to confirm deletion. -->
             <p:confirmDialog widgetVar="deleteEntityDialog" showEffect="fade" width="300"
-                             message="#{msgsSmartbid['pessoa.text.deleteConfirmation']}"
+                             message="#{msgsSmartbid['view.text.deleteConfirmation']}"
                              header="#{msgs['jbutler.crud.title.confirmation']}" severity="warn">
                 <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
-                                 actionListener="#{pessoaController.delete}" process="@this"
+                                 actionListener="#{registerPessoaController.delete}" process="@this"
                                  oncomplete="PF('deleteEntityDialog').hide()"/>
                 <p:commandButton value="#{msgs['jbutler.crud.button.no']}" type="button" icon="pi pi-times"
                                  onclick="PF('deleteEntityDialog').hide()"/>
