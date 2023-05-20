@@ -4,6 +4,7 @@ import br.com.ufes.labes.smartbid.domain.enumerate.CriterioJulgamento;
 import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -29,7 +30,7 @@ public class Licitacao extends PersistentObjectSupport {
     @OneToMany(mappedBy = "licitacao", orphanRemoval = true)
     private Set<Participante> participantes = new HashSet<>();
 
-    @OneToMany(mappedBy = "licitacao", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "licitacao", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
     private Set<Item> itens = new HashSet<>();
 
     // <editor-fold defaultstate="collapsed" desc="Boilerplate">
