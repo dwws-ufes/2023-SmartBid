@@ -16,4 +16,37 @@ public class PessoaJPADAO extends BaseJPADAO<Pessoa> implements PessoaDAO {
     protected EntityManager getEntityManager() {
         return em;
     }
+
+    public Pessoa retrieveByIdPwd(String identificacao, String senha) {
+        try {
+            return (Pessoa) em.createQuery(
+                            "SELECT p FROM Pessoa p WHERE p.identificacao =" +
+                                    " :identificacao AND p.senha = :senha")
+                    .setParameter("identificacao", identificacao)
+                    .setParameter("senha", senha).getSingleResult();
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean insertPessoa(Pessoa pessoa) {
+    	try {
+    		em.persist(pessoa);
+    		return true;
+    	}
+    	catch (Exception e) {
+    		return false;
+    	}
+    }
+
+    public boolean deletePessoa(Pessoa pessoa) {
+    	try {
+    		em.remove(pessoa);
+    		return true;
+    	}
+    	catch (Exception e) {
+    		return false;
+    	}
+    }
 }

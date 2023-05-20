@@ -21,6 +21,11 @@ public class Pessoa extends PersistentObjectSupport {
     @NotNull
     private String identificacao;
 
+
+    @Size(max = 255)
+    @NotNull
+    private String senha;
+
     @Size(max = 255)
     @NotNull
     private String email;
@@ -40,10 +45,11 @@ public class Pessoa extends PersistentObjectSupport {
     public Pessoa() {
     }
 
-    public Pessoa(final String nome, final String identificacao, final String email, final String telefone,
+    public Pessoa(final String nome, final String identificacao, final String senha,  final String email, final String telefone,
             final TipoIdentificacao tipoIdentificacao) {
         this.nome = nome;
         this.identificacao = identificacao;
+        this.senha = senha;
         this.email = email;
         this.telefone = telefone;
         this.tipoIdentificacao = tipoIdentificacao;
@@ -63,6 +69,10 @@ public class Pessoa extends PersistentObjectSupport {
 
     public void setIdentificacao(final String identificacao) {
         this.identificacao = identificacao;
+    }
+
+    public void setPassword(String password) {
+        this.senha = password;
     }
 
     public String getEmail() {
@@ -111,6 +121,13 @@ public class Pessoa extends PersistentObjectSupport {
         return super.hashCode();
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
     // </editor-fold>
 
 }

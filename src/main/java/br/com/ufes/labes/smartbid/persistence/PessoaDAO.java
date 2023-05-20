@@ -6,4 +6,9 @@ import jakarta.ejb.Local;
 
 @Local
 public interface PessoaDAO extends BaseDAO<Pessoa> {
+    Pessoa retrieveByIdPwd(String identificacao, String senha);
+
+    boolean insertPessoa(Pessoa pessoa);
+
+    boolean deletePessoa(Pessoa pessoa);
 }
