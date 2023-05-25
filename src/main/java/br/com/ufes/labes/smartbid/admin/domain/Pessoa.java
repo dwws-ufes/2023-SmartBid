@@ -23,6 +23,14 @@ public class Pessoa extends PersistentObjectSupport {
 
     @Size(max = 255)
     @NotNull
+    private String senha;
+
+    @Size(max = 255)
+    @NotNull
+    private Set<String> roles = new HashSet<>();
+
+    @Size(max = 255)
+    @NotNull
     private String email;
 
     @Size(max = 12)
@@ -40,11 +48,12 @@ public class Pessoa extends PersistentObjectSupport {
     public Pessoa() {
     }
 
-    public Pessoa(final String nome, final String identificacao, final String email, final String telefone,
+    public Pessoa(final String nome, final String identificacao, final String senha, final String email, final String telefone,
             final TipoIdentificacao tipoIdentificacao) {
         this.nome = nome;
         this.identificacao = identificacao;
         this.email = email;
+        this.senha = senha;
         this.telefone = telefone;
         this.tipoIdentificacao = tipoIdentificacao;
     }
@@ -109,6 +118,22 @@ public class Pessoa extends PersistentObjectSupport {
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(final String senha) {
+        this.senha = senha;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void addRole(String role) {
+        this.roles.add(role);
     }
 
     // </editor-fold>
