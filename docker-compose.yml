@@ -2,6 +2,7 @@ version: '3'
 services:
   db:
     image: mysql:latest
+    container_name: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: smartbid
@@ -15,8 +16,10 @@ services:
 
   adminer:
     image: adminer
+    container_name: adminer
     restart: always
     ports:
       - "9090:8080"
+
 volumes:
   db_data:

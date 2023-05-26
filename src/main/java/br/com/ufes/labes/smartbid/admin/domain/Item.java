@@ -5,18 +5,21 @@ import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Item extends PersistentObjectSupport {
-
     @NotNull
-    @Size(max = 10)
+    @Digits(integer = 10, fraction = 0)
+    @Max(value = 9999999999L)
     private Integer codigo;
 
     @NotNull
@@ -24,9 +27,13 @@ public class Item extends PersistentObjectSupport {
     private String descricao;
 
     @NotNull
+    @DecimalMax(value = "999999999999.99")
+    @DecimalMin(value = "0.00")
     private BigDecimal valorMedioMercado;
 
     @NotNull
+    @DecimalMax(value = "999999999999.999999")
+    @DecimalMin(value = "0.000000")
     private BigDecimal quantidade;
 
     @NotNull
@@ -45,7 +52,7 @@ public class Item extends PersistentObjectSupport {
     }
 
     public Item(final Integer codigo, final String descricao, final BigDecimal valorMedioMercado,
-                final BigDecimal quantidade, final UnidadeMedida unidadeMedida, final Licitacao licitacao) {
+            final BigDecimal quantidade, final UnidadeMedida unidadeMedida, final Licitacao licitacao) {
         this.codigo = codigo;
         this.descricao = descricao;
         this.valorMedioMercado = valorMedioMercado;
@@ -105,7 +112,6 @@ public class Item extends PersistentObjectSupport {
     public Set<Proposta> getPropostas() {
         return propostas;
     }
-
 
     @Override
     public boolean equals(Object obj) {
