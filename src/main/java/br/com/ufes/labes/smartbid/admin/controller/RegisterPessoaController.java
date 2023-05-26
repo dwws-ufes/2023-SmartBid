@@ -22,8 +22,6 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
     @EJB
     private PessoaService pessoaService;
 
-    private String mask = "999999999999999";
-
     @Inject
     public RegisterPessoaController() {
         super();
@@ -42,6 +40,7 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
 
 
     public String getMask() {
+        String mask;
 
 
         if (selectedEntity == null || selectedEntity.getTipoIdentificacao() == null) {
@@ -55,6 +54,16 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
         };
 
         return mask;
+    }
+
+    @Override
+    public String getBundleName() {
+        return "msgsPessoa";
+    }
+
+    @Override
+    public String getBundlePrefix() {
+        return "pessoa";
     }
 
 }

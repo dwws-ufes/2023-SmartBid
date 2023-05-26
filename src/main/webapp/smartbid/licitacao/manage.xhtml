@@ -7,7 +7,7 @@
         xmlns:p="http://primefaces.org/ui">
 
 
-    <p:panel header="#{msgsSmartbid['licitacao.title.detail']}" widgetVar="formPanel"
+    <p:panel header="#{msgsLicitacao['licitacao.title.detail']}" widgetVar="formPanel"
              styleClass="card no-border"
              visible="false" closeSpeed="0">
         <p:outputPanel id="manage-entity-content">
@@ -17,7 +17,7 @@
                 <p:panelGrid columns="4" cellpadding="5" layout="grid" styleClass="ui-fluid card"
                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
                     <p:outputLabel for="dataPublicacaoField"
-                                   value="#{msgsSmartbid['licitacao.field.dataPublicacao']}"/>
+                                   value="#{msgsLicitacao['licitacao.field.dataPublicacao']}"/>
                     <h:panelGroup id="dataPublicacaoGroup">
 
                         <p:datePicker id="dataPublicacaoField"
@@ -30,7 +30,7 @@
                     </h:panelGroup>
 
                     <p:outputLabel for="objetoField"
-                                   value="#{msgsSmartbid['licitacao.field.objeto']}"/>
+                                   value="#{msgsLicitacao['licitacao.field.objeto']}"/>
                     <h:panelGroup id="objetoGroup">
                         <p:inputText id="objetoField"
                                      value="#{registerLicitationController.selectedEntity.objeto}"
@@ -43,7 +43,7 @@
                     </h:panelGroup>
 
                     <p:outputLabel for="criterioJulgamentoField"
-                                   value="#{msgsSmartbid['licitacao.field.criterioJulgamento']}"/>
+                                   value="#{msgsLicitacao['licitacao.field.criterioJulgamento']}"/>
 
                     <h:panelGroup id="criterioJulgamentoGroup">
                         <p:selectOneMenu id="criterioJulgamentoField"
@@ -53,7 +53,7 @@
                                           noSelectionOption="true"/>
                             <f:selectItems value="#{registerLicitationController.criteriosJulgamento}"
                                            var="criterioJulgamento"
-                                           itemLabel="#{msgsSmartbid[criterioJulgamento]}"
+                                           itemLabel="#{msgsLicitacao[criterioJulgamento]}"
                                            itemValue="#{criterioJulgamento}"
                             />
                             <p:ajax event="blur" process="@this" update="criterioJulgamentoGroup"/>
@@ -62,7 +62,7 @@
                     </h:panelGroup>
 
                     <p:outputLabel for="dataLicitacaoField"
-                                   value="#{msgsSmartbid['licitacao.field.dataLicitacao']}"/>
+                                   value="#{msgsLicitacao['licitacao.field.dataLicitacao']}"/>
                     <h:panelGroup id="dataLicitacaoGroup">
                         <p:datePicker id="dataLicitacaoField"
                                       value="#{registerLicitationController.selectedEntity.dataLicitacao}"
@@ -90,7 +90,7 @@
                              actionListener="#{registerLicitationController.save}"
                              update="manage-entity-content dt-entities"
                              process="manage-entity-content @this"
-                             oncomplete=" if(!args.validationFailed) {PF('listingPanel').show(); PF('formPanel').close();}"
+                             oncomplete="if(!args.validationFailed) {PF('formPanel').close(); PF('listingPanel').show(); }"
             />
             <p:commandButton value="#{msgs['jbutler.crud.button.cancel']}" icon="pi pi-times"
                              onclick="PF('listingPanel').show(); PF('formPanel').close()"/>

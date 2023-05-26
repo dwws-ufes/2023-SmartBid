@@ -7,13 +7,13 @@
         xmlns:p="http://primefaces.org/ui">
 
 
-    <p:panel widgetVar="listingPanel" header="#{msgsSmartbid['licitacao.text.entities']}"
+    <p:panel widgetVar="listingPanel" header="#{msgsLicitacao['licitacao.text.entities']}"
              styleClass="card no-border" closeSpeed="0">
         <p:dataTable
                 id="dt-entities" widgetVar="dtEntities" var="entity"
                 rowStyleClass="align-center"
                 value="#{registerLicitationController.entities}"
-                emptyMessage="#{msgsSmartbid['view.text.emptyMessage']}" reflow="true"
+                emptyMessage="#{msgs['text.emptyMessage']}" reflow="true"
                 selection="#{registerLicitationController.selectedEntities}" rowKey="#{entity.id}"
                 paginator="true"
                 rows="10" rowSelectMode="add" paginatorPosition="bottom">
@@ -35,7 +35,7 @@
                                      disabled="#{!registerLicitationController.hasSelectedEntities()}"
                                      update="@this">
                         <p:confirm header="#{msgs['jbutler.crud.title.confirmation']}"
-                                   message="#{msgsSmartbid['view.text.deleteConfirmation']}"
+                                   message="#{msgs['text.deleteConfirmation']}"
                                    icon="pi pi-exclamation-triangle"/>
                     </p:commandButton>
                 </div>
@@ -50,7 +50,7 @@
             <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
 
             <!-- My Object data. -->
-            <p:column headerText="#{msgsSmartbid['licitacao.field.dataPublicacao']}"
+            <p:column headerText="#{msgsLicitacao['licitacao.field.dataPublicacao']}"
                       sortBy="#{entity.dataPublicacao}"
                       filterBy="#{entity.dataPublicacao}"
                       filterStyle="display: none">
@@ -58,11 +58,11 @@
                     <f:convertDateTime type="localDate" pattern="#{msgs['jbutler.format.date.java']}"/>
                 </h:outputText>
             </p:column>
-            <p:column headerText="#{msgsSmartbid['licitacao.field.criterioJulgamento']}"
+            <p:column headerText="#{msgsLicitacao['licitacao.field.criterioJulgamento']}"
                       sortBy="#{entity.criterioJulgamento}">
                 <h:outputText value="#{entity.criterioJulgamento}"/>
             </p:column>
-            <p:column headerText="#{msgsSmartbid['licitacao.field.objeto']}"
+            <p:column headerText="#{msgsLicitacao['licitacao.field.objeto']}"
                       sortBy="#{entity.objeto}">
                 <h:outputText value="#{entity.objeto}"/>
             </p:column>
@@ -94,7 +94,7 @@
 
     <!-- Dialog to confirm deletion. -->
     <p:confirmDialog widgetVar="deleteEntityDialog" showEffect="fade" width="300"
-                     message="#{msgsSmartbid['view.text.deleteConfirmation']}"
+                     message="#{msgs['text.deleteConfirmation']}"
                      header="#{msgs['jbutler.crud.title.confirmation']}" severity="warn">
         <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
                          actionListener="#{registerLicitationController.delete}" process="@this"

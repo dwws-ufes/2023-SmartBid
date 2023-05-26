@@ -7,7 +7,7 @@
         xmlns:p="http://primefaces.org/ui">
 
 
-    <p:panel header="#{msgsSmartbid['item.title.detail']}" closeSpeed="0"
+    <p:panel header="#{msgsLicitacao['item.title.detail']}" closeSpeed="0"
              visible="false"
              widgetVar="formItemPanel">
 
@@ -18,7 +18,7 @@
                              columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
 
                     <p:outputLabel for="codigoField"
-                                   value="${msgsSmartbid['item.field.codigo']}"/>
+                                   value="${msgsLicitacao['item.field.codigo']}"/>
                     <h:panelGroup id="codigoGroup">
                         <p:inputText id="codigoField"
                                      value="#{registerLicitationController.selectedItem.codigo}"
@@ -33,7 +33,7 @@
                     </h:panelGroup>
 
                     <p:outputLabel for="descricaoField"
-                                   value="${msgsSmartbid['item.field.descricao']}"/>
+                                   value="${msgsLicitacao['item.field.descricao']}"/>
                     <h:panelGroup id="descricaoGroup">
                         <p:inputTextarea id="descricaoField"
                                          value="#{registerLicitationController.selectedItem.descricao}"
@@ -45,7 +45,7 @@
                     </h:panelGroup>
 
                     <p:outputLabel for="valorMedioMercadoField"
-                                   value="${msgsSmartbid['item.field.valorMedioMercado']}"/>
+                                   value="${msgsLicitacao['item.field.valorMedioMercado']}"/>
                     <h:panelGroup id="valorMedioMercadoGroup">
                         <p:inputNumber id="valorMedioMercadoField"
                                        value="#{registerLicitationController.selectedItem.valorMedioMercado}"
@@ -57,7 +57,7 @@
                     </h:panelGroup>
 
                     <p:outputLabel for="quantidadeField"
-                                   value="${msgsSmartbid['item.field.quantidade']}"/>
+                                   value="${msgsLicitacao['item.field.quantidade']}"/>
                     <h:panelGroup id="quantidadeGroup">
                         <p:inputNumber id="quantidadeField"
                                        value="#{registerLicitationController.selectedItem.quantidade}"
@@ -69,7 +69,7 @@
                     </h:panelGroup>
 
                     <p:outputLabel for="unidadeMedidaField"
-                                   value="${msgsSmartbid['item.field.unidadeMedida']}"/>
+                                   value="${msgsLicitacao['item.field.unidadeMedida']}"/>
                     <h:panelGroup id="unidadeMedidaGroup">
                         <p:selectOneMenu id="unidadeMedidaField"
                                          value="#{registerLicitationController.selectedItem.unidadeMedida}"
@@ -79,7 +79,7 @@
                             <f:selectItems
                                     value="#{registerLicitationController.unidadesMedida}"
                                     var="unidadeMedida"
-                                    itemLabel="#{msgsSmartbid[unidadeMedida]}"
+                                    itemLabel="#{msgsLicitacao[unidadeMedida]}"
                                     itemValue="#{unidadeMedida}"
                             />
                             <p:ajax event="blur" process="@this" update="unidadeMedidaGroup"/>

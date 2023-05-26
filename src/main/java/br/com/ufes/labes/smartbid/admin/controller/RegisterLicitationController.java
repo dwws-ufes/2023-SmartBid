@@ -128,8 +128,14 @@ public class RegisterLicitationController extends CrudController<Licitacao> {
 
     @Override
     public String getBundleName() {
-        return "msgsSmartbid";
+        return "msgsPessoa";
     }
+
+    @Override
+    public String getBundlePrefix() {
+        return "licitacao";
+    }
+
     //</editor-fold>
 
 }

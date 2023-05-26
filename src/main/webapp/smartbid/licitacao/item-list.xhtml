@@ -7,12 +7,12 @@
         xmlns:p="http://primefaces.org/ui">
 
 
-    <p:panel header="#{msgsSmartbid['item.text.entities']}" widgetVar="listingItemPanel"
+    <p:panel header="#{msgsLicitacao['item.text.entities']}" widgetVar="listingItemPanel"
              styleClass="card no-border align-center" closeSpeed="0" visible="true">
         <p:dataTable
                 id="dt-itens" widgetVar="dtItens" var="entityItem"
                 value="#{registerLicitationController.selectedEntity.itens}"
-                emptyMessage="#{msgsSmartbid['view.text.emptyMessage']}"
+                emptyMessage="#{msgs['text.emptyMessage']}"
                 selection="#{registerLicitationController.selectedItems}"
                 rowKey="#{entityItem.id}"
                 paginator="true"
@@ -41,7 +41,7 @@
                                      disabled="#{!registerLicitationController.hasSelectedItens()}"
                                      update="@this">
                         <p:confirm header="#{msgs['jbutler.crud.title.confirmation']}"
-                                   message="#{msgsSmartbid['view.text.deleteConfirmation']}"
+                                   message="#{msgs['text.deleteConfirmation']}"
                                    icon="pi pi-exclamation-triangle"/>
                     </p:commandButton>
                 </div>
@@ -55,19 +55,19 @@
 
             <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
 
-            <p:column headerText="#{msgsSmartbid['item.field.codigo']}"
+            <p:column headerText="#{msgsLicitacao['item.field.codigo']}"
                       sortBy="#{entityItem.codigo}">
                 <h:outputText value="#{entityItem.codigo}"/>
             </p:column>
 
-            <p:column headerText="#{msgsSmartbid['item.field.quantidade']}"
+            <p:column headerText="#{msgsLicitacao['item.field.quantidade']}"
                       sortBy="#{entityItem.quantidade}">
                 <h:outputText value="#{entityItem.quantidade}">
                     <f:convertNumber maxFractionDigits="6" maxIntegerDigits="14"/>
                 </h:outputText>
             </p:column>
 
-            <p:column headerText="#{msgsSmartbid['item.field.valorMedioMercado']}"
+            <p:column headerText="#{msgsLicitacao['item.field.valorMedioMercado']}"
                       sortBy="#{entityItem.valorMedioMercado}">
                 <h:outputText value="#{entityItem.valorMedioMercado}">
                     <f:convertNumber maxFractionDigits="2" maxIntegerDigits="14"/>
@@ -104,7 +104,7 @@
 
     <!-- Dialog to confirm item deletion. -->
     <p:confirmDialog widgetVar="deleteItemDialog" showEffect="fade" width="300"
-                     message="#{msgsSmartbid['view.text.deleteConfirmation']}"
+                     message="#{msgs['text.deleteConfirmation']}"
                      header="#{msgs['jbutler.crud.title.confirmation']}" severity="warn">
         <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
                          actionListener="#{registerLicitationController.deleteItem}" process="@this"

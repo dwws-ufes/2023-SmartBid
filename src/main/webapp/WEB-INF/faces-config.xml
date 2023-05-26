@@ -13,8 +13,13 @@
 
 		<!-- Loads resource bundles for i18n messages and assigns names to them. -->
 		<resource-bundle>
-			<base-name>br.com.ufes.labes.smartbid.view.messages</base-name>
-			<var>msgsSmartbid</var>
+			<base-name>br.com.ufes.labes.smartbid.admin.licitacao.messages</base-name>
+			<var>msgsLicitacao</var>
+		</resource-bundle>
+
+		<resource-bundle>
+			<base-name>br.com.ufes.labes.smartbid.admin.pessoa.messages</base-name>
+			<var>msgsPessoa</var>
 		</resource-bundle>
 	</application>
 </faces-config>
