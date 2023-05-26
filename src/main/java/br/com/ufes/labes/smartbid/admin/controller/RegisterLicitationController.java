@@ -125,6 +125,11 @@ public class RegisterLicitationController extends CrudController<Licitacao> {
     public void setSelectedItem(Item selectedItem) {
         this.selectedItem = selectedItem;
     }
+
+    @Override
+    public String getBundleName() {
+        return "msgsSmartbid";
+    }
     //</editor-fold>
 
 }

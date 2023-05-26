@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
+
+
+    <p:panel widgetVar="listingPanel" header="#{msgsSmartbid['licitacao.text.entities']}"
+             styleClass="card no-border" closeSpeed="0">
+        <p:dataTable
+                id="dt-entities" widgetVar="dtEntities" var="entity"
+                rowStyleClass="align-center"
+                value="#{registerLicitationController.entities}"
+                emptyMessage="#{msgsSmartbid['view.text.emptyMessage']}" reflow="true"
+                selection="#{registerLicitationController.selectedEntities}" rowKey="#{entity.id}"
+                paginator="true"
+                rows="10" rowSelectMode="add" paginatorPosition="bottom">
+            <p:ajax event="filter" ignoreAutoUpdate="true"/>
+            <f:facet name="footer">
+                <!-- New and Delete buttons. -->
+                <div style="float: right; margin-top: -40px;">
+                    <p:commandButton value="#{msgs['jbutler.crud.button.create']}" icon="pi pi-plus"
+                                     actionListener="#{registerLicitationController.openNew}"
+                                     oncomplete="PF('formPanel').show(); PF('listingPanel').close()"
+                                     update=":form:manage-entity-content"
+                                     style="margin-right: .5rem">
+                        <p:resetInput target=":form:manage-entity-content"/>
+                    </p:commandButton>
+                    <p:commandButton id="delete-entities-button"
+                                     value="#{msgs['jbutler.crud.button.delete']}"
+                                     icon="pi pi-trash"
+                                     actionListener="#{registerLicitationController.deleteSelectedEntities}"
+                                     disabled="#{!registerLicitationController.hasSelectedEntities()}"
+                                     update="@this">
+                        <p:confirm header="#{msgs['jbutler.crud.title.confirmation']}"
+                                   message="#{msgsSmartbid['view.text.deleteConfirmation']}"
+                                   icon="pi pi-exclamation-triangle"/>
+                    </p:commandButton>
+                </div>
+            </f:facet>
+
+            <p:ajax event="rowSelect" update="delete-entities-button"/>
+            <p:ajax event="rowUnselect" update="delete-entities-button"/>
+            <p:ajax event="rowSelectCheckbox" update="delete-entities-button"/>
+            <p:ajax event="rowUnselectCheckbox" update="delete-entities-button"/>
+            <p:ajax event="toggleSelect" update="delete-entities-button"/>
+
+            <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
+
+            <!-- My Object data. -->
+            <p:column headerText="#{msgsSmartbid['licitacao.field.dataPublicacao']}"
+                      sortBy="#{entity.dataPublicacao}"
+                      filterBy="#{entity.dataPublicacao}"
+                      filterStyle="display: none">
+                <h:outputText value="#{entity.dataPublicacao}">
+                    <f:convertDateTime type="localDate" pattern="#{msgs['jbutler.format.date.java']}"/>
+                </h:outputText>
+            </p:column>
+            <p:column headerText="#{msgsSmartbid['licitacao.field.criterioJulgamento']}"
+                      sortBy="#{entity.criterioJulgamento}">
+                <h:outputText value="#{entity.criterioJulgamento}"/>
+            </p:column>
+            <p:column headerText="#{msgsSmartbid['licitacao.field.objeto']}"
+                      sortBy="#{entity.objeto}">
+                <h:outputText value="#{entity.objeto}"/>
+            </p:column>
+
+            <p:column exportable="false" style="text-align: center;">
+                <f:facet name="header">
+                    <i class="pi pi-search"></i>
+                    <p:inputText id="globalFilter" onkeyup="PF('dtEntities').filter()"
+                                 placeholder="#{msgs['jbutler.crud.text.search']}"
+                                 style="margin-left: 10px;"/>
+                </f:facet>
+                <p:commandButton icon="pi pi-pencil" update=":form:manage-entity-content"
+                                 oncomplete="PF('formPanel').show(); PF('listingPanel').close()"
+                                 process="@this">
+                    <f:setPropertyActionListener value="#{entity}"
+                                                 target="#{registerLicitationController.selectedEntity}"/>
+                    <p:resetInput target=":form:manage-entity-content"/>
+                </p:commandButton>
+                <p:commandButton icon="pi pi-trash" process="@this"
+                                 oncomplete="PF('deleteEntityDialog').show()">
+                    <f:setPropertyActionListener value="#{entity}"
+                                                 target="#{registerLicitationController.selectedEntity}"/>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+
+    </p:panel>
+
+
+    <!-- Dialog to confirm deletion. -->
+    <p:confirmDialog widgetVar="deleteEntityDialog" showEffect="fade" width="300"
+                     message="#{msgsSmartbid['view.text.deleteConfirmation']}"
+                     header="#{msgs['jbutler.crud.title.confirmation']}" severity="warn">
+        <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
+                         actionListener="#{registerLicitationController.delete}" process="@this"
+                         oncomplete="PF('deleteEntityDialog').hide()"/>
+        <p:commandButton value="#{msgs['jbutler.crud.button.no']}" type="button" icon="pi pi-times"
+                         onclick="PF('deleteEntityDialog').hide()"/>
+    </p:confirmDialog>
+</ui:composition>
+

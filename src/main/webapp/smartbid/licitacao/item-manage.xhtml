@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
+
+
+    <p:panel header="#{msgsSmartbid['item.title.detail']}" closeSpeed="0"
+             visible="false"
+             widgetVar="formItemPanel">
+
+        <p:outputPanel id="manage-item-content">
+            <p:outputPanel rendered="#{not empty registerLicitationController.selectedItem}">
+                <p:panelGrid columns="4" cellpadding="5" layout="grid"
+                             styleClass="ui-fluid card"
+                             columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
+
+                    <p:outputLabel for="codigoField"
+                                   value="${msgsSmartbid['item.field.codigo']}"/>
+                    <h:panelGroup id="codigoGroup">
+                        <p:inputText id="codigoField"
+                                     value="#{registerLicitationController.selectedItem.codigo}"
+                                     required="true">
+
+                            <f:validateLength maximum="10"/>
+                            <p:ajax event="blur" process="@this" update="codigoGroup"/>
+                        </p:inputText>
+
+                        <p:message for="codigoField"/>
+
+                    </h:panelGroup>
+
+                    <p:outputLabel for="descricaoField"
+                                   value="${msgsSmartbid['item.field.descricao']}"/>
+                    <h:panelGroup id="descricaoGroup">
+                        <p:inputTextarea id="descricaoField"
+                                         value="#{registerLicitationController.selectedItem.descricao}"
+                                         required="true">
+                            <f:validateLength maximum="1000"/>
+                            <p:ajax event="blur" process="@this" update="descricaoGroup"/>
+                        </p:inputTextarea>
+                        <p:message for="descricaoField"/>
+                    </h:panelGroup>
+
+                    <p:outputLabel for="valorMedioMercadoField"
+                                   value="${msgsSmartbid['item.field.valorMedioMercado']}"/>
+                    <h:panelGroup id="valorMedioMercadoGroup">
+                        <p:inputNumber id="valorMedioMercadoField"
+                                       value="#{registerLicitationController.selectedItem.valorMedioMercado}"
+                                       required="true" decimalPlaces="2">
+                            <p:ajax event="blur" process="@this"
+                                    update="valorMedioMercadoGroup"/>
+                        </p:inputNumber>
+                        <p:message for="valorMedioMercadoField"/>
+                    </h:panelGroup>
+
+                    <p:outputLabel for="quantidadeField"
+                                   value="${msgsSmartbid['item.field.quantidade']}"/>
+                    <h:panelGroup id="quantidadeGroup">
+                        <p:inputNumber id="quantidadeField"
+                                       value="#{registerLicitationController.selectedItem.quantidade}"
+                                       required="true"
+                                       decimalPlaces="6">
+                            <p:ajax event="blur" process="@this" update="quantidadeGroup"/>
+                        </p:inputNumber>
+                        <p:message for="quantidadeField"/>
+                    </h:panelGroup>
+
+                    <p:outputLabel for="unidadeMedidaField"
+                                   value="${msgsSmartbid['item.field.unidadeMedida']}"/>
+                    <h:panelGroup id="unidadeMedidaGroup">
+                        <p:selectOneMenu id="unidadeMedidaField"
+                                         value="#{registerLicitationController.selectedItem.unidadeMedida}"
+                                         required="true">
+                            <f:selectItem itemLabel="#{msgs['jbutler.crud.text.selectOne']}"
+                                          noSelectionOption="true"/>
+                            <f:selectItems
+                                    value="#{registerLicitationController.unidadesMedida}"
+                                    var="unidadeMedida"
+                                    itemLabel="#{msgsSmartbid[unidadeMedida]}"
+                                    itemValue="#{unidadeMedida}"
+                            />
+                            <p:ajax event="blur" process="@this" update="unidadeMedidaGroup"/>
+                        </p:selectOneMenu>
+                        <p:message for="unidadeMedidaField"/>
+                    </h:panelGroup>
+
+                </p:panelGrid>
+            </p:outputPanel>
+        </p:outputPanel>
+
+        <f:facet name="footer">
+            <p:commandButton value="#{msgs['jbutler.crud.button.save']}" icon="pi pi-check"
+                             actionListener="#{registerLicitationController.addItem}"
+                             update="manage-item-content dt-itens"
+                             process="manage-item-content @this"
+                             oncomplete="if(!args.validationFailed) { PF('listingItemPanel').show(); PF('formItemPanel').close();}"
+
+            />
+
+            <p:commandButton value="#{msgs['jbutler.crud.button.cancel']}" icon="pi pi-times"
+                             onclick="PF('listingItemPanel').show(); PF('formItemPanel').close()"/>
+        </f:facet>
+    </p:panel>
+</ui:composition>
