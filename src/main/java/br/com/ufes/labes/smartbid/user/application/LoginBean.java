@@ -11,11 +11,8 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.EJBTransactionRolledbackException;
 import jakarta.ejb.SessionContext;
 import jakarta.ejb.Stateless;
-import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
-
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,22 +27,17 @@ public class LoginBean {
     private Pbkdf2PasswordHash passwordHash;
 
     /**
-     * The Pessoa DAO is used to retrieve the person that is trying to log in to check her
-     * password and update the last login date when a Pessoa successfully logs in.
+     * The Pessoa DAO is used to retrieve the person that is trying to log in to check her password and update the last
+     * login date when a Pessoa successfully logs in.
      */
     @EJB
     private PessoaDAO pessoaDAO;
-
-//    /** CDI event that is fired to notify observers that an person has successfully logged in. */
-//    @Inject
-//    private Event<LoginEvent> loginEvent;
 
     /** The EJB session context, used to retrieve the user that logged in via Jakarta Security. */
     @Resource
     private SessionContext sessionContext;
 
-
-    public void login(String username, String password)  throws LoginFailedException{
+    public void login(String username, String password) throws LoginFailedException {
         try {
             // Obtem o usuario dado a identificacao dele, que serve como username.
             logger.log(Level.FINER, "Authenticating user with username \"{0}\"...", username);
@@ -58,19 +50,7 @@ public class LoginBean {
 
                 // Login successful.
                 logger.log(Level.FINE, "Person \"{0}\" successfully logged in.", username);
-                Pessoa currentUser = user;
-                pwd = null;
 
-//                // Registers the user login.
-//                LocalDateTime now = LocalDateTime.now();
-//                logger.log(Level.FINER,
-//                        "Setting last login date for person with username \"{0}\" as \"{1}\"...",
-//                        new Object[] {currentUser.getEmail(), now});
-//                currentUser.setLastLoginDate(now);
-                pessoaDAO.save(currentUser);
-
-                // Fires a login event.
-//                loginEvent.fire(new LoginEvent(currentUser));
             } else {
                 // Passwords don't match.
                 logger.log(Level.INFO, "User \"{0}\" not logged in: password didn't match.", username);
@@ -78,8 +58,7 @@ public class LoginBean {
             }
         } catch (PersistentObjectNotFoundException e) {
             // No person was found with the given username.
-            logger.log(Level.INFO,
-                    "User \"{0}\" not logged in: no registered person found with given username.",
+            logger.log(Level.INFO, "User \"{0}\" not logged in: no registered person found with given username.",
                     username);
             throw new LoginFailedException(e, LoginFailedException.LoginFailedReason.UNKNOWN_USERNAME);
         } catch (MultiplePersistentObjectsFoundException e) {

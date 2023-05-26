@@ -2,36 +2,38 @@
 <ui:composition
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:jsf="http://xmlns.jcp.org/jsf"
-        xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
         xmlns:p="http://primefaces.org/ui"
-        xmlns:adm="http://github.com/adminfaces"
         template="/WEB-INF/templates/template-login.xhtml">
 
-   <ui:define name="body">
-      <h:form>
-         <p class="login-box-msg"><h:outputText value="#{msgsCore['login.text.instructions']}" /></p>
-         <p:messages closable="true" />
-         <p:focus />
+    <ui:define name="body">
+        <h:form>
+            <p class="login-box-msg"><h:outputText value="#{msgsCore['login.text.instructions']}"/></p>
+            <p:messages closable="true"/>
+            <p:focus/>
 
-         <div class="form-group has-feedback">
-            <p:inputText value="#{sessionController.identification}" type="email" styleClass="form-control" placeholder="#{msgsCore['login.field.email.placeholder']}" required="true" requiredMessage="#{msgsCore['login.field.email.requiredMessage']}" />
-            <i class="fa fa-envelope form-control-feedback" ></i>
-         </div>
-         <div class="form-group has-feedback">
-            <p:inputText value="#{sessionController.password}" type="password" styleClass="form-control" placeholder="#{msgsCore['login.field.password.placeholder']}" required="true" requiredMessage="#{msgsCore['login.field.password.requiredMessage']}" />
-            <i class="fa fa-lock form-control-feedback" style="font-size: 18px"></i>
-         </div>
-         <div class="row">
-            <div class="col-xs-12">
-               <p:commandButton id="loginButton" styleClass="btn btn-success btn-block" value="#{msgsCore['login.button.login']}" action="#{sessionController.login}" update="@form" />
+            <div class="form-group has-feedback">
+                <p:inputText value="#{sessionController.identification}" type="email" styleClass="form-control"
+                             placeholder="#{msgsCore['login.field.email.placeholder']}" required="true"
+                             requiredMessage="#{msgsCore['login.field.email.requiredMessage']}"/>
+                <i class="fa fa-envelope form-control-feedback"></i>
             </div>
-         </div>
-      </h:form>
+            <div class="form-group has-feedback">
+                <p:inputText value="#{sessionController.password}" type="password" styleClass="form-control"
+                             placeholder="#{msgsCore['login.field.password.placeholder']}" required="true"
+                             requiredMessage="#{msgsCore['login.field.password.requiredMessage']}"/>
+                <i class="fa fa-lock form-control-feedback" style="font-size: 18px"></i>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p:commandButton id="loginButton" styleClass="btn btn-success btn-block"
+                                     value="#{msgsCore['login.button.login']}" action="#{sessionController.login}"
+                                     update="@form"/>
+                </div>
+            </div>
+        </h:form>
 
-      <p:link outcome="/core/changePassword/index.xhtml" value="#{msgsCore['login.text.forgot']}" /><br/>
-      <p:link outcome="/core/createAccount/index.xhtml" value="#{msgsCore['login.text.register']}" />
-   </ui:define>
+        <p:link outcome="/core/changePassword/index.xhtml" value="#{msgsCore['login.text.forgot']}"/><br/>
+        <p:link outcome="/core/createAccount/index.xhtml" value="#{msgsCore['login.text.register']}"/>
+    </ui:define>
 </ui:composition>
