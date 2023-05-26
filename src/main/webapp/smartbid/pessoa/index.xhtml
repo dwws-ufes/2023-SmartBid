@@ -114,20 +114,6 @@
                                     <p:message for="nomeField"/>
                                 </h:panelGroup>
 
-                                <p:outputLabel for="identificacaoField"
-                                               value="#{msgsPessoa['pessoa.field.identificacao']}"/>
-                                <h:panelGroup id="identificacaoGroup">
-                                    <p:inputMask id="identificacaoField"
-                                                 value="#{registerPessoaController.selectedEntity.identificacao}"
-                                                 mask="#{registerPessoaController.mask}"
-
-                                    >
-                                        <p:ajax event="blur" process="@this" update="identificacaoGroup"
-                                                listener="#{registerPessoaController.getMask()}"/>
-                                        <f:validator validatorId="identificacaoValidator"/>
-                                    </p:inputMask>
-                                </h:panelGroup>
-
                                 <p:outputLabel for="tipoIdentificacaoField"
                                                value="#{msgsPessoa['pessoa.field.tipoIdentificacao']}"/>
 
@@ -141,6 +127,20 @@
                                         <p:ajax event="change" process="@this" update="tipoIdentificacaoField"/>
                                     </p:selectOneMenu>
                                     <p:message for="tipoIdentificacaoField"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel for="identificacaoField"
+                                               value="#{msgsPessoa['pessoa.field.identificacao']}"/>
+                                <h:panelGroup id="identificacaoGroup">
+                                    <p:inputMask id="identificacaoField"
+                                                 value="#{registerPessoaController.selectedEntity.identificacao}"
+                                                 mask="#{registerPessoaController.mask}"
+
+                                    >
+                                        <p:ajax event="blur" process="@this" update="identificacaoGroup"
+                                                listener="#{registerPessoaController.getMask()}"/>
+                                        <f:validator validatorId="identificacaoValidator"/>
+                                    </p:inputMask>
                                 </h:panelGroup>
 
                                 <p:outputLabel for="telefoneField" value="#{msgsPessoa['pessoa.field.telefone']}"/>

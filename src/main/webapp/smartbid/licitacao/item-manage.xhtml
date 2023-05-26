@@ -76,11 +76,7 @@
                                          required="true">
                             <f:selectItem itemLabel="#{msgs['jbutler.crud.text.selectOne']}"
                                           noSelectionOption="true"/>
-                            <f:selectItems
-                                    value="#{registerLicitationController.unidadesMedida}"
-                                    var="unidadeMedida"
-                                    itemLabel="#{msgsLicitacao[unidadeMedida]}"
-                                    itemValue="#{unidadeMedida}"
+                            <f:selectItems value="#{registerLicitationController.unidadesMedida}"
                             />
                             <p:ajax event="blur" process="@this" update="unidadeMedidaGroup"/>
                         </p:selectOneMenu>

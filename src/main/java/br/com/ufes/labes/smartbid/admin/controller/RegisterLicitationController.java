@@ -35,18 +35,16 @@ public class RegisterLicitationController extends CrudController<Licitacao> {
 
     public RegisterLicitationController() {
         super();
-        CRITERIOS_JULGAMENTO.setSelectItems(new SelectItem[] { new SelectItem(CriterioJulgamento.MELHOR_PRECO,
-                this.getI18nMessage(this.getBundleName(), "criterioJulgamento.melhorPreco")),
-                new SelectItem(CriterioJulgamento.MELHOR_TECNICA,
-                        this.getI18nMessage(this.getBundleName(), "criterioJulgamento.melhorTecnica")),
-                new SelectItem(CriterioJulgamento.MELHOR_TECNICA_PRECO,
-                        this.getI18nMessage(this.getBundleName(), "criterioJulgamento.melhorTecnicaPreco")) });
+        CRITERIOS_JULGAMENTO.setSelectItems(new SelectItem[] {
+                new SelectItem(CriterioJulgamento.MELHOR_PRECO, this.getI18nMessage(this.getBundleName(), "criterioJulgamento.melhorPreco")),
+                new SelectItem(CriterioJulgamento.MELHOR_TECNICA, this.getI18nMessage(this.getBundleName(), "criterioJulgamento.melhorTecnica")),
+                new SelectItem(CriterioJulgamento.MELHOR_TECNICA_PRECO, this.getI18nMessage(this.getBundleName(), "criterioJulgamento.melhorTecnicaPreco"))
+        });
 
-        UNIDADES_MEDIDA.setSelectItems(new SelectItem[] { new SelectItem(UnidadeMedida.KILOGRAMA,
-                this.getI18nMessage(this.getBundleName(), "unidadeMedida.quilograma")),
+        UNIDADES_MEDIDA.setSelectItems(new SelectItem[] {
+                new SelectItem(UnidadeMedida.KILOGRAMA, this.getI18nMessage(this.getBundleName(), "unidadeMedida.quilograma")),
                 new SelectItem(UnidadeMedida.LITRO, this.getI18nMessage(this.getBundleName(), "unidadeMedida.litro")),
-                new SelectItem(UnidadeMedida.UNIDADE,
-                        this.getI18nMessage(this.getBundleName(), "unidadeMedida.unidade")) });
+                new SelectItem(UnidadeMedida.UNIDADE, this.getI18nMessage(this.getBundleName(), "unidadeMedida.unidade")) });
 
     }
 
@@ -128,7 +126,7 @@ public class RegisterLicitationController extends CrudController<Licitacao> {
 
     @Override
     public String getBundleName() {
-        return "msgsPessoa";
+        return "msgsLicitacao";
     }
 
     @Override

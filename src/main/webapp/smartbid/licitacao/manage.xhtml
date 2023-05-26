@@ -44,7 +44,6 @@
 
                     <p:outputLabel for="criterioJulgamentoField"
                                    value="#{msgsLicitacao['licitacao.field.criterioJulgamento']}"/>
-
                     <h:panelGroup id="criterioJulgamentoGroup">
                         <p:selectOneMenu id="criterioJulgamentoField"
                                          value="#{registerLicitationController.selectedEntity.criterioJulgamento}"
@@ -52,9 +51,6 @@
                             <f:selectItem itemLabel="#{msgs['jbutler.crud.text.selectOne']}"
                                           noSelectionOption="true"/>
                             <f:selectItems value="#{registerLicitationController.criteriosJulgamento}"
-                                           var="criterioJulgamento"
-                                           itemLabel="#{msgsLicitacao[criterioJulgamento]}"
-                                           itemValue="#{criterioJulgamento}"
                             />
                             <p:ajax event="blur" process="@this" update="criterioJulgamentoGroup"/>
                         </p:selectOneMenu>
@@ -90,7 +86,7 @@
                              actionListener="#{registerLicitationController.save}"
                              update="manage-entity-content dt-entities"
                              process="manage-entity-content @this"
-                             oncomplete="if(!args.validationFailed) {PF('formPanel').close(); PF('listingPanel').show(); }"
+                             oncomplete="if(!args.validationFailed) { PF('listingPanel').show(); PF('formPanel').close();}"
             />
             <p:commandButton value="#{msgs['jbutler.crud.button.cancel']}" icon="pi pi-times"
                              onclick="PF('listingPanel').show(); PF('formPanel').close()"/>
