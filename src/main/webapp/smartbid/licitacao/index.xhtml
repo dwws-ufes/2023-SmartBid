@@ -230,12 +230,14 @@
                                 <p:column headerText="#{msgsSmartbid['item.field.quantidade']}"
                                           sortBy="#{entityItem.quantidade}">
                                     <h:outputText value="#{entityItem.quantidade}">
+                                        <f:convertNumber maxFractionDigits="6" maxIntegerDigits="14"/>
                                     </h:outputText>
                                 </p:column>
 
                                 <p:column headerText="#{msgsSmartbid['item.field.valorMedioMercado']}"
                                           sortBy="#{entityItem.valorMedioMercado}">
                                     <h:outputText value="#{entityItem.valorMedioMercado}">
+                                        <f:convertNumber maxFractionDigits="2" maxIntegerDigits="14"/>
                                     </h:outputText>
                                 </p:column>
 
@@ -308,9 +310,7 @@
                                         <h:panelGroup id="valorMedioMercadoGroup">
                                             <p:inputNumber id="valorMedioMercadoField"
                                                            value="#{registerLicitationController.selectedItem.valorMedioMercado}"
-                                                           required="true" decimalPlaces="2" decimalSeparator=","
-                                                           thousandSeparator="." symbol="R$ "
-                                                           symbolPosition="p">
+                                                           required="true" decimalPlaces="2" >
                                                 <p:ajax event="blur" process="@this" update="valorMedioMercadoGroup"/>
                                             </p:inputNumber>
                                             <p:message for="valorMedioMercadoField"/>
@@ -321,8 +321,7 @@
                                             <p:inputNumber id="quantidadeField"
                                                            value="#{registerLicitationController.selectedItem.quantidade}"
                                                            required="true"
-                                                           decimalPlaces="6" decimalSeparator=","
-                                                           thousandSeparator=".">
+                                                           decimalPlaces="6">
                                                 <p:ajax event="blur" process="@this" update="quantidadeGroup"/>
                                             </p:inputNumber>
                                             <p:message for="quantidadeField"/>
@@ -333,9 +332,10 @@
                                             <p:selectOneMenu id="unidadeMedidaField"
                                                              value="#{registerLicitationController.selectedItem.unidadeMedida}"
                                                              required="true">
-                                                <f:selectItem itemLabel="Selecione" itemValue=""
+                                                <f:selectItem itemLabel="#{msgs['jbutler.crud.text.selectOne']}"
                                                               noSelectionOption="true"/>
-                                                <f:selectItems value="#{registerLicitationController.unidadesMedida}"
+                                                <f:selectItems value="#{registerLicitationController.unidadesMedida}" var="unidadeMedida"
+                                                               itemLabel="#{msgsSmartbid[unidadeMedida]}" itemValue="#{unidadeMedida}"
                                                 />
                                                 <p:ajax event="blur" process="@this" update="unidadeMedidaGroup"/>
                                             </p:selectOneMenu>
@@ -351,8 +351,7 @@
                                                  actionListener="#{registerLicitationController.addItem}"
                                                  update="manage-item-content dt-itens"
                                                  process="manage-item-content @this"
-                                                 oncomplete="PF('formItemPanel').close()"
-                                                 onclick="PF('listingItemPanel').show()"
+                                                 oncomplete="if(!args.validationError) { PF('listingItemPanel').show(); PF('formItemPanel').close();}"
 
                                 />
 
@@ -370,7 +369,8 @@
                                      actionListener="#{registerLicitationController.save}"
                                      update="manage-entity-content dt-entities"
                                      process="manage-entity-content @this"
-                                     oncomplete="PF('listingPanel').show(); PF('formPanel').close();"/>
+                                     oncomplete="if(!args.validationError) { PF('listingPanel').show(); PF('formPanel').close();}"
+                                     />
                     <p:commandButton value="#{msgs['jbutler.crud.button.cancel']}" icon="pi pi-times"
                                      onclick="PF('listingPanel').show(); PF('formPanel').close()"/>
                 </f:facet>
