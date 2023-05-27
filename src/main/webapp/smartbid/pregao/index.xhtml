@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:adm="http://github.com/adminfaces"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/templates/template.xhtml">
+
+   <ui:define name="title">
+      <h:outputText value="#{msgsPregao['pregao.title']}"/>
+   </ui:define>
+
+   <ui:define name="description">
+      <h:outputText value="#{msgsPregao['pregao.title.description']}"/>
+   </ui:define>
+
+   <ui:define name="body">
+
+      <adm:breadcrumb link="/smartbid/pregao/index" title="#{msgsPregao['pregao.title']}"/>
+
+
+
+
+      <p:panel widgetVar="listingPanel" header="#{msgsLicitacao['licitacao.text.entities']}"
+               styleClass="card no-border" closeSpeed="0">
+         <p:dataTable
+                 id="dt-entities" widgetVar="dtEntities" var="entity"
+                 rowStyleClass="align-center"
+                 value="#{listingLicitacaoController.entities}"
+                 emptyMessage="#{msgs['text.emptyMessage']}" reflow="true"
+                 rowKey="#{entity.id}"
+                 paginator="true"
+                 rows="10" paginatorPosition="bottom">
+            <p:ajax event="filter" ignoreAutoUpdate="true"/>
+
+
+            <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
+
+            <!-- My Object data. -->
+            <p:column headerText="#{msgsLicitacao['licitacao.field.dataPublicacao']}"
+                      sortBy="#{entity.dataPublicacao}"
+                      filterBy="#{entity.dataPublicacao}"
+                      filterStyle="display: none">
+               <h:outputText value="#{entity.dataPublicacao}">
+                  <f:convertDateTime type="localDate" pattern="#{msgs['jbutler.format.date.java']}"/>
+               </h:outputText>
+            </p:column>
+            <p:column headerText="#{msgsLicitacao['licitacao.field.criterioJulgamento']}"
+                      sortBy="#{entity.criterioJulgamento}">
+               <h:outputText value="#{entity.criterioJulgamento}"/>
+            </p:column>
+            <p:column headerText="#{msgsLicitacao['licitacao.field.objeto']}"
+                      sortBy="#{entity.objeto}">
+               <h:outputText value="#{entity.objeto}"/>
+            </p:column>
+
+            <p:column exportable="false" style="text-align: center;">
+               <f:facet name="header">
+                  <i class="pi pi-search"></i>
+                  <p:inputText id="globalFilter" onkeyup="PF('dtEntities').filter()"
+                               placeholder="#{msgs['jbutler.crud.text.search']}"
+                               style="margin-left: 10px;"/>
+               </f:facet>
+               <p:commandButton value="#{msgs['jbutler.crud.button.create']}" icon="pi pi-plus"
+                                actionListener="#{listingLicitacaoController.selectLicitacao}"
+                                update=":form:manage-entity-content"
+                                style="margin-right: .5rem">
+                  <p:resetInput target=":form:manage-entity-content"/>
+               </p:commandButton>
+               <p:commandButton id="delete-entities-button"
+                                value="#{msgs['jbutler.crud.button.delete']}"
+                                icon="pi pi-trash"
+                                actionListener="#{listingLicitacaoController.registerAsParticipante}"
+                                update="@this">
+                  <p:confirm header="#{msgs['jbutler.crud.title.confirmation']}"
+                             message="#{msgs['text.deleteConfirmation']}"
+                             icon="pi pi-exclamation-triangle"/>
+               </p:commandButton>
+            </p:column>
+         </p:dataTable>
+
+      </p:panel>
+
+
+
+   </ui:define>
+
+</ui:composition>

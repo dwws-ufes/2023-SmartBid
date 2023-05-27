@@ -21,5 +21,9 @@
 			<base-name>br.com.ufes.labes.smartbid.admin.pessoa.messages</base-name>
 			<var>msgsPessoa</var>
 		</resource-bundle>
+		<resource-bundle>
+			<base-name>br.com.ufes.labes.smartbid.admin.pregao.messages</base-name>
+			<var>msgsPregao</var>
+		</resource-bundle>
 	</application>
 </faces-config>
