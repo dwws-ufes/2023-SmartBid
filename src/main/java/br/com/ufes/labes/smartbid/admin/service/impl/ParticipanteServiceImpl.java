@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @Stateless
 @PermitAll
 public class ParticipanteServiceImpl extends CrudServiceImpl<Participante> implements ParticipanteService {
+    public static final String EXCEPTION_MESSAGE = "Participante não pode ser criado devido a erros de validação.";
+
     @EJB
     private ParticipanteDAO participanteDAO;
 
@@ -26,7 +28,7 @@ public class ParticipanteServiceImpl extends CrudServiceImpl<Participante> imple
     @Override
     public void validateCreate(final Participante entity) throws CrudException {
 
-        final String exceptionMessage = "Participante não pode ser criado devido a erros de validação.";
+        final String exceptionMessage = EXCEPTION_MESSAGE;
 
         CrudException crudException = null;
 
@@ -53,14 +55,26 @@ public class ParticipanteServiceImpl extends CrudServiceImpl<Participante> imple
 
     @Override
     public void validateUpdate(final Participante entity) throws CrudException {
-        // Check the same rules as the creation scenario.
-        this.validateCreate(entity);
+        final String exceptionMessage = EXCEPTION_MESSAGE;
+
+        CrudException crudException = null;
+
+        // Validation rule 1: the bidding date must be after today.
+        if (entity.getLicitacao().getDataLicitacao().isBefore(LocalDate.now())) {
+            crudException = addGlobalValidationError(null, exceptionMessage,
+                    "participante.error.licitacaoDataLicitacaoBeforeNow");
+        }
+
+        // If any rule is violated, throw the CRUD exception.
+        if (crudException != null) {
+            throw crudException;
+        }
     }
 
     @Override
     public void validateDelete(final Participante entity) throws CrudException {
 
-        final String exceptionMessage = "Participante não pode ser criado devido a erros de validação.";
+        final String exceptionMessage = EXCEPTION_MESSAGE;
         // Validate if there are proposals associated with the participant.
         if (entity.getPropostas().size() > 0) {
             throw addGlobalValidationError(null, exceptionMessage, "participante.error.hasPropostas");

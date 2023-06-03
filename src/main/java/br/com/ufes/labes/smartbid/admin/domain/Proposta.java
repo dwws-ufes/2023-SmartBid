@@ -3,11 +3,14 @@ package br.com.ufes.labes.smartbid.admin.domain;
 import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(uniqueConstraints = { @UniqueConstraint(name = "uq_participante_item", columnNames = { "item_id", "valor" }) })
 public class Proposta extends PersistentObjectSupport {
     @NotNull
     private BigDecimal valor;
