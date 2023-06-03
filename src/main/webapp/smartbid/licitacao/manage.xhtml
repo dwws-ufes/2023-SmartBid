@@ -11,7 +11,7 @@
              styleClass="card no-border"
              visible="false" closeSpeed="0">
         <p:outputPanel id="manage-entity-content">
-            <p:outputPanel rendered="#{not empty registerLicitationController.selectedEntity}">
+            <p:outputPanel rendered="#{not empty registerLicitacaoController.selectedEntity}">
 
                 <p:messages id="messages" for="selec" closable="true" showDetail="true" autoUpdate="true"/>
                 <p:panelGrid columns="4" cellpadding="5" layout="grid" styleClass="ui-fluid card"
@@ -21,7 +21,7 @@
                     <h:panelGroup id="dataPublicacaoGroup">
 
                         <p:datePicker id="dataPublicacaoField"
-                                      value="#{registerLicitationController.selectedEntity.dataPublicacao}"
+                                      value="#{registerLicitacaoController.selectedEntity.dataPublicacao}"
                                       pattern="#{msgs['jbutler.format.date.java']}" showButtonBar="true"
                                       mask="true" required="true">
                             <p:ajax event="blur" process="@this" update="dataPublicacaoGroup"/>
@@ -33,7 +33,7 @@
                                    value="#{msgsLicitacao['licitacao.field.objeto']}"/>
                     <h:panelGroup id="objetoGroup">
                         <p:inputText id="objetoField"
-                                     value="#{registerLicitationController.selectedEntity.objeto}"
+                                     value="#{registerLicitacaoController.selectedEntity.objeto}"
                                      required="true" maxlength="1000">
 
                             <p:ajax event="blur" process="@this" update="objetoGroup"/>
@@ -46,11 +46,11 @@
                                    value="#{msgsLicitacao['licitacao.field.criterioJulgamento']}"/>
                     <h:panelGroup id="criterioJulgamentoGroup">
                         <p:selectOneMenu id="criterioJulgamentoField"
-                                         value="#{registerLicitationController.selectedEntity.criterioJulgamento}"
+                                         value="#{registerLicitacaoController.selectedEntity.criterioJulgamento}"
                                          required="true">
                             <f:selectItem itemLabel="#{msgs['jbutler.crud.text.selectOne']}"
                                           noSelectionOption="true"/>
-                            <f:selectItems value="#{registerLicitationController.criteriosJulgamento}"
+                            <f:selectItems value="#{registerLicitacaoController.criteriosJulgamento}"
                             />
                             <p:ajax event="blur" process="@this" update="criterioJulgamentoGroup"/>
                         </p:selectOneMenu>
@@ -61,7 +61,7 @@
                                    value="#{msgsLicitacao['licitacao.field.dataLicitacao']}"/>
                     <h:panelGroup id="dataLicitacaoGroup">
                         <p:datePicker id="dataLicitacaoField"
-                                      value="#{registerLicitationController.selectedEntity.dataLicitacao}"
+                                      value="#{registerLicitacaoController.selectedEntity.dataLicitacao}"
                                       pattern="#{msgs['jbutler.format.date.java']}" showButtonBar="true"
                                       mask="true">
                             <p:ajax event="blur" process="@this" update="dataLicitacaoGroup"/>
@@ -83,7 +83,7 @@
 
         <f:facet name="footer">
             <p:commandButton value="#{msgs['jbutler.crud.button.save']}" icon="pi pi-check"
-                             actionListener="#{registerLicitationController.save}"
+                             actionListener="#{registerLicitacaoController.save}"
                              update="manage-entity-content dt-entities"
                              process="manage-entity-content @this"
                              oncomplete="if(!args.validationFailed) { PF('listingPanel').show(); PF('formPanel').close();}"

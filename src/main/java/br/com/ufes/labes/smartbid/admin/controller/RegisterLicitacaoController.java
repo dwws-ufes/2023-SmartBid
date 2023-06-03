@@ -19,12 +19,12 @@ import java.util.logging.Logger;
 
 @Named
 @ViewScoped
-public class RegisterLicitationController extends CrudController<Licitacao> {
+public class RegisterLicitacaoController extends CrudController<Licitacao> {
     public static final SelectItemGroup CRITERIOS_JULGAMENTO = new SelectItemGroup("Critério de Julgamento");
 
     public static final SelectItemGroup UNIDADES_MEDIDA = new SelectItemGroup("Unidade de Medida");
 
-    private static final Logger logger = Logger.getLogger(RegisterLicitationController.class.getCanonicalName());
+    private static final Logger logger = Logger.getLogger(RegisterLicitacaoController.class.getCanonicalName());
 
     @EJB
     private LicitacaoService licitacaoService;
@@ -33,7 +33,7 @@ public class RegisterLicitationController extends CrudController<Licitacao> {
 
     private Item selectedItem;
 
-    public RegisterLicitationController() {
+    public RegisterLicitacaoController() {
         super();
         CRITERIOS_JULGAMENTO.setSelectItems(new SelectItem[] {
                 new SelectItem(CriterioJulgamento.MELHOR_PRECO, this.getI18nMessage(this.getBundleName(), "criterioJulgamento.melhorPreco")),

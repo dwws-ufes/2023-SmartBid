@@ -12,9 +12,9 @@
         <p:dataTable
                 id="dt-entities" widgetVar="dtEntities" var="entity"
                 rowStyleClass="align-center"
-                value="#{registerLicitationController.entities}"
+                value="#{registerLicitacaoController.entities}"
                 emptyMessage="#{msgs['text.emptyMessage']}" reflow="true"
-                selection="#{registerLicitationController.selectedEntities}" rowKey="#{entity.id}"
+                selection="#{registerLicitacaoController.selectedEntities}" rowKey="#{entity.id}"
                 paginator="true"
                 rows="10" rowSelectMode="add" paginatorPosition="bottom">
             <p:ajax event="filter" ignoreAutoUpdate="true"/>
@@ -22,7 +22,7 @@
                 <!-- New and Delete buttons. -->
                 <div style="float: right; margin-top: -40px;">
                     <p:commandButton value="#{msgs['jbutler.crud.button.create']}" icon="pi pi-plus"
-                                     actionListener="#{registerLicitationController.openNew}"
+                                     actionListener="#{registerLicitacaoController.openNew}"
                                      oncomplete="PF('formPanel').show(); PF('listingPanel').close()"
                                      update=":form:manage-entity-content"
                                      style="margin-right: .5rem">
@@ -31,8 +31,8 @@
                     <p:commandButton id="delete-entities-button"
                                      value="#{msgs['jbutler.crud.button.delete']}"
                                      icon="pi pi-trash"
-                                     actionListener="#{registerLicitationController.deleteSelectedEntities}"
-                                     disabled="#{!registerLicitationController.hasSelectedEntities()}"
+                                     actionListener="#{registerLicitacaoController.deleteSelectedEntities}"
+                                     disabled="#{!registerLicitacaoController.hasSelectedEntities()}"
                                      update="@this">
                         <p:confirm header="#{msgs['jbutler.crud.title.confirmation']}"
                                    message="#{msgs['text.deleteConfirmation']}"
@@ -78,13 +78,13 @@
                                  oncomplete="PF('formPanel').show(); PF('listingPanel').close()"
                                  process="@this">
                     <f:setPropertyActionListener value="#{entity}"
-                                                 target="#{registerLicitationController.selectedEntity}"/>
+                                                 target="#{registerLicitacaoController.selectedEntity}"/>
                     <p:resetInput target=":form:manage-entity-content"/>
                 </p:commandButton>
                 <p:commandButton icon="pi pi-trash" process="@this"
                                  oncomplete="PF('deleteEntityDialog').show()">
                     <f:setPropertyActionListener value="#{entity}"
-                                                 target="#{registerLicitationController.selectedEntity}"/>
+                                                 target="#{registerLicitacaoController.selectedEntity}"/>
                 </p:commandButton>
             </p:column>
         </p:dataTable>
@@ -97,7 +97,7 @@
                      message="#{msgs['text.deleteConfirmation']}"
                      header="#{msgs['jbutler.crud.title.confirmation']}" severity="warn">
         <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
-                         actionListener="#{registerLicitationController.delete}" process="@this"
+                         actionListener="#{registerLicitacaoController.delete}" process="@this"
                          oncomplete="PF('deleteEntityDialog').hide()"/>
         <p:commandButton value="#{msgs['jbutler.crud.button.no']}" type="button" icon="pi pi-times"
                          onclick="PF('deleteEntityDialog').hide()"/>
