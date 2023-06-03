@@ -28,7 +28,7 @@
          <p:dataTable
                  id="dt-entities" widgetVar="dtEntities" var="entity"
                  rowStyleClass="align-center"
-                 value="#{listingLicitacaoController.entities}"
+                 value="#{pregaoController.entities}"
                  emptyMessage="#{msgs['text.emptyMessage']}" reflow="true"
                  rowKey="#{entity.id}"
                  paginator="true"
@@ -64,7 +64,7 @@
                                style="margin-left: 10px;"/>
                </f:facet>
                <p:commandButton value="#{msgs['jbutler.crud.button.create']}" icon="pi pi-plus"
-                                actionListener="#{listingLicitacaoController.selectLicitacao}"
+                                actionListener="#{pregaoController.selectLicitacao}"
                                 update=":form:manage-entity-content"
                                 style="margin-right: .5rem">
                   <p:resetInput target=":form:manage-entity-content"/>
@@ -72,7 +72,7 @@
                <p:commandButton id="delete-entities-button"
                                 value="#{msgs['jbutler.crud.button.delete']}"
                                 icon="pi pi-trash"
-                                actionListener="#{listingLicitacaoController.registerAsParticipante}"
+                                actionListener="#{pregaoController.registerAsParticipante}"
                                 update="@this">
                   <p:confirm header="#{msgs['jbutler.crud.title.confirmation']}"
                              message="#{msgs['text.deleteConfirmation']}"

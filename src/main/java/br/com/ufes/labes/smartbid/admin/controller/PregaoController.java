@@ -12,7 +12,7 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class ListingLicitacaoController extends ListingController<Licitacao> {
+public class PregaoController extends ListingController<Licitacao> {
     @EJB
     private LicitacaoService licitacaoService;
 
@@ -33,10 +33,8 @@ public class ListingLicitacaoController extends ListingController<Licitacao> {
     }
 
     public void selectLicitacao() {
+        // TODO Selecionar a licitação
 
     }
 
-    public void registerAsParticipante() {
-
-    }
 }

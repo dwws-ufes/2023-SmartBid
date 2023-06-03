@@ -4,6 +4,8 @@ import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -11,8 +13,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "uq_pessoa_licitacao", columnNames = { "pessoa_id", "licitacao_id" })
+})
 public class Participante extends PersistentObjectSupport {
-    @NotNull
     @Size(max = 255)
     private String justificativaImpedimento;
 
@@ -35,11 +39,20 @@ public class Participante extends PersistentObjectSupport {
     }
 
     public Participante(final String justificativaImpedimento, final LocalDateTime dataHoraImpedimento,
-            final LocalDateTime dataHoraParticipacao, final Pessoa pessoa) {
+            final LocalDateTime dataHoraParticipacao, final Pessoa pessoa, final Licitacao licitacao) {
         this.justificativaImpedimento = justificativaImpedimento;
         this.dataHoraImpedimento = dataHoraImpedimento;
         this.dataHoraParticipacao = dataHoraParticipacao;
         this.pessoa = pessoa;
+        this.licitacao = licitacao;
+    }
+
+    public Licitacao getLicitacao() {
+        return licitacao;
+    }
+
+    public void setLicitacao(final Licitacao licitacao) {
+        this.licitacao = licitacao;
     }
 
     public String getJustificativaImpedimento() {
@@ -72,6 +85,10 @@ public class Participante extends PersistentObjectSupport {
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public Set<Proposta> getPropostas() {
+        return propostas;
     }
 
     @Override
