@@ -20,9 +20,7 @@ public class PregaoController extends ListingController<Licitacao> {
     public List<Licitacao> getEntities() {
 
         licitacaoService.authorize();
-        if (this.entities == null) {
-            this.entities = licitacaoService.filterLicitacao(LocalDate.now(), LocalDate.now());
-        }
+        this.entities = licitacaoService.filterLicitacao(LocalDate.now(), LocalDate.now());
 
         return this.entities;
     }
@@ -30,11 +28,6 @@ public class PregaoController extends ListingController<Licitacao> {
     @Override
     protected ListingService<Licitacao> getListingService() {
         return this.licitacaoService;
-    }
-
-    public void selectLicitacao() {
-        // TODO Selecionar a licitação
-
     }
 
 }

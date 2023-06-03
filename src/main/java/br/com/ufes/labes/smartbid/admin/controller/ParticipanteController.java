@@ -22,7 +22,18 @@ public class ParticipanteController extends CrudController<Participante> {
         return participanteService;
     }
 
-    public void save(final Licitacao licitacao) {
+    private Licitacao licitacao;
+
+    public Licitacao getLicitacao() {
+        return licitacao;
+    }
+
+    public void setLicitacao(Licitacao licitacao) {
+        this.licitacao = licitacao;
+    }
+
+    @Override
+    public void save() {
 
         final Pessoa pessoa = new Pessoa();
         // TODO setar a pessoa atual

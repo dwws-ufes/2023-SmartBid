@@ -3,6 +3,7 @@ package br.com.ufes.labes.smartbid.admin.domain;
 import br.com.ufes.labes.smartbid.admin.domain.enumerate.TipoIdentificacao;
 import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
@@ -19,6 +20,7 @@ public class Pessoa extends PersistentObjectSupport {
 
     @Size(max = 14)
     @NotNull
+    @Column(unique = true)
     private String identificacao;
 
     @Size(max = 255)
