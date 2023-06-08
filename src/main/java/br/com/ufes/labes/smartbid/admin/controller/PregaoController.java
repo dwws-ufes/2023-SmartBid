@@ -30,4 +30,14 @@ public class PregaoController extends ListingController<Licitacao> {
         return this.licitacaoService;
     }
 
+    @Override
+    public String getBundleName() {
+        return "msgsPregao";
+    }
+
+    @Override
+    public String getBundlePrefix() {
+        return "pregao";
+    }
+
 }

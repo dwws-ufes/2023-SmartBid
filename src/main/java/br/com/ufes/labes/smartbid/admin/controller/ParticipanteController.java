@@ -42,4 +42,15 @@ public class ParticipanteController extends CrudController<Participante> {
 
         super.save();
     }
+
+    @Override
+    public String getBundleName() {
+        return "msgsParticipante";
+    }
+
+    @Override
+    public String getBundlePrefix() {
+        return "participante";
+    }
+
 }

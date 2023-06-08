@@ -7,10 +7,13 @@ import br.com.ufes.labes.smartbid.admin.service.PropostaService;
 import br.ufes.inf.labes.jbutler.ejb.application.CrudService;
 import br.ufes.inf.labes.jbutler.ejb.controller.CrudController;
 import jakarta.ejb.EJB;
+import jakarta.ejb.Schedule;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+import org.primefaces.PrimeFaces;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Named
@@ -42,13 +45,17 @@ public class PropostaController extends CrudController<Proposta> {
     }
 
     @Override
+    @Schedule(hour = "*", minute = "*", second = "*/5", persistent = false)
     public List<Proposta> getEntities() {
+
         if (this.item == null) {
-            return null;
+            this.entities = Collections.emptyList();
+        } else {
+
+            this.entities = this.item.getPropostas().stream().toList();
         }
 
-        this.entities = this.item.getPropostas().stream().toList();
-
+        PrimeFaces.current().ajax().update("form:dt-propostas");
         return this.entities;
     }
 
@@ -58,6 +65,16 @@ public class PropostaController extends CrudController<Proposta> {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    @Override
+    public String getBundleName() {
+        return "msgsProposta";
+    }
+
+    @Override
+    public String getBundlePrefix() {
+        return "proposta";
     }
 
 }

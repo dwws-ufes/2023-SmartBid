@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
+
+    <p:panel id="listingPropostaPanel" header="#{msgsProposta['proposta.text.entities']}"
+             widgetVar="listingPropostaPanel"
+             styleClass="card no-border align-center" closeSpeed="0">
+        <p:dataTable
+                id="dt-propostas" widgetVar="dtPropostas" var="entityProposta"
+                value="#{propostaController.entities}"
+                emptyMessage="#{msgs['text.emptyMessage']}"
+                rowKey="#{entityProposta.id}"
+                paginator="true"
+                rows="10" rowSelectMode="add" paginatorPosition="bottom"
+        >
+
+            <p:ajax event="filter" ignoreAutoUpdate="true"/>
+
+
+            <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
+
+            <p:column headerText="#{msgsPessoa['pessoa.field.nome']}"
+                      sortBy="#{entityProposta.participante.pessoa.nome}">
+                <h:outputText value="#{entityProposta.participante.pessoa.nome}"/>
+            </p:column>
+
+            <p:column headerText="#{msgsProposta['proposta.field.valor']}"
+                      sortBy="#{entityProposta.valor}">
+                <h:outputText value="#{entityProposta.valor}">
+                    <f:convertNumber maxFractionDigits="2" maxIntegerDigits="14"/>
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="#{msgsProposta['proposta.field.dataHora']}"
+                      sortBy="#{entityProposta.dataHora}">
+                <h:outputText value="#{entityProposta.dataHora}">
+                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss"/>
+                </h:outputText>
+            </p:column>
+        </p:dataTable>
+
+
+    </p:panel>
+
+    <!-- Dialog to create a proposta -->
+    <p:dialog widgetVar="propostaDialog" showEffect="fade" width="300"
+              header="#{msgsProposta['proposta.title.detail']}">
+
+
+        <p:panelGrid columns="2" cellpadding="5" layout="grid"
+                     styleClass="ui-fluid card"
+                     columnClasses="ui-grid-col-2,ui-grid-col-4">
+
+            <p:outputLabel for="valorField"
+                           value="${msgsProposta['proposta.field.valor']}"/>
+            <h:panelGroup id="valorGroup">
+                <p:inputNumber id="valorField"
+                               value="#{propostaController.selectedEntity.valor}"
+                               required="true" decimalPlaces="2">
+                    <p:ajax event="blur" process="@this"
+                            update="valorGroup"/>
+                </p:inputNumber>
+
+                <p:message for="valorField"/>
+
+            </h:panelGroup>
+        </p:panelGrid>
+
+
+        <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
+                         actionListener="#{propostaController.save}" process="@this"
+                         oncomplete="PF('propostaDialog').hide()"/>
+        <p:commandButton value="#{msgs['jbutler.crud.button.no']}" type="button" icon="pi pi-times"
+                         onclick="PF('propostaDialog').hide()"/>
+    </p:dialog>
+</ui:composition>
