@@ -50,7 +50,8 @@
                 </f:facet>
 
                 <p:commandButton icon="pi pi-pencil"
-                                 process="@this">
+                                 process="@this"
+                                 update=":form:listingPanel :form:listingItemPanel :form:listingPropostaPanel">
                     <f:setPropertyActionListener value="#{entityItem}"
                                                  target="#{propostaController.item}"/>
                 </p:commandButton>

@@ -58,6 +58,8 @@
 			<url-pattern>/resources/*</url-pattern>
 			<url-pattern>/login.xhtml</url-pattern>
 			<url-pattern>/index.xhtml</url-pattern>
+			<url-pattern>/500.xhtml</url-pattern>
+			<url-pattern>/400.xhtml</url-pattern>
 		</web-resource-collection>
 	</security-constraint>
 </web-app>

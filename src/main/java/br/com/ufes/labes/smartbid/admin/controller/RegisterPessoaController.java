@@ -81,4 +81,10 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
         return "pessoa";
     }
 
+    @Override
+    public void save() {
+        this.selectedEntity.setSenha("123456");
+        super.save();
+    }
+
 }

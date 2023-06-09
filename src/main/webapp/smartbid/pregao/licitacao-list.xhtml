@@ -48,7 +48,7 @@
                     />
                 </f:facet>
                 <p:commandButton value="#{msgs['jbutler.crud.button.retrieve']}" icon="pi pi-pencil"
-
+                                 update=":form:listingPanel :form:listingItemPanel :form:listingPropostaPanel"
                 >
 
                     <f:setPropertyActionListener value="#{entity}"
@@ -70,6 +70,7 @@
                      header="#{msgs['jbutler.crud.title.confirmation']}" severity="warn">
         <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
                          actionListener="#{participanteController.save}" process="@this"
+                         update=":form:listingPanel :form:listingItemPanel :form:listingPropostaPanel"
         />
         <p:commandButton value="#{msgs['jbutler.crud.button.no']}" type="button" icon="pi pi-times"
         />
