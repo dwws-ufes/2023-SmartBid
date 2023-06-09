@@ -55,13 +55,12 @@ public class ParticipanteServiceImpl extends CrudServiceImpl<Participante> imple
 
     @Override
     public void validateUpdate(final Participante entity) throws CrudException {
-        final String exceptionMessage = EXCEPTION_MESSAGE;
 
         CrudException crudException = null;
 
         // Validation rule 1: the bidding date must be after today.
         if (entity.getLicitacao().getDataLicitacao().isBefore(LocalDate.now())) {
-            crudException = addGlobalValidationError(null, exceptionMessage,
+            crudException = addGlobalValidationError(null, EXCEPTION_MESSAGE,
                     "participante.error.licitacaoDataLicitacaoBeforeNow");
         }
 
@@ -74,10 +73,9 @@ public class ParticipanteServiceImpl extends CrudServiceImpl<Participante> imple
     @Override
     public void validateDelete(final Participante entity) throws CrudException {
 
-        final String exceptionMessage = EXCEPTION_MESSAGE;
         // Validate if there are proposals associated with the participant.
-        if (entity.getPropostas().size() > 0) {
-            throw addGlobalValidationError(null, exceptionMessage, "participante.error.hasPropostas");
+        if (!entity.getPropostas().isEmpty()) {
+            throw addGlobalValidationError(null, EXCEPTION_MESSAGE, "participante.error.hasPropostas");
         }
 
     }

@@ -2,10 +2,8 @@
 <ui:composition
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-        xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:adm="http://github.com/adminfaces"
-        xmlns:p="http://primefaces.org/ui"
         template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="title">
@@ -20,218 +18,22 @@
 
         <adm:breadcrumb link="/smartbid/pregao/index" title="#{msgsPregao['pregao.title']}"/>
 
+
         <h:form>
-            <p:panel widgetVar="listingPanel" header="#{msgsLicitacao['licitacao.text.entities']}"
-                     styleClass="card no-border" closeSpeed="0">
-                <p:dataTable
-                        id="dt-entities" widgetVar="dtEntities" var="entity"
-                        rowStyleClass="align-center"
-                        value="#{pregaoController.entities}"
-                        emptyMessage="#{msgs['text.emptyMessage']}" reflow="true"
-                        rowKey="#{entity.id}"
-                        paginator="true"
-                        rows="10" paginatorPosition="bottom">
-                    <p:ajax event="filter" ignoreAutoUpdate="true"/>
+            <ui:include src="licitacao-list.xhtml">
+                <ui:insert/>
+            </ui:include>
 
+            <ui:include src="item-list.xhtml">
+                <ui:insert/>
+            </ui:include>
 
-                    <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
-
-                    <!-- My Object data. -->
-                    <p:column headerText="#{msgsLicitacao['licitacao.field.dataPublicacao']}"
-                              sortBy="#{entity.dataPublicacao}"
-                              filterBy="#{entity.dataPublicacao}"
-                              filterStyle="display: none">
-                        <h:outputText value="#{entity.dataPublicacao}">
-                            <f:convertDateTime type="localDate" pattern="#{msgs['jbutler.format.date.java']}"/>
-                        </h:outputText>
-                    </p:column>
-                    <p:column headerText="#{msgsLicitacao['licitacao.field.criterioJulgamento']}"
-                              sortBy="#{entity.criterioJulgamento}">
-                        <h:outputText value="#{entity.criterioJulgamento}"/>
-                    </p:column>
-                    <p:column headerText="#{msgsLicitacao['licitacao.field.objeto']}"
-                              sortBy="#{entity.objeto}">
-                        <h:outputText value="#{entity.objeto}"/>
-                    </p:column>
-
-                    <p:column exportable="false" style="text-align: center;">
-                        <f:facet name="header">
-                            <i class="pi pi-search"></i>
-                            <p:inputText id="globalFilter" onkeyup="PF('dtEntities').filter()"
-                                         placeholder="#{msgs['jbutler.crud.text.search']}"
-                                         style="margin-left: 10px;"/>
-                        </f:facet>
-                        <p:commandButton value="#{msgs['jbutler.crud.button.retrieve']}" icon="pi pi-pencil"
-                                         update=":form:manage-entity-content"
-                                         style="margin-right: .5rem">
-                            <p:resetInput target=":form:manage-entity-content"/>
-
-                            <f:setPropertyActionListener value="#{entity}"
-                                                         target="#{pregaoController.selectedEntity}"/>
-                        </p:commandButton>
-                        <p:commandButton icon="pi pi-plus" process="@this"
-                                         oncomplete="PF('registerAsParticipanteDialog').show()">
-                            <f:setPropertyActionListener value="#{entity}"
-                                                         target="#{participanteController.licitacao}"/>
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-
-            </p:panel>
-
-
-            <p:panel header="#{msgsLicitacao['licitacao.title.detail']}" widgetVar="formPanel"
-                     styleClass="card no-border"
-                     visible="false" closeSpeed="0">
-                <p:outputPanel id="manage-entity-content">
-                    <p:outputPanel rendered="#{not empty pregaoController.selectedEntity}">
-
-                        <p:messages id="messages" for="selec" closable="true" showDetail="true" autoUpdate="true"/>
-
-
-                        <p:panel header="#{msgsLicitacao['item.text.entities']}" widgetVar="listingItemPanel"
-                                 styleClass="card no-border align-center" closeSpeed="0" visible="true">
-                            <p:dataTable
-                                    id="dt-itens" widgetVar="dtItens" var="entityItem"
-                                    value="#{pregaoController.selectedEntity.itens}"
-                                    emptyMessage="#{msgs['text.emptyMessage']}"
-                                    rowKey="#{entityItem.id}"
-                                    paginator="true"
-                                    rows="10" rowSelectMode="add" paginatorPosition="bottom"
-                            >
-
-                                <p:ajax event="filter" ignoreAutoUpdate="true"/>
-
-
-                                <p:ajax event="rowSelect" update="delete-itens-button"/>
-                                <p:ajax event="rowUnselect" update="delete-itens-button"/>
-                                <p:ajax event="rowSelectCheckbox" update="delete-itens-button"/>
-                                <p:ajax event="rowUnselectCheckbox" update="delete-itens-button"/>
-                                <p:ajax event="toggleSelect" update="delete-itens-button"/>
-
-                                <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
-
-                                <p:column headerText="#{msgsLicitacao['item.field.codigo']}"
-                                          sortBy="#{entityItem.codigo}">
-                                    <h:outputText value="#{entityItem.codigo}"/>
-                                </p:column>
-
-                                <p:column headerText="#{msgsLicitacao['item.field.quantidade']}"
-                                          sortBy="#{entityItem.quantidade}">
-                                    <h:outputText value="#{entityItem.quantidade}">
-                                        <f:convertNumber maxFractionDigits="6" maxIntegerDigits="14"/>
-                                    </h:outputText>
-                                </p:column>
-
-                                <p:column headerText="#{msgsLicitacao['item.field.valorMedioMercado']}"
-                                          sortBy="#{entityItem.valorMedioMercado}">
-                                    <h:outputText value="#{entityItem.valorMedioMercado}">
-                                        <f:convertNumber maxFractionDigits="2" maxIntegerDigits="14"/>
-                                    </h:outputText>
-                                </p:column>
-
-                                <p:column exportable="false" style="text-align: center;">
-                                    <f:facet name="header">
-                                        <i class="pi pi-search"></i>
-                                        <p:inputText id="itemFilter" onkeyup="PF('dtItens').filter()"
-                                                     placeholder="#{msgs['jbutler.crud.text.search']}"
-                                                     style="margin-left: 10px;"/>
-                                    </f:facet>
-                                    <p:commandButton icon="pi pi-pencil"
-                                                     update=":form:manage-item-content"
-                                                     oncomplete="PF('propostaDialog').show();"
-                                                     process="@this">
-                                        <f:setPropertyActionListener value="#{entityItem}"
-                                                                     target="#{propostaController.item}"/>
-                                        <p:resetInput target=":form:manage-item-content"/>
-                                    </p:commandButton>
-                                </p:column>
-
-
-                            </p:dataTable>
-
-
-                        </p:panel>
-
-                    </p:outputPanel>
-                </p:outputPanel>
-
-                <!-- Dialog to create a proposta -->
-                <p:dialog widgetVar="propostaDialog" showEffect="fade" width="300"
-                          header="#{msgsProposta['proposta.title.detail']}">
-
-                    <p:outputPanel id="manage-proposta-content">
-                        <p:outputPanel rendered="#{not empty propostaController.item}">
-
-                            <p:messages id="messages" for="selec" closable="true" showDetail="true" autoUpdate="true"/>
-
-                            <p:panel header="#{msgsProposta['proposta.text.entities']}" widgetVar="listingPropostaPanel"
-                                     styleClass="card no-border align-center" closeSpeed="0" visible="true">
-                                <p:dataTable
-                                        id="dt-propostas" widgetVar="dtPropostas" var="entityProposta"
-                                        value="#{propostaController.item.propostas}"
-                                        emptyMessage="#{msgs['text.emptyMessage']}"
-                                        rowKey="#{entityProposta.id}"
-                                        paginator="true"
-                                        rows="10" rowSelectMode="add" paginatorPosition="bottom"
-                                >
-
-                                    <p:ajax event="filter" ignoreAutoUpdate="true"/>
-
-                                    <p:ajax event="rowSelect" update="delete-propostas-button"/>
-                                    <p:ajax event="rowUnselect" update="delete-propostas-button"/>
-                                    <p:ajax event="rowSelectCheckbox" update="delete-propostas-button"/>
-                                    <p:ajax event="rowUnselectCheckbox" update="delete-propostas-button"/>
-                                    <p:ajax event="toggleSelect" update="delete-propostas-button"/>
-
-                                    <p:column width="40" selectionMode="multiple" exportable="false"></p:column>
-
-                                    <p:column headerText="#{msgsProposta['proposta.field.fornecedor']}"
-                                              sortBy="#{entityProposta.fornecedor}">
-                                        <h:outputText value="#{entityProposta.fornecedor}"/>
-                                    </p:column>
-
-                                    <p:column headerText="#{msgsProposta['proposta.field.valor']}"
-                                              sortBy="#{entityProposta.valor}">
-                                        <h:outputText value="#{entityProposta.valor}">
-                                            <f:convertNumber maxFractionDigits="2" maxIntegerDigits="14"/>
-                                        </h:outputText>
-                                    </p:column>
-
-                                    <p:column headerText="#{msgsProposta['proposta.field.data']}"
-                                              sortBy="#{entityProposta.data}">
-                                        <h:outputText value="#{entityProposta.data}">
-                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                        </h:outputText>
-                                    </p:column>
-                                </p:dataTable>
-                            </p:panel>
-                        </p:outputPanel>
-                    </p:outputPanel>
-
-                    <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
-                                     actionListener="#{propostaController.save}" process="@this"
-                                     oncomplete="PF('propostaDialog').hide()"/>
-                    <p:commandButton value="#{msgs['jbutler.crud.button.no']}" type="button" icon="pi pi-times"
-                                     onclick="PF('propostaDialog').hide()"/>
-                </p:dialog>
-
-
-            </p:panel>
-
+            <ui:include src="proposta-list.xhtml">
+                <ui:insert/>
+            </ui:include>
         </h:form>
 
     </ui:define>
-    <!-- Dialog to confirm deletion. -->
-    <p:confirmDialog widgetVar="registerAsParticipanteDialog" showEffect="fade" width="300"
-                     message="#{msgsLicitacao['licitacao.confirm.participante']}"
-                     header="#{msgs['jbutler.crud.title.confirmation']}" severity="warn">
-        <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
-                         actionListener="#{participanteController.save}" process="@this"
-                         oncomplete="PF('registerAsParticipanteDialog').hide()"/>
-        <p:commandButton value="#{msgs['jbutler.crud.button.no']}" type="button" icon="pi pi-times"
-                         onclick="PF('registerAsParticipanteDialog').hide()"/>
-    </p:confirmDialog>
 
 
 </ui:composition>
