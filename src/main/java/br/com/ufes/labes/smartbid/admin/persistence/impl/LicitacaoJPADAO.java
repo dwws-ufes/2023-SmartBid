@@ -7,6 +7,7 @@ import br.ufes.inf.labes.jbutler.ejb.persistence.BaseJPADAO;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -41,7 +42,7 @@ public class LicitacaoJPADAO extends BaseJPADAO<Licitacao> implements LicitacaoD
         List<Predicate> restrictions = new ArrayList<>();
 
         if (emAberto != null) {
-            Predicate predicate = cb.lessThanOrEqualTo(root.get(Licitacao_.DATA_LICITACAO), emAberto);
+            Predicate predicate = cb.lessThanOrEqualTo(root.get(Licitacao_.DATA_PUBLICACAO), emAberto);
             restrictions.add(predicate);
         }
 
@@ -49,10 +50,12 @@ public class LicitacaoJPADAO extends BaseJPADAO<Licitacao> implements LicitacaoD
             Predicate predicate = cb.greaterThanOrEqualTo(root.get(Licitacao_.DATA_LICITACAO), emExecucao);
             restrictions.add(predicate);
         }
-        
+
         cq.where(restrictions.toArray(new Predicate[0]));
 
-        List<Licitacao> result = em.createQuery(cq).getResultList();
+        TypedQuery<Licitacao> query = em.createQuery(cq);
+
+        List<Licitacao> result = query.getResultList();
 
         logger.log(Level.INFO, "Found {0} results", result.size());
         return result;

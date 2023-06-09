@@ -1,5 +1,6 @@
 package br.com.ufes.labes.smartbid.admin.service.impl;
 
+import br.com.ufes.labes.smartbid.admin.domain.Item;
 import br.com.ufes.labes.smartbid.admin.domain.Proposta;
 import br.com.ufes.labes.smartbid.admin.domain.enumerate.CriterioJulgamento;
 import br.com.ufes.labes.smartbid.admin.persistence.PropostaDAO;
@@ -12,7 +13,7 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Stateless
 @PermitAll
@@ -52,7 +53,7 @@ public class PropostaServiceImpl extends CrudServiceImpl<Proposta> implements Pr
                     "proposta.error.valorPropostaMustBeGreaterThanZero");
         }
 
-        final Set<Proposta> propostas = entity.getItem().getPropostas();
+        final List<Proposta> propostas = this.findByItem(entity.getItem());
 
         if (criterio == CriterioJulgamento.MELHOR_PRECO) {
             final BigDecimal ultimaProposta = propostas.stream()
@@ -89,6 +90,11 @@ public class PropostaServiceImpl extends CrudServiceImpl<Proposta> implements Pr
         }
 
         return crudException;
+    }
+
+    @Override
+    public List<Proposta> findByItem(final Item item) {
+        return this.propostaDAO.findByItem(item);
     }
 
     @Override

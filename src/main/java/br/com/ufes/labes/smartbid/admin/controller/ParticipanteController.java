@@ -4,6 +4,7 @@ import br.com.ufes.labes.smartbid.admin.domain.Licitacao;
 import br.com.ufes.labes.smartbid.admin.domain.Participante;
 import br.com.ufes.labes.smartbid.admin.domain.Pessoa;
 import br.com.ufes.labes.smartbid.admin.service.ParticipanteService;
+import br.com.ufes.labes.smartbid.admin.service.PessoaService;
 import br.ufes.inf.labes.jbutler.ejb.application.CrudService;
 import br.ufes.inf.labes.jbutler.ejb.controller.CrudController;
 import jakarta.ejb.EJB;
@@ -16,6 +17,9 @@ import java.time.LocalDateTime;
 public class ParticipanteController extends CrudController<Participante> {
     @EJB
     private ParticipanteService participanteService;
+
+    @EJB
+    private PessoaService pessoaService;
 
     @Override
     protected CrudService<Participante> getCrudService() {
@@ -35,9 +39,7 @@ public class ParticipanteController extends CrudController<Participante> {
     @Override
     public void save() {
 
-        final Pessoa pessoa = new Pessoa();
-        // TODO setar a pessoa atual
-
+        final Pessoa pessoa = this.pessoaService.retrieve(52L);
         this.selectedEntity = new Participante(null, null, LocalDateTime.now(), pessoa, licitacao);
 
         super.save();
