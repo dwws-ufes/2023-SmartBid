@@ -3,6 +3,7 @@ package br.com.ufes.labes.smartbid.admin.controller;
 import br.com.ufes.labes.smartbid.admin.domain.Pessoa;
 import br.com.ufes.labes.smartbid.admin.domain.enumerate.TipoIdentificacao;
 import br.com.ufes.labes.smartbid.admin.service.PessoaService;
+import br.com.ufes.labes.smartbid.admin.validator.ShaEncrypt;
 import br.ufes.inf.labes.jbutler.ejb.application.CrudService;
 import br.ufes.inf.labes.jbutler.ejb.controller.CrudController;
 import jakarta.ejb.EJB;
@@ -22,6 +23,8 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
     @EJB
     private PessoaService pessoaService;
 
+    private String senha;
+
     @Inject
     public RegisterPessoaController() {
         super();
@@ -38,6 +41,18 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
         return TIPOS_DE_IDENTIFICACAO;
     }
 
+    public void setSenha(String senha) {
+
+        String senhaHash = ShaEncrypt.getSHA512(senha);
+
+        selectedEntity.setSenha(senhaHash);
+
+        System.out.println(senhaHash);
+    }
+
+    public String getSenha() {
+        return senha;
+    }
 
     public String getMask() {
         String mask;

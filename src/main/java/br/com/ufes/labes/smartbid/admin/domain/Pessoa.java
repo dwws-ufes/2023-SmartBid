@@ -2,12 +2,15 @@ package br.com.ufes.labes.smartbid.admin.domain;
 
 import br.com.ufes.labes.smartbid.admin.domain.enumerate.TipoIdentificacao;
 import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
+import com.sun.istack.Nullable;
+import jakarta.enterprise.inject.Default;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,8 +31,8 @@ public class Pessoa extends PersistentObjectSupport {
     private String senha;
 
     @Size(max = 255)
-    @NotNull
-    private Set<String> roles = new HashSet<>();
+    @Nullable
+    private String role;
 
     @Size(max = 255)
     @NotNull
@@ -130,12 +133,12 @@ public class Pessoa extends PersistentObjectSupport {
         this.senha = senha;
     }
 
-    public Set<String> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void addRole(String role) {
-        this.roles.add(role);
+    public void setRole(final String role) {
+        this.role = role;
     }
 
     // </editor-fold>

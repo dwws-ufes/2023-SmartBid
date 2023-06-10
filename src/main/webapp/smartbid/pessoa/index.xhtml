@@ -143,6 +143,18 @@
                                     </p:inputMask>
                                 </h:panelGroup>
 
+                                <p:outputLabel for="senhaField1" value="#{msgsPessoa['pessoa.field.senha']}"/>
+                                <h:panelGroup id="senhaGroup1">
+                                    <p:password id="senhaField1" value="#{registerPessoaController.senha}" match="senhaField2" label="Password 1" required="true"/>
+                                    <p:message for="telefoneField"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel for="senhaField2" value="#{msgsPessoa['pessoa.field.repete-senha']}"/>
+                                <h:panelGroup id="senhaGroup2">
+                                    <p:password id="senhaField2" label="Password 2" required="true"/>
+                                </h:panelGroup>
+
+
                                 <p:outputLabel for="telefoneField" value="#{msgsPessoa['pessoa.field.telefone']}"/>
                                 <h:panelGroup id="telefoneGroup">
                                     <p:inputText id="telefoneField"
