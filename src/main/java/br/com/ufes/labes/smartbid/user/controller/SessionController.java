@@ -1,6 +1,7 @@
 package br.com.ufes.labes.smartbid.user.controller;
 
 import br.com.ufes.labes.smartbid.admin.domain.Pessoa;
+import br.com.ufes.labes.smartbid.admin.validator.ShaEncrypt;
 import br.com.ufes.labes.smartbid.user.application.LoginBean;
 import br.com.ufes.labes.smartbid.user.exceptions.LoginFailedException;
 import br.ufes.inf.labes.jbutler.ejb.controller.JSFController;
@@ -27,11 +28,10 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@FacesConfig
+
 @Named
 @SessionScoped
 @Specializes
-@PermitAll
 public class SessionController extends AdminSession {
     private static final Logger logger = Logger.getLogger(SessionController.class.getCanonicalName());
 
@@ -73,9 +73,11 @@ public class SessionController extends AdminSession {
             HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
             HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
             Credential credential = new UsernamePasswordCredential(identification, new Password(password));
+            System.out.println("Credencial: " + credential);
             AuthenticationStatus status = securityContext.authenticate(request, response,
                     AuthenticationParameters.withParams().credential(credential));
-
+            System.out.println("Credencial: " + credential.isValid());
+            logger.log(Level.FINEST, "Status aqui: \"{0}\"...", status);
             // Verifies if Jakarta Security also authenticated.
             if (status == null || AuthenticationStatus.SEND_FAILURE.equals(status)) {
                 throw new LoginFailedException(LoginFailedException.LoginFailedReason.CONTAINER_REJECTED);
@@ -93,8 +95,8 @@ public class SessionController extends AdminSession {
                     // Normal login exception (invalid usernaem or password). Report the error to the user.
                     logger.log(Level.INFO, "Login failed for \"{0}\". Reason: \"{1}\"",
                             new Object[] { identification, e.getReason() });
-                    new MyJSFController().addMessage("msgsCore", FacesMessage.SEVERITY_ERROR,
-                            "login.error.nomatch.summary", "login.error.nomatch.detail");
+//                    new MyJSFController().addMessage("msgsCore", FacesMessage.SEVERITY_ERROR,
+//                            "login.error.nomatch.summary", "login.error.nomatch.detail");
                     return null;
 
                 default:
@@ -103,9 +105,9 @@ public class SessionController extends AdminSession {
                     logger.log(Level.INFO,
                             "System failure during login. Email: \"" + identification + "\"; reason: \"" + e.getReason()
                                     + "\"", e);
-                    new MyJSFController().addMessage("msgsCore", FacesMessage.SEVERITY_FATAL,
-                            "login.error.fatal.summary", new Object[0], "login.error.fatal.detail",
-                            new Object[] { LocalDateTime.now() });
+//                    new MyJSFController().addMessage("msgsCore", FacesMessage.SEVERITY_FATAL,
+//                            "login.error.fatal.summary", new Object[0], "login.error.fatal.detail",
+//                            new Object[] { LocalDateTime.now() });
                     return null;
             }
         }
@@ -114,6 +116,13 @@ public class SessionController extends AdminSession {
         currentUser = loginMB.getCurrentUser();
         return "/index.xhtml?faces-redirect=true";
     }
+
+    @Override
+    public boolean isLoggedIn() {
+        return currentUser != null;
+    }
+
+
 
     /**
      * Indicates if the user is an administrator.

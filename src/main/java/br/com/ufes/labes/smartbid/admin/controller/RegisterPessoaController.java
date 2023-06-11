@@ -1,5 +1,6 @@
 package br.com.ufes.labes.smartbid.admin.controller;
 
+import br.com.ufes.labes.smartbid.admin.application.RegisterPessoaBean;
 import br.com.ufes.labes.smartbid.admin.domain.Pessoa;
 import br.com.ufes.labes.smartbid.admin.domain.enumerate.TipoIdentificacao;
 import br.com.ufes.labes.smartbid.admin.service.PessoaService;
@@ -23,6 +24,10 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
     @EJB
     private PessoaService pessoaService;
 
+    @EJB
+    private RegisterPessoaBean registerPessoaBean;
+
+
     private String senha;
 
     @Inject
@@ -43,7 +48,7 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
 
     public void setSenha(String senha) {
 
-        String senhaHash = ShaEncrypt.getSHA512(senha);
+        String senhaHash = registerPessoaBean.generateHash(senha);
 
         selectedEntity.setSenha(senhaHash);
 
@@ -83,7 +88,6 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
 
     @Override
     public void save() {
-        this.selectedEntity.setSenha("123456");
         super.save();
     }
 

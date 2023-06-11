@@ -13,12 +13,14 @@ import jakarta.ejb.SessionContext;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
+
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
 @PermitAll
-public class LoginBean {
+public class LoginBean implements Serializable {
     /** Logger for this class. */
     private static final Logger logger = Logger.getLogger(LoginBean.class.getCanonicalName());
 
