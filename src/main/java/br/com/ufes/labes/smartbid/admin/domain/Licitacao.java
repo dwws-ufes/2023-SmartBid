@@ -6,8 +6,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +14,7 @@ import java.util.Set;
 @Entity
 public class Licitacao extends PersistentObjectSupport {
     @NotNull
+    @FutureOrPresent
     private LocalDate dataLicitacao;
 
     @NotNull
@@ -25,6 +25,7 @@ public class Licitacao extends PersistentObjectSupport {
     private String objeto;
 
     @NotNull
+    @Past
     private LocalDate dataPublicacao;
 
     @OneToMany(mappedBy = "licitacao", orphanRemoval = true)

@@ -80,6 +80,7 @@
 
             </p:outputPanel>
         </p:outputPanel>
+        
 
         <f:facet name="footer">
             <p:commandButton value="#{msgs['jbutler.crud.button.save']}" icon="pi pi-check"
@@ -90,6 +91,8 @@
             />
             <p:commandButton value="#{msgs['jbutler.crud.button.cancel']}" icon="pi pi-times"
                              onclick="PF('listingPanel').show(); PF('formPanel').close()"/>
+
+                             <p:commandButton value="Warn" action="if(args.validationFailed)" styleClass="mr-2 ui-button-warning" />
         </f:facet>
 
     </p:panel>
