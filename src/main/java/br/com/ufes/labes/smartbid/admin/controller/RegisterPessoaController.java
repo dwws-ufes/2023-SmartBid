@@ -19,7 +19,6 @@ import java.util.Objects;
 public class RegisterPessoaController extends CrudController<Pessoa> {
     public static final SelectItemGroup TIPOS_DE_IDENTIFICACAO = new SelectItemGroup("Tipo de Identificação");
 
-
     @EJB
     private PessoaService pessoaService;
 
@@ -83,8 +82,13 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
 
     @Override
     public void save() {
-        this.selectedEntity.setSenha("123456");
+        // TODO Generate senha
         super.save();
+    }
+
+    public boolean canSave() {
+        // TODO get the logged user
+        return true;
     }
 
 }

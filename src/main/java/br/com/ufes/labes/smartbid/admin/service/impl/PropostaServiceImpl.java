@@ -1,13 +1,13 @@
 package br.com.ufes.labes.smartbid.admin.service.impl;
 
 import br.com.ufes.labes.smartbid.admin.domain.Item;
+import br.com.ufes.labes.smartbid.admin.domain.Pessoa;
 import br.com.ufes.labes.smartbid.admin.domain.Proposta;
 import br.com.ufes.labes.smartbid.admin.domain.enumerate.CriterioJulgamento;
 import br.com.ufes.labes.smartbid.admin.persistence.PropostaDAO;
 import br.com.ufes.labes.smartbid.admin.service.PropostaService;
 import br.ufes.inf.labes.jbutler.ejb.application.CrudServiceImpl;
 import br.ufes.inf.labes.jbutler.ejb.application.validation.CrudException;
-import br.ufes.inf.labes.jbutler.ejb.persistence.BaseDAO;
 import jakarta.annotation.security.PermitAll;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
@@ -22,7 +22,7 @@ public class PropostaServiceImpl extends CrudServiceImpl<Proposta> implements Pr
     private PropostaDAO propostaDAO;
 
     @Override
-    public BaseDAO<Proposta> getDAO() {
+    public PropostaDAO getDAO() {
         return this.propostaDAO;
     }
 
@@ -55,6 +55,30 @@ public class PropostaServiceImpl extends CrudServiceImpl<Proposta> implements Pr
 
         final List<Proposta> propostas = this.findByItem(entity.getItem());
 
+        crudException = getCrudValidationErrorsUltimaProposta(entity, exceptionMessage, crudException, criterio,
+                valorProposta, propostas);
+        return crudException;
+    }
+
+    private CrudException validatePeriod(final String exceptionMessage, final Proposta entity,
+            CrudException crudException) {
+
+        if (!entity.getItem().getLicitacao().getDataLicitacao().equals(LocalDate.now())) {
+            crudException = addGlobalValidationError(crudException, exceptionMessage,
+                    "proposta.error.dataPropostaMustBeDataLicitacao");
+        }
+
+        return crudException;
+    }
+
+    @Override
+    public List<Proposta> findByItem(final Item item) {
+        return this.getDAO().findByItem(item);
+    }
+
+    private CrudException getCrudValidationErrorsUltimaProposta(final Proposta entity, final String exceptionMessage,
+            CrudException crudException, final CriterioJulgamento criterio, final BigDecimal valorProposta,
+            final List<Proposta> propostas) {
         if (criterio == CriterioJulgamento.MELHOR_PRECO) {
             final BigDecimal ultimaProposta = propostas.stream()
                     .map(Proposta::getValor)
@@ -81,20 +105,32 @@ public class PropostaServiceImpl extends CrudServiceImpl<Proposta> implements Pr
         return crudException;
     }
 
-    private CrudException validatePeriod(final String exceptionMessage, final Proposta entity,
-            CrudException crudException) {
+    @Override
+    public BigDecimal getUltimaProposta(final CriterioJulgamento criterio, final List<Proposta> propostas,
+            final Item item) {
 
-        if (!entity.getItem().getLicitacao().getDataLicitacao().equals(LocalDate.now())) {
-            crudException = addGlobalValidationError(crudException, exceptionMessage,
-                    "proposta.error.dataPropostaMustBeDataLicitacao");
+        if (criterio == CriterioJulgamento.MELHOR_PRECO) {
+            return propostas.stream()
+                    .map(Proposta::getValor)
+                    .max(BigDecimal::compareTo)
+                    .orElse(item.getValorMedioMercado());
+
+        } else if (criterio == CriterioJulgamento.MELHOR_TECNICA
+                || criterio == CriterioJulgamento.MELHOR_TECNICA_PRECO) {
+            return propostas.stream()
+                    .map(Proposta::getValor)
+                    .min(BigDecimal::compareTo)
+                    .orElse(item.getValorMedioMercado());
+
         }
 
-        return crudException;
+        return BigDecimal.ZERO;
     }
 
     @Override
-    public List<Proposta> findByItem(final Item item) {
-        return this.propostaDAO.findByItem(item);
+    public boolean canBid(final Pessoa pessoa, final Item item) {
+        // TODO implement bidding rules
+        return true;
     }
 
     @Override

@@ -24,6 +24,7 @@
                 <div style="float: right; margin-top: -40px;">
                     <p:commandButton value="#{msgs['jbutler.crud.button.create']}" icon="pi pi-plus"
                                      actionListener="#{propostaController.openNew}"
+                                     rendered="#{propostaController.canBid()}"
                                      oncomplete="PF('propostaDialog').show()"
                                      update=":form:propostaDialog :form:listingPanel :form:listingItemPanel :form:listingPropostaPanel"
                                      style="margin-right: .5rem">
@@ -84,6 +85,7 @@
 
         <p:commandButton value="#{msgs['jbutler.crud.button.yes']}" icon="pi pi-check"
                          actionListener="#{propostaController.save}" process="@this"
+                         rendered="#{propostaController.canBid()}"
                          update=":form:propostaDialog :form:listingPanel :form:listingItemPanel :form:listingPropostaPanel"
                          oncomplete="PF('propostaDialog').hide()"/>
         <p:commandButton value="#{msgs['jbutler.crud.button.no']}" type="button" icon="pi pi-times"
