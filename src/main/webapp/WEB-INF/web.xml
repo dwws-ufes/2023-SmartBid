@@ -41,16 +41,16 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 
-	<!-- Datasource configuration. -->
-	<data-source>
-        <name>java:app/datasources/smartbid</name>
-        <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-        <server-name>localhost</server-name>
-        <port-number>3306</port-number>
-        <database-name>smartbid</database-name>
-        <user>smartbid</user>
-        <password><![CDATA[smartbid]]></password>
-    </data-source>
+<!--	&lt;!&ndash; Datasource configuration. &ndash;&gt;-->
+<!--	<data-source>-->
+<!--        <name>java:jboss/datasources/smartbid</name>-->
+<!--        <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>-->
+<!--        <server-name>localhost</server-name>-->
+<!--        <port-number>3306</port-number>-->
+<!--        <database-name>smartbid</database-name>-->
+<!--        <user>smartbid</user>-->
+<!--        <password><![CDATA[smartbid]]></password>-->
+<!--    </data-source>-->
 
 	<security-constraint>
 		<web-resource-collection>

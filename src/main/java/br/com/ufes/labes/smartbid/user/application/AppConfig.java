@@ -8,7 +8,7 @@ import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition
 
 @CustomFormAuthenticationMechanismDefinition(loginToContinue = @LoginToContinue(
         loginPage = "/login.xhtml", useForwardToLogin = false, errorPage = ""))
-@DatabaseIdentityStoreDefinition(dataSourceLookup = "java:app/datasources/smartbid",
+@DatabaseIdentityStoreDefinition(dataSourceLookup = "java:jboss/datasources/smartbid",
         callerQuery = "select senha from Pessoa p where identificacao = ?",
         groupsQuery = "select role from Pessoa p where identificacao = ?")
 @FacesConfig
