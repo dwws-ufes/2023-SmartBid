@@ -31,18 +31,6 @@ services:
     volumes:
       - db_data:/var/lib/mysql/
 
-  web-server:
-    container_name: "wildfly-marvin2"
-    image: teste-wild
-    environment:
-      - WILDFLY_USER=admin
-      - WILDFLY_PASS=DLeY&S5uw6Z2VU!@
-    ports:
-      - "8082:8080"
-      - "9992:9990"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
   adminer:
     image: adminer
     container_name: adminer

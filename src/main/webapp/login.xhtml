@@ -9,26 +9,26 @@
 
     <ui:define name="body">
         <h:form>
-            <p class="login-box-msg"><h:outputText value="aa"/></p>
+            <p class="login-box-msg"><h:outputText value="#{msgsLogin['login.title']}"/></p>
             <p:messages closable="true"/>
             <p:focus/>
 
             <div class="form-group has-feedback">
                 <p:inputText value="#{sessionController.identification}" type="text" styleClass="form-control"
-                             placeholder="login" required="true"
-                             requiredMessage="requer login}"/>
+                             placeholder="#{msgsLogin['login.field.username']}" required="true"
+                             requiredMessage="#{msgsLogin['login.field.username.required']}"/>
                 <i class="fa fa-envelope form-control-feedback"></i>
             </div>
             <div class="form-group has-feedback">
                 <p:inputText value="#{sessionController.password}" type="password" styleClass="form-control"
-                             placeholder="senha" required="true"
-                             requiredMessage="requer senha"/>
+                             placeholder="#{msgsLogin['login.field.password']}" required="true"
+                             requiredMessage="#{msgsLogin['login.field.password.required']}"/>
                 <i class="fa fa-lock form-control-feedback" style="font-size: 18px"></i>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <p:commandButton id="loginButton" styleClass="btn btn-success btn-block"
-                                     value="submit" action="#{sessionController.login}"
+                                     value="#{msgsLogin['login.field.submit']}" action="#{sessionController.login}"
                                      update="@form"/>
                 </div>
             </div>

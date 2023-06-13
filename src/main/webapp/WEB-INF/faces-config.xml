@@ -37,5 +37,10 @@
             <base-name>br.com.ufes.labes.smartbid.admin.proposta.messages</base-name>
             <var>msgsProposta</var>
         </resource-bundle>
+
+        <resource-bundle>
+            <base-name>br.com.ufes.labes.smartbid.admin.login.messages</base-name>
+            <var>msgsLogin</var>
+        </resource-bundle>
     </application>
 </faces-config>

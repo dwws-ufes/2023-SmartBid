@@ -2,10 +2,32 @@
 Assignment for the 2023 edition of the "Web Development and the Semantic Web" course, by Abraão Jesus dos Santos, Delma Assis dos Santos Barboza and Igor Sunderhus e Silva.
 O SmartBid é uma aplicação tem como objetivo o cadastro e execução de licitações na modalidade de pregão eletrônico. Tendo a competência de cadastrar pregões eletrônicos, executar as propostas e obter os vencedores.
 
-## Instalação
+## O que é necessário para executar o projeto:
 
-## Configuração Intellij
+- Docker
+- Docker-compose
 
+Nota: Se você estiver usando ubuntu, pode instalar o docker e o docker-compose com os seguintes comandos:
+
+```sudo apt install docker.io```
+
+```sudo apt install docker-compose```
+
+## Como executar o projeto
+
+### Passo 1: Clone o repositório
+
+```git clone https://github.com/dwws-ufes/2023-SmartBid.git```
+
+### Passo 2: Execute o docker-compose do projeto na pasta raiz
+
+```docker-compose up -d```
+
+### Passo 3: Acesse a aplicação pelo navegador
+
+```http://localhost:8080/SmartBid-1.0-SNAPSHOT/index.xhtml```
+
+## EXTRA: Configuração do JBoss no IntelliJ (para devs)
 
 ### Passo 1: Current File -> Edit Configurations
 
