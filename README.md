@@ -27,31 +27,31 @@ Nota: Se você estiver usando ubuntu, pode instalar o docker e o docker-compose 
 
 ```http://localhost:8080/SmartBid-1.0-SNAPSHOT/index.xhtml```
 
-## EXTRA: Configuração do JBoss no IntelliJ (para devs)
+### EXTRA: Configuração do JBoss no IntelliJ (para devs)
 
-### Passo 1: Current File -> Edit Configurations
+#### Passo 1: Current File -> Edit Configurations
 
 ![Passo 1](pics/passo1.png)
 
-### Passo 2: + -> JBoss Server -> Remote
+#### Passo 2: + -> JBoss Server -> Remote
 
 ![Passo 2](pics/passo2.png)
 
-### Passo 3: Server Configs
+#### Passo 3: Server Configs
 
 ![Server-Configs](pics/server-config.png)
 
-### Passo 4: Deployment Configs
+#### Passo 4: Deployment Configs
 
 Nota: Deployment method tem que estar como **'Native'**!!
 
 ![What is this](pics/deployment-config.png)
 
-### Passo 5: Before Launch Configs
+#### Passo 5: Before Launch Configs
 
 ![What is this](pics/before-launch-config.png)
 
-### Passo 6: Em Services (Alt + 8) clique com o botão direito no Jboss 'container' e adicione o SmartBid:war como Artifact
+#### Passo 6: Em Services (Alt + 8) clique com o botão direito no Jboss 'container' e adicione o SmartBid:war como Artifact
 
 ![What is this](pics/artifacts.png)
 
