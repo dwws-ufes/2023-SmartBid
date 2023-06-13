@@ -1,16 +1,18 @@
 package br.com.ufes.labes.smartbid.admin.service.impl;
 
+import br.com.ufes.labes.smartbid.admin.domain.Licitacao;
 import br.com.ufes.labes.smartbid.admin.domain.Participante;
+import br.com.ufes.labes.smartbid.admin.domain.Pessoa;
 import br.com.ufes.labes.smartbid.admin.persistence.ParticipanteDAO;
 import br.com.ufes.labes.smartbid.admin.service.ParticipanteService;
 import br.ufes.inf.labes.jbutler.ejb.application.CrudServiceImpl;
 import br.ufes.inf.labes.jbutler.ejb.application.validation.CrudException;
-import br.ufes.inf.labes.jbutler.ejb.persistence.BaseDAO;
 import br.ufes.inf.labes.jbutler.ejb.persistence.FilterCriterion;
 import jakarta.annotation.security.PermitAll;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Stateless
 @PermitAll
@@ -19,11 +21,6 @@ public class ParticipanteServiceImpl extends CrudServiceImpl<Participante> imple
 
     @EJB
     private ParticipanteDAO participanteDAO;
-
-    @Override
-    public BaseDAO<Participante> getDAO() {
-        return this.participanteDAO;
-    }
 
     @Override
     public void validateCreate(final Participante entity) throws CrudException {
@@ -78,5 +75,16 @@ public class ParticipanteServiceImpl extends CrudServiceImpl<Participante> imple
             throw addGlobalValidationError(null, EXCEPTION_MESSAGE, "participante.error.hasPropostas");
         }
 
+    }
+
+    public Optional<Participante> getByPessoaLicitacao(final Pessoa pessoa, final Licitacao licitacao) {
+
+        return this.getDAO().getByPessoaAndLicitacao(pessoa, licitacao);
+
+    }
+
+    @Override
+    public ParticipanteDAO getDAO() {
+        return this.participanteDAO;
     }
 }

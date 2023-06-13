@@ -1,11 +1,14 @@
 package br.com.ufes.labes.smartbid.admin.service.impl;
 
 import br.com.ufes.labes.smartbid.admin.domain.Licitacao;
+import br.com.ufes.labes.smartbid.admin.domain.Participante_;
+import br.com.ufes.labes.smartbid.admin.domain.Pessoa;
 import br.com.ufes.labes.smartbid.admin.persistence.LicitacaoDAO;
 import br.com.ufes.labes.smartbid.admin.service.LicitacaoService;
+import br.com.ufes.labes.smartbid.admin.service.ParticipanteService;
 import br.ufes.inf.labes.jbutler.ejb.application.CrudServiceImpl;
 import br.ufes.inf.labes.jbutler.ejb.application.validation.CrudException;
-import br.ufes.inf.labes.jbutler.ejb.persistence.BaseDAO;
+import br.ufes.inf.labes.jbutler.ejb.persistence.FilterCriterion;
 import jakarta.annotation.security.PermitAll;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
@@ -18,14 +21,31 @@ public class LicitacaoServiceImpl extends CrudServiceImpl<Licitacao> implements 
     @EJB
     private LicitacaoDAO licitacaoDAO;
 
+    @EJB
+    private ParticipanteService participanteService;
+
     @Override
-    public BaseDAO<Licitacao> getDAO() {
+    public List<Licitacao> filterLicitacao(final LocalDate emAberto, final LocalDate emExecucao) {
+        return this.getDAO().filterLicitacao(emAberto, emExecucao);
+    }
+
+    @Override
+    public LicitacaoDAO getDAO() {
         return this.licitacaoDAO;
     }
 
     @Override
-    public List<Licitacao> filterLicitacao(final LocalDate emAberto, final LocalDate emExecucao) {
-        return this.licitacaoDAO.filterLicitacao(emAberto, emExecucao);
+    public boolean canRegisterAsParticipante(final Pessoa pessoa, final Licitacao entity) {
+        LocalDate dataPublicacao = entity.getDataPublicacao();
+        LocalDate dataLicitacao = entity.getDataLicitacao();
+        LocalDate now = LocalDate.now();
+
+        final FilterCriterion[] filterCriteria = new FilterCriterion[2];
+        filterCriteria[0] = new FilterCriterion(Participante_.PESSOA, pessoa);
+        filterCriteria[1] = new FilterCriterion(Participante_.LICITACAO, entity);
+        return dataPublicacao.isBefore(now) && dataLicitacao.isAfter(now)
+                && this.participanteService.count(filterCriteria) == 0;
+
     }
 
     @Override
@@ -94,4 +114,5 @@ public class LicitacaoServiceImpl extends CrudServiceImpl<Licitacao> implements 
             throw addFieldValidationError(null, exceptionMessage, "itens", "licitacao.itens.error.itensNotEmpty");
         }
     }
+
 }

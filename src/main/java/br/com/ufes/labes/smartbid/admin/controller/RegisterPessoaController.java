@@ -88,7 +88,13 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
 
     @Override
     public void save() {
+        // TODO Generate senha
         super.save();
+    }
+
+    public boolean canSave() {
+        // TODO get the logged user
+        return true;
     }
 
 }

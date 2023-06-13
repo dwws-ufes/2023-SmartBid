@@ -56,6 +56,7 @@
                 </p:commandButton>
                 <p:commandButton value="#{msgsParticipante['participante.register']}" icon="pi pi-plus"
                                  process="@this"
+                                 rendered="#{pregaoController.canRegisterAsParticipante(entity)}}"
                                  oncomplete="PF('registerAsParticipanteDialog').show()">
                     <f:setPropertyActionListener value="#{entity}"
                                                  target="#{participanteController.licitacao}"/>
