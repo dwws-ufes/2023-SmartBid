@@ -21,6 +21,8 @@ ENV DEPLOYMENT_DIR $JBOSS_HOME/standalone/deployments/
 RUN echo "=> Adding WildFly administrator"
 RUN $JBOSS_HOME/bin/add-user.sh -u $WILDFLY_USER -p $WILDFLY_PASS --silent
 
+ADD standalone.conf $JBOSS_HOME/bin/standalone.conf
+
 # Configure Wildfly server
 RUN echo "=> Starting WildFly server" && \
       bash -c '$JBOSS_HOME/bin/standalone.sh &' && \
@@ -50,6 +52,7 @@ RUN echo "=> Starting WildFly server" && \
       rm -rf $JBOSS_HOME/standalone/configuration/standalone_xml_history/ $JBOSS_HOME/standalone/log/* && \
       rm -f /tmp/*.jar
 
+EXPOSE 8787
 # Copy the Web application to the server.
 RUN echo "=> Deploying the application..."
 ADD target/SmartBid-1.0-SNAPSHOT.war $DEPLOYMENT_DIR

@@ -15,6 +15,7 @@ services:
     ports:
       - "8080:8080" # application
       - "9990:9990" # admin console
+      - "8787:8787" # debug port
     extra_hosts:
       - "host.docker.internal:host-gateway"
   db:
