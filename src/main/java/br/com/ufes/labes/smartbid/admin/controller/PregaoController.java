@@ -9,16 +9,19 @@ import br.ufes.inf.labes.jbutler.ejb.controller.ListingController;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.MultiplePersistentObjectsFoundException;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.PersistentObjectNotFoundException;
 import jakarta.ejb.EJB;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
 @Named
 @ViewScoped
 public class PregaoController extends ListingController<Licitacao> {
-    private final Pessoa pessoa;
+    private Pessoa pessoa;
 
     @EJB
     private LicitacaoService licitacaoService;
@@ -30,11 +33,18 @@ public class PregaoController extends ListingController<Licitacao> {
     public PregaoController() {
 
         super();
-        try {
-            // TODO get the logged user
-            pessoa = this.pessoaService.retrieveByLogin("admin");
-        } catch (PersistentObjectNotFoundException | MultiplePersistentObjectsFoundException e) {
-            throw new RuntimeException(e);
+        final HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequest();
+        final Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            final String username = principal.getName();
+
+            try {
+                pessoa = this.pessoaService.retrieveByLogin(username);
+            } catch (PersistentObjectNotFoundException | MultiplePersistentObjectsFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

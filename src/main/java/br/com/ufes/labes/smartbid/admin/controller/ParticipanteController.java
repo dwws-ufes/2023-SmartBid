@@ -10,14 +10,17 @@ import br.ufes.inf.labes.jbutler.ejb.controller.CrudController;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.MultiplePersistentObjectsFoundException;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.PersistentObjectNotFoundException;
 import jakarta.ejb.EJB;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.time.LocalDateTime;
 
 @Named
 @ViewScoped
 public class ParticipanteController extends CrudController<Participante> {
-    private final Pessoa pessoa;
+    private Pessoa pessoa;
 
     @EJB
     private ParticipanteService participanteService;
@@ -30,11 +33,18 @@ public class ParticipanteController extends CrudController<Participante> {
     public ParticipanteController() {
 
         super();
-        try {
-            // TODO get the logged user
-            pessoa = this.pessoaService.retrieveByLogin("admin");
-        } catch (PersistentObjectNotFoundException | MultiplePersistentObjectsFoundException e) {
-            throw new RuntimeException(e);
+        final HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequest();
+        final Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            final String username = principal.getName();
+
+            try {
+                pessoa = this.pessoaService.retrieveByLogin(username);
+            } catch (PersistentObjectNotFoundException | MultiplePersistentObjectsFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -57,7 +67,6 @@ public class ParticipanteController extends CrudController<Participante> {
     public void setLicitacao(Licitacao licitacao) {
         this.licitacao = licitacao;
     }
-
 
     @Override
     public String getBundleName() {

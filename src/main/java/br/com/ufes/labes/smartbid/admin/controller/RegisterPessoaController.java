@@ -4,15 +4,19 @@ import br.com.ufes.labes.smartbid.admin.application.RegisterPessoaBean;
 import br.com.ufes.labes.smartbid.admin.domain.Pessoa;
 import br.com.ufes.labes.smartbid.admin.domain.enumerate.TipoIdentificacao;
 import br.com.ufes.labes.smartbid.admin.service.PessoaService;
-import br.com.ufes.labes.smartbid.admin.validator.ShaEncrypt;
 import br.ufes.inf.labes.jbutler.ejb.application.CrudService;
 import br.ufes.inf.labes.jbutler.ejb.controller.CrudController;
+import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.MultiplePersistentObjectsFoundException;
+import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.PersistentObjectNotFoundException;
 import jakarta.ejb.EJB;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
 import jakarta.faces.model.SelectItemGroup;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Objects;
 
 @Named
@@ -20,13 +24,13 @@ import java.util.Objects;
 public class RegisterPessoaController extends CrudController<Pessoa> {
     public static final SelectItemGroup TIPOS_DE_IDENTIFICACAO = new SelectItemGroup("Tipo de Identificação");
 
-
     @EJB
     private PessoaService pessoaService;
 
     @EJB
     private RegisterPessoaBean registerPessoaBean;
 
+    private boolean canSave;
 
     private String senha;
 
@@ -35,6 +39,21 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
         super();
         TIPOS_DE_IDENTIFICACAO.setSelectItems(new SelectItem[] { new SelectItem(TipoIdentificacao.FISICA, "Física"),
                 new SelectItem(TipoIdentificacao.JURIDICA, "Jurídica") });
+        final HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequest();
+        final Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            final String username = principal.getName();
+
+            try {
+                final Pessoa pessoa = this.pessoaService.retrieveByLogin(username);
+                this.canSave = pessoa.getRole().contains("ADMIN");
+            } catch (PersistentObjectNotFoundException | MultiplePersistentObjectsFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
     }
 
     @Override
@@ -42,8 +61,18 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
         return this.pessoaService;
     }
 
+    @Override
+    public void save() {
+        // TODO Generate senha
+        super.save();
+    }
+
     public SelectItemGroup getTiposIdentificacao() {
         return TIPOS_DE_IDENTIFICACAO;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public void setSenha(String senha) {
@@ -55,13 +84,8 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
         System.out.println(senhaHash);
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
     public String getMask() {
         String mask;
-
 
         if (selectedEntity == null || selectedEntity.getTipoIdentificacao() == null) {
             mask = "999999999999999";
@@ -86,15 +110,8 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
         return "pessoa";
     }
 
-    @Override
-    public void save() {
-        // TODO Generate senha
-        super.save();
-    }
-
     public boolean canSave() {
-        // TODO get the logged user
-        return true;
+        return canSave;
     }
 
 }

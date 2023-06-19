@@ -13,10 +13,13 @@ import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.MultiplePersistentOb
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.PersistentObjectNotFoundException;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Schedule;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.primefaces.PrimeFaces;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +27,7 @@ import java.util.List;
 @Named
 @ViewScoped
 public class PropostaController extends CrudController<Proposta> {
-    private final Pessoa pessoa;
+    private Pessoa pessoa;
 
     @EJB
     private PropostaService propostaService;
@@ -40,11 +43,18 @@ public class PropostaController extends CrudController<Proposta> {
     public PropostaController() {
 
         super();
-        try {
-            // TODO get the logged user
-            pessoa = this.pessoaService.retrieveByLogin("admin");
-        } catch (PersistentObjectNotFoundException | MultiplePersistentObjectsFoundException e) {
-            throw new RuntimeException(e);
+        final HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getRequest();
+        final Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            final String username = principal.getName();
+
+            try {
+                pessoa = this.pessoaService.retrieveByLogin(username);
+            } catch (PersistentObjectNotFoundException | MultiplePersistentObjectsFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
