@@ -11,6 +11,7 @@ import br.ufes.inf.labes.jbutler.ejb.application.CrudService;
 import br.ufes.inf.labes.jbutler.ejb.controller.CrudController;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.MultiplePersistentObjectsFoundException;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.PersistentObjectNotFoundException;
+import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Schedule;
 import jakarta.faces.context.FacesContext;
@@ -40,9 +41,8 @@ public class PropostaController extends CrudController<Proposta> {
 
     private Item item;
 
-    public PropostaController() {
-
-        super();
+    @PostConstruct
+    public void init(){
         final HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext()
                 .getRequest();
@@ -56,6 +56,11 @@ public class PropostaController extends CrudController<Proposta> {
                 throw new RuntimeException(e);
             }
         }
+    }
+    public PropostaController() {
+
+        super();
+
     }
 
     @Override

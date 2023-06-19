@@ -8,6 +8,7 @@ import br.ufes.inf.labes.jbutler.ejb.application.CrudService;
 import br.ufes.inf.labes.jbutler.ejb.controller.CrudController;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.MultiplePersistentObjectsFoundException;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.PersistentObjectNotFoundException;
+import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
@@ -34,11 +35,17 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
 
     private String senha;
 
-    @Inject
+
     public RegisterPessoaController() {
         super();
         TIPOS_DE_IDENTIFICACAO.setSelectItems(new SelectItem[] { new SelectItem(TipoIdentificacao.FISICA, "Física"),
                 new SelectItem(TipoIdentificacao.JURIDICA, "Jurídica") });
+
+
+    }
+
+    @PostConstruct
+    public void init(){
         final HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext()
                 .getRequest();
@@ -53,13 +60,17 @@ public class RegisterPessoaController extends CrudController<Pessoa> {
                 throw new RuntimeException(e);
             }
         }
-
     }
+
+
+
 
     @Override
     protected CrudService<Pessoa> getCrudService() {
         return this.pessoaService;
     }
+
+
 
     @Override
     public void save() {

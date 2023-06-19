@@ -8,6 +8,7 @@ import br.ufes.inf.labes.jbutler.ejb.application.ListingService;
 import br.ufes.inf.labes.jbutler.ejb.controller.ListingController;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.MultiplePersistentObjectsFoundException;
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.PersistentObjectNotFoundException;
+import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
@@ -29,16 +30,23 @@ public class PregaoController extends ListingController<Licitacao> {
     @EJB
     private PessoaService pessoaService;
 
-    @Inject
+
     public PregaoController() {
 
         super();
+
+    }
+    @PostConstruct
+    public void init() {
+        System.out.println("username:");
         final HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext()
                 .getRequest();
         final Principal principal = request.getUserPrincipal();
+
         if (principal != null) {
             final String username = principal.getName();
+            System.out.println("username: " + username);
 
             try {
                 pessoa = this.pessoaService.retrieveByLogin(username);
