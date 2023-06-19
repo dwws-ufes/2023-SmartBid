@@ -4,9 +4,9 @@ O SmartBid é uma aplicação tem como objetivo o cadastro e execução de licit
 
 ## O que é necessário para executar o projeto:
 
-- JDK 17+
-- Maven 3.8.8
-- Docker 20.10.21
+- [JDK 17+](https://www.oracle.com/br/java/technologies/downloads/#java17)
+- [Maven 3.8.8](https://maven.apache.org/download.cgi)
+- [Docker 20.10.21](https://docs.docker.com/get-docker/)
 - Docker-compose 1.25.0
 
 
