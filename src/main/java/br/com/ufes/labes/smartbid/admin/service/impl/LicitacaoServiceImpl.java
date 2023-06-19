@@ -43,7 +43,7 @@ public class LicitacaoServiceImpl extends CrudServiceImpl<Licitacao> implements 
         final FilterCriterion[] filterCriteria = new FilterCriterion[2];
         filterCriteria[0] = new FilterCriterion(Participante_.PESSOA, pessoa);
         filterCriteria[1] = new FilterCriterion(Participante_.LICITACAO, entity);
-        return dataPublicacao.isBefore(now) && dataLicitacao.isAfter(now)
+        return !dataPublicacao.isAfter(now) && dataLicitacao.isAfter(now)
                 && this.participanteService.count(filterCriteria) == 0;
 
     }

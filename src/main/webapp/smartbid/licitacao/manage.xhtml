@@ -84,14 +84,13 @@
         <f:facet name="footer">
             <p:commandButton value="#{msgs['jbutler.crud.button.save']}" icon="pi pi-check"
                              actionListener="#{registerLicitacaoController.save}"
-                             update="manage-entity-content dt-entities"
+                             update="manage-entity-content :form:dt-entities"
                              process="manage-entity-content @this"
                              oncomplete="if(!args.validationFailed) { PF('listingPanel').show(); PF('formPanel').close();}"
             />
             <p:commandButton value="#{msgs['jbutler.crud.button.cancel']}" icon="pi pi-times"
                              onclick="PF('listingPanel').show(); PF('formPanel').close()"/>
 
-                             <p:commandButton value="Warn" action="if(args.validationFailed)" styleClass="mr-2 ui-button-warning" />
         </f:facet>
 
     </p:panel>

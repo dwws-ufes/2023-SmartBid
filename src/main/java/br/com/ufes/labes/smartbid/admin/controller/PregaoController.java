@@ -18,10 +18,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Named
 @ViewScoped
 public class PregaoController extends ListingController<Licitacao> {
+
+    private static final Logger logger = Logger.getLogger(PregaoController.class.getName());
+
     private Pessoa pessoa;
 
     @EJB
@@ -38,7 +42,8 @@ public class PregaoController extends ListingController<Licitacao> {
     }
     @PostConstruct
     public void init() {
-        System.out.println("username:");
+        logger.info("username:");
+
         final HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext()
                 .getRequest();
@@ -46,7 +51,7 @@ public class PregaoController extends ListingController<Licitacao> {
 
         if (principal != null) {
             final String username = principal.getName();
-            System.out.println("username: " + username);
+            logger.info("username: " + username);
 
             try {
                 pessoa = this.pessoaService.retrieveByLogin(username);
@@ -81,6 +86,8 @@ public class PregaoController extends ListingController<Licitacao> {
     }
 
     public boolean canRegisterAsParticipante(final Licitacao entity) {
+        logger.info("canRegisterAsParticipante " + entity.getDataLicitacao() + " " + entity.getCriterioJulgamento() + " " + entity.getObjeto() + " " + entity.getDataPublicacao());
+        logger.info("pessoa " + this.pessoa.getNome());
         return this.licitacaoService.canRegisterAsParticipante(this.pessoa, entity);
     }
 }
