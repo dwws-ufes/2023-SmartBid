@@ -25,7 +25,7 @@ public class Licitacao extends PersistentObjectSupport {
     private String objeto;
 
     @NotNull
-    @Past
+    @FutureOrPresent
     private LocalDate dataPublicacao;
 
     @OneToMany(mappedBy = "licitacao", orphanRemoval = true)
