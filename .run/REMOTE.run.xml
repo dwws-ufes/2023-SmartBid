@@ -1,0 +1,48 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="REMOTE" type="JBossConfiguration" factoryName="Remote" APPLICATION_SERVER_NAME="JBoss/WildFly 27.0.1.Final" ALTERNATIVE_JRE_ENABLED="false">
+    <option name="LOCAL" value="false" />
+    <option name="UPDATING_POLICY" value="hot-swap-classes" />
+    <deployment>
+      <artifact name="SmartBid:war">
+        <settings DEPLOYMENT_METHOD="Native" />
+      </artifact>
+    </deployment>
+    <server-settings>
+      <data>
+        <option name="credentialAlias" value="a078b6df-f82f-4382-8d91-a3d60b59443c" />
+        <option name="managementPort" value="9990" />
+        <option name="serverGroup" value="" />
+        <option name="stagingRemotePath" value="" />
+        <option name="transportStagingTarget">
+          <TransportTarget>
+            <option name="id" value="f2a312f5-2828-4d24-8f04-1e784c14d150" />
+            <id>f2a312f5-2828-4d24-8f04-1e784c14d150</id>
+          </TransportTarget>
+        </option>
+        <option name="username" value="admin" />
+        <username>admin</username>
+        <credential-alias>a078b6df-f82f-4382-8d91-a3d60b59443c</credential-alias>
+        <management-port>9990</management-port>
+        <server-group />
+        <transport-target>
+          <TransportTarget>
+            <option name="id" value="f2a312f5-2828-4d24-8f04-1e784c14d150" />
+            <id>f2a312f5-2828-4d24-8f04-1e784c14d150</id>
+          </TransportTarget>
+        </transport-target>
+        <staging-path />
+      </data>
+    </server-settings>
+    <predefined_log_file enabled="true" id="JBoss" />
+    <RunnerSettings RunnerId="Debug">
+      <option name="DEBUG_PORT" value="58787" />
+      <option name="LOCAL" value="false" />
+    </RunnerSettings>
+    <method v="2">
+      <option name="Make" enabled="true" />
+      <option name="BuildArtifacts" enabled="true">
+        <artifact name="SmartBid:war" />
+      </option>
+    </method>
+  </configuration>
+</component>
