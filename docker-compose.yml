@@ -2,7 +2,7 @@ version: '3'
 services:
   app:
     container_name: "smartbid"
-    image: "abraaoabe/smartbid-wildfly:latest"
+    image: "smartbid-wildfly"
     environment:
       - WILDFLY_USER=admin
       - WILDFLY_PASS=adminPassword

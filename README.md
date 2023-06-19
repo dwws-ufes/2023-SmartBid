@@ -4,8 +4,11 @@ O SmartBid é uma aplicação tem como objetivo o cadastro e execução de licit
 
 ## O que é necessário para executar o projeto:
 
-- Docker
-- Docker-compose
+- JDK 17+
+- Maven 3.8.8
+- Docker 20.10.21
+- Docker-compose 1.25.0
+
 
 Nota: Se você estiver usando ubuntu, pode instalar o docker e o docker-compose com os seguintes comandos:
 
@@ -19,11 +22,19 @@ Nota: Se você estiver usando ubuntu, pode instalar o docker e o docker-compose 
 
 ```git clone https://github.com/dwws-ufes/2023-SmartBid.git```
 
-### Passo 2: Execute o docker-compose do projeto na pasta raiz
+### Passo 2: Buildar o projeto
+
+```mvn clean install```
+
+### Passo 3: Buildar a imagem do wildfly
+
+```docker build -t smartbid-wildfly .```
+
+### Passo 4: Execute o docker-compose do projeto na pasta raiz
 
 ```docker-compose up -d```
 
-### Passo 3: Acesse a aplicação pelo navegador
+### Passo 5: Acesse a aplicação pelo navegador
 
 ```http://localhost:8080/SmartBid-1.0-SNAPSHOT/index.xhtml```
 
