@@ -21,7 +21,7 @@ ENV DEPLOYMENT_DIR $JBOSS_HOME/standalone/deployments/
 RUN echo "=> Adding WildFly administrator"
 RUN $JBOSS_HOME/bin/add-user.sh -u $WILDFLY_USER -p $WILDFLY_PASS --silent
 
-ADD standalone.conf $JBOSS_HOME/bin/standalone.conf
+#ADD standalone.conf $JBOSS_HOME/bin/standalone.conf
 
 # Configure Wildfly server
 RUN echo "=> Starting WildFly server" && \

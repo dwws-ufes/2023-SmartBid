@@ -24,7 +24,7 @@ Nota: Se você estiver usando ubuntu, pode instalar o docker e o docker-compose 
 
 ### Passo 2: Buildar o projeto
 
-```mvn clean install```
+```mvn package```
 
 ### Passo 3: Buildar a imagem do wildfly
 
