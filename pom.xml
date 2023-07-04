@@ -48,7 +48,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>com.github.adminfaces</groupId>
             <artifactId>admin-template</artifactId>
@@ -81,6 +80,14 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
+        </dependency>
+
+        <!-- Lib consultas RDF e SPARQL-->
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>apache-jena-libs</artifactId>
+            <type>pom</type>
+            <version>4.8.0</version>
         </dependency>
 
 
@@ -147,7 +154,8 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>4.1.0.Final</version>
                 <configuration>
-                    <feature-pack-location>wildfly-preview@maven(org.jboss.universe:community-universe)</feature-pack-location>
+                    <feature-pack-location>wildfly-preview@maven(org.jboss.universe:community-universe)
+                    </feature-pack-location>
                 </configuration>
             </plugin>
         </plugins>

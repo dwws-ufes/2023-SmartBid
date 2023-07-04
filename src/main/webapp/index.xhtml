@@ -1,35 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition 
-	xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" 
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:adm="http://github.com/adminfaces"
-	template="/WEB-INF/templates/template.xhtml">
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:adm="http://github.com/adminfaces"
+        template="/WEB-INF/templates/template.xhtml">
 
-	<ui:define name="title">
-		<h:outputText value="#{msgs['title.home']}" />
-	</ui:define>
+    <ui:define name="title">
+        <h:outputText value="#{msgs['title.home']}"/>
+    </ui:define>
 
-	<ui:define name="description">
-		<h:outputText value="#{msgs['title.home.description']}" />
-	</ui:define>
+    <ui:define name="description">
+        <h:outputText value="#{msgs['title.home.description']}"/>
+    </ui:define>
 
-	<ui:define name="body">
-		<!-- Clear the breadcrumb. -->
-		<adm:breadcrumb title="" clear="true" />
+    <ui:define name="body">
+        <!-- Clear the breadcrumb. -->
+        <adm:breadcrumb title="" clear="true"/>
 
-		<div style="text-align: center;">
-	    	<div style="clear: both; margin-bottom: 10px;">
-	    		<h:outputLink value="">
-	    			<h:graphicImage name="images/smartbid.png" style="border: 1px solid black;" />
-	    		</h:outputLink>
-	    	</div>
-	
-			<p><h:outputText value="#{msgs['text.home.about01']}" escape="false" /></p>
-		</div>
-	</ui:define>
+        <div style="text-align: center;">
+            <div style="clear: both; margin-bottom: 10px;">
+                <h:outputLink value="">
+                    <h:graphicImage name="images/smartbid.png" style="border: 1px solid black;"/>
+                </h:outputLink>
+            </div>
+
+            <p><h:outputText value="#{msgs['text.home.about01']}" escape="false"/></p>
+        </div>
+
+
+        <div id="jena">
+
+            <h:form id="form">
+
+                <h:panelGroup>
+                    <h:outputLabel for="city" value="City: "/>
+                    <h:inputText id="city" value="#{homeController.city}">
+                        <f:ajax event="blur" render="desc" listener="#{homeController.search}"/>
+                    </h:inputText>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputLabel for="desc" value="Description: "/>
+                    <h:outputText id="desc" value="#{homeController.desc}">
+
+                    </h:outputText>
+                </h:panelGroup>
+            </h:form>
+
+        </div>
+    </ui:define>
 </ui:composition>
