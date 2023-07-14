@@ -1,0 +1,38 @@
+[
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "\r\nprefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> \r\nPREFIX foaf: <http://xmlns.com/foaf/0.1/>\r\nprefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>\r\nprefix gn: <http://www.geonames.org/ontology#>\r\nPREFIX dbpedia: <http://dbpedia.org/resource/>\r\nPREFIX dbp: <http://dbpedia.org/property/>\r\n\r\nselect ?nome ?nativo ?pais ?latitude ?longitude ?populacao\r\nfrom <http://sws.geonames.org/3471168/about.rdf>\r\n\r\nwhere {\r\n    ?geonames     wgs84_pos:lat     ?latitude;\r\n                  wgs84_pos:long    ?longitude;\r\n                  gn:countryCode    ?pais;\r\n                  gn:population     ?populacao;\r\n                  rdfs:seeAlso      dbpedia:Bahia.\r\n                  \r\n    SERVICE <http://DBpedia.org/sparql>\r\n    { SELECT  distinct ?nome ?nativo\r\n    WHERE\r\n    {\r\n        dbpedia:Bahia foaf:name             ?nome;\r\n                      dbp:populationDemonym ?nativo\r\n    } limit 1 \r\n    } \r\n}\r\n",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\r\nPREFIX gn: <http://www.geonames.org/ontology#>\r\n\r\nSELECT ?place ?name ?latitude ?longitude ?countryCode ?population\r\nWHERE {\r\n  ?place a gn:Feature ;\r\n         gn:name ?name ;\r\n         geo:lat ?latitude ;\r\n         geo:long ?longitude ;\r\n         gn:countryCode ?countryCode ;\r\n         gn:population ?population .\r\n  FILTER (LANG(?name) = 'en')\r\n  FILTER (?place = <http://sws.geonames.org/6252001/>)\r\n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "select * \r\nfrom <http://sws.geonames.org/2759794/about.rdf>\r\nwhere { ?s ?p ?o }",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\nprefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>\r\nprefix gn: <http://www.geonames.org/ontology#>\r\nPREFIX dbpedia: <http://dbpedia.org/resource/>\r\n\r\nselect ?pais ?vizinho ?populacaoVizinho\r\nfrom <http://sws.geonames.org/3469034/about.rdf>\r\nfrom <http://www.geonames.org/3469034/neighbours.rdf>\r\nfrom <http://sws.geonames.org/3437598/about.rdf>\r\nfrom <http://sws.geonames.org/3439705/about.rdf>\r\nfrom <http://sws.geonames.org/3686110/about.rdf>\r\nfrom <http://sws.geonames.org/3923057/about.rdf>\r\nfrom <http://sws.geonames.org/3932488/about.rdf>\r\nfrom <http://sws.geonames.org/3865483/about.rdf>from <http://sws.geonames.org/3378535/about.rdf>from <http://sws.geonames.org/3382998/about.rdf>from <http://sws.geonames.org/3381670/about.rdf>from <http://sws.geonames.org/3625428/about.rdf>where{?geonames     wgs84_pos:lat     ?latitude;gn:population    ?populacao;gn:name ?pais;rdfs:seeAlso     dbpedia:Brazil.?geonames2     gn:neighbour    ?geonames.?geonames2     gn:name ?vizinho;gn:population     ?populacaoVizinho;}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbo: <http://dbpedia.org/ontology/>\r\nPREFIX dbr: <http://dbpedia.org/resource/>\r\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n\r\nSELECT ?cityName \r\nWHERE {\r\n  ?city a dbo:City .\r\n  ?city dbo:country dbr:Brazil .\r\n  ?cityName rdfs:label ?city .\r\n  FILTER (LANG(?cityName) = 'en')\r\n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "#é o que funciona\r\n\r\nPREFIX dbo: <http://dbpedia.org/ontology/>\r\nPREFIX dbr: <http://dbpedia.org/resource/>\r\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\nSELECT ?countryName, ?cityName, ?city,?stateName WHERE {\r\n ?city    a           dbo:City ;\r\n          dbo:country ?country ;\r\n          dbo:state   ?state;\r\n          rdfs:label  \"New York City\"@en ;\r\n            rdfs:label  ?cityName .\r\n ?country rdfs:label  ?countryName.\r\n ?state rdfs:label ?stateName.\r\n FILTER(LANG(?countryName) = 'en')\r\n}",
+    "metadata": {}
+  }
+]
