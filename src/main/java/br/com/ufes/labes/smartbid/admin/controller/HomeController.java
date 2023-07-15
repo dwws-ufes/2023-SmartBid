@@ -4,12 +4,16 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.query.QueryExecution;
+import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
 @Named
 @ViewScoped
 public class HomeController implements java.io.Serializable {
+
     private static final Logger log = Logger.getLogger(HomeController.class.getName());
+
 
     private String desc;
 
@@ -33,34 +37,54 @@ public class HomeController implements java.io.Serializable {
 
     public void search() {
 
-        log.info("searching for " + this.city);
-        if (!StringUtils.isBlank(this.city) && this.city.length() > 3) {
+        this.desc = extracted(this.city);
 
-            this.desc = null;
-            final String query =
-                    " PREFIX dbo: <http://dbpedia.org/ontology/> "
-                            + " PREFIX dbp: <http://dbpedia.org/property/> "
-                            + " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-                            + " SELECT ?desc "
-                            + " WHERE { "
-                            + "    ?uri a dbo:City; "
-                            + "        dbp:name '" + this.city + "'@en; "
-                            + "        rdfs:comment ?desc. "
-                            + " FILTER (lang(?desc) = 'en') "
-                            + "}";
+    }
 
-            log.info("query: " + query);
+    private String extracted(final String cityValue) {
+        final String URL = "https://dbpedia.org/sparql";
+        log.info("searching for " + cityValue);
+        if (!StringUtils.isBlank(cityValue) && cityValue.length() > 3) {
 
-            try (final QueryExecution qe = QueryExecution.service("https://dbpedia.org/sparql", query)) {
+            log.info("content changed " + LocalDateTime.now());
+            //language=SPARQL
+            final String queryTemplate = """
+                    PREFIX dbo: <http://dbpedia.org/ontology/>
+                    PREFIX dbr: <http://dbpedia.org/resource/>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    SELECT ?stateName ?countryName\s
+                     WHERE {\s
+                         ?city       a                   dbo:City ; \s
+                                     dbo:subdivision     ?state ; \s
+                                     rdfs:label          ?cityName ; \s
+                                     rdfs:label          "%s"@en . \s
+                         ?state      a                   dbo:AdministrativeRegion ; \s
+                                     rdfs:label          ?stateName ; \s
+                                     dbo:country         ?country . \s
+                         ?country    a                   dbo:Country ; \s
+                                     rdfs:label           ?countryName . \s
+                         FILTER(LANG(?stateName) = 'en' && LANG(?cityName) = 'en' && LANG(?countryName) = 'en') \s
+                    }"""; //
+
+            log.info("query: " + queryTemplate);
+
+            final AtomicReference<String> descValue = new AtomicReference<>("");
+            final String query = queryTemplate.formatted(cityValue);
+            try (final QueryExecution qe = QueryExecution.service(URL, query)) {
                 qe.execSelect().forEachRemaining(qs -> {
-                    if (this.desc == null) {
-                        this.desc = qs.getLiteral("desc").getString();
+                    if (descValue.get() == null) {
+                        final String stateName = qs.getLiteral("stateName").getString();
+                        final String countryName = qs.getLiteral("countryName").getString();
+                        descValue.set(cityValue + " is a city in " + stateName + ", " + countryName + ".");
                     }
                 });
-                log.info("desc: " + this.desc);
+                log.info("desc: " + descValue);
             }
+
+            return descValue.get();
 
         }
 
+        return null;
     }
 }

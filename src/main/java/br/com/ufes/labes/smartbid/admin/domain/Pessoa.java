@@ -2,8 +2,6 @@ package br.com.ufes.labes.smartbid.admin.domain;
 
 import br.com.ufes.labes.smartbid.admin.domain.enumerate.TipoIdentificacao;
 import br.ufes.inf.labes.jbutler.ejb.persistence.PersistentObjectSupport;
-import com.sun.istack.Nullable;
-import jakarta.enterprise.inject.Default;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,7 +29,7 @@ public class Pessoa extends PersistentObjectSupport {
     private String senha;
 
     @Size(max = 255)
-    @Nullable
+    @Null
     private String role;
 
     @Size(max = 255)
@@ -41,6 +39,18 @@ public class Pessoa extends PersistentObjectSupport {
     @Size(max = 12)
     @NotNull
     private String telefone;
+
+    @Size(max = 255)
+    @Null
+    private String city;
+
+    @Size(max = 255)
+    @Null
+    private String state;
+
+    @Size(max = 255)
+    @Null
+    private String country;
 
     @Enumerated
     @NotNull
@@ -53,8 +63,8 @@ public class Pessoa extends PersistentObjectSupport {
     public Pessoa() {
     }
 
-    public Pessoa(final String nome, final String identificacao, final String senha, final String email, final String telefone,
-            final TipoIdentificacao tipoIdentificacao) {
+    public Pessoa(final String nome, final String identificacao, final String senha, final String email,
+            final String telefone, final TipoIdentificacao tipoIdentificacao) {
         this.nome = nome;
         this.identificacao = identificacao;
         this.email = email;
@@ -139,6 +149,30 @@ public class Pessoa extends PersistentObjectSupport {
 
     public void setRole(final String role) {
         this.role = role;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(final String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(final String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(final String country) {
+        this.country = country;
     }
 
     // </editor-fold>

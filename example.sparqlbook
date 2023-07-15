@@ -32,7 +32,19 @@
   {
     "kind": 2,
     "language": "sparql",
-    "value": "#é o que funciona\r\n\r\nPREFIX dbo: <http://dbpedia.org/ontology/>\r\nPREFIX dbr: <http://dbpedia.org/resource/>\r\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\nSELECT ?countryName, ?cityName, ?city,?stateName WHERE {\r\n ?city    a           dbo:City ;\r\n          dbo:country ?country ;\r\n          dbo:state   ?state;\r\n          rdfs:label  \"New York City\"@en ;\r\n            rdfs:label  ?cityName .\r\n ?country rdfs:label  ?countryName.\r\n ?state rdfs:label ?stateName.\r\n FILTER(LANG(?countryName) = 'en')\r\n}",
+    "value": "#é o que funciona\r\n\r\nPREFIX dbo: <http://dbpedia.org/ontology/>\r\nPREFIX dbr: <http://dbpedia.org/resource/>\r\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\nSELECT ?cityName, ?stateName, ?countryName \r\nWHERE {\r\n    ?city       a                   dbo:City ;\r\n                dbo:subdivision     ?state ;\r\n                rdfs:label          \"Detroit\"@en ;\r\n                rdfs:label          ?cityName .\r\n    ?state      a                   dbo:AdministrativeRegion;\r\n                rdfs:label          ?stateName ;\r\n                dbo:country         ?country .\r\n    ?country    a                   dbo:Country ;\r\n                dfs:label           ?countryName .\r\n  FILTER(LANG(?stateName) = 'en' && LANG(?cityName) = 'en' && LANG(?countryName) = 'en')\r\n}",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "PREFIX dbo: <http://dbpedia.org/ontology/>\r\nPREFIX dbr: <http://dbpedia.org/resource/>\r\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n SELECT ?stateName ?countryName\r\n                     WHERE {\r\n                         ?city       a                   dbo:City ; \r\n                                     dbo:subdivision     ?state ; \r\n                                     rdfs:label          ?cityName . \r\n                         ?state      a                   dbo:AdministrativeRegion ; \r\n                                     rdfs:label          ?stateName ; \r\n                                     dbo:country         ?country . \r\n                         ?country    a                   dbo:Country ; \r\n                                     rdfs:label           ?countryName . \r\n                         FILTER(LANG(?stateName) = 'en' && LANG(?cityName) = 'en' && LANG(?countryName) = 'en') \r\n                         FILTER(?cityName = \"San Francisco\"@en) \r\n                    }",
+    "metadata": {}
+  },
+  {
+    "kind": 2,
+    "language": "sparql",
+    "value": "SELECT DISTINCT ?city ?country \r\nWHERE { ?city rdf:type dbpedia-owl:City ; \r\n              rdfs:label ?label ; \r\n              dbpedia-owl:country ?country \r\n}",
     "metadata": {}
   }
 ]

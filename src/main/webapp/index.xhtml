@@ -29,27 +29,5 @@
             <p><h:outputText value="#{msgs['text.home.about01']}" escape="false"/></p>
         </div>
 
-
-        <div id="jena">
-
-            <h:form id="form">
-
-                <h:panelGroup>
-                    <h:outputLabel for="city" value="City: "/>
-                    <h:inputText id="city" value="#{homeController.city}">
-                    </h:inputText>
-                </h:panelGroup>
-
-                <h:panelGroup>
-                    <h:outputLabel for="desc" value="Description: "/>
-                    <h:outputText id="desc" value="#{homeController.desc}">
-
-                    </h:outputText>
-                </h:panelGroup>
-
-                <p:commandButton value="Search" actionListener="#{homeController.search}" update="form"/>
-            </h:form>
-
-        </div>
     </ui:define>
 </ui:composition>
