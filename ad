@@ -1,0 +1,412 @@
+[33mcommit 139e19bfe6bcfafe952bb6fc451be70ea58dd520[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat Jul 15 13:55:00 2023 -0300
+
+    Adiciona consulta de estado e país por cidade e persistência dos dados
+
+[33mcommit 2df5cb0f625a861e2eac86a8642eceee4126e356[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Fri Jul 14 08:41:39 2023 -0300
+
+    notebook de consultas sparql
+
+[33mcommit 84534f1099179458d0f4df2f22e9ba193b891c2d[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Tue Jul 11 08:52:26 2023 -0300
+
+    Exemplificação de consulta com Jena
+
+[33mcommit 910d2eb48f1943e7bd64467db0d2fcceb7c582d2[m
+Merge: 1523e78 8d08512
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Tue Jul 4 08:37:00 2023 -0300
+
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit 1523e78632e6e3a99fdd04d5417791338ab20f4b[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Tue Jul 4 08:36:51 2023 -0300
+
+    Exemplificação de consulta com Jena
+
+[33mcommit 8d08512da19c13635c26ceec7e0719ecdb4babe7[m
+Author: AbraaoAbe <79542473+AbraaoAbe@users.noreply.github.com>
+Date:   Mon Jun 19 21:12:18 2023 -0300
+
+    Update README.md
+
+[33mcommit ddda5a5d2092181014351d83b4c5c5cc79b38028[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 19 21:05:10 2023 -0300
+
+    debug port with problems
+
+[33mcommit ba48678ddf89839ec64856fd28c30743936c6d1e[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 19 20:51:58 2023 -0300
+
+    update readme links
+
+[33mcommit 05ebfaef1abd6bf4f5d19c3e1f298e6f1648f92b[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 19 20:36:03 2023 -0300
+
+    corrigido tutorial e inicialização do projeto
+
+[33mcommit 55d858014fc0aeb3a3299b25f3fa2b75f0e432be[m
+Merge: 9bd3f7e f400493
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 19 20:09:55 2023 -0300
+
+    Merge remote-tracking branch 'origin/main' into abraaonew1
+
+[33mcommit 9bd3f7e7721b30c1ffece0876a8479c2e4f68494[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 19 20:09:08 2023 -0300
+
+    forçadamente
+
+[33mcommit f400493fe02b15b4acda111860ce817d101c0a42[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Mon Jun 19 19:59:21 2023 -0300
+
+    arquivos de configuração de execução
+
+[33mcommit d096455ee0e6ef8736580b1f166e99618944ecb0[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 19 19:57:04 2023 -0300
+
+    consertado modo debug porta 8787
+
+[33mcommit c80423f0863b2460cadeb4d0787ca6f585ae2ef8[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Mon Jun 19 19:51:24 2023 -0300
+
+    feat: Correção de validações e loggers
+
+[33mcommit 4d04b9ffe64e6767e8b974391f5d09ae9b5ec991[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Mon Jun 19 19:49:26 2023 -0300
+
+    feat: Correção de validações e loggers
+
+[33mcommit c9b9e0fc5530277d4bb873028e9c27b4dfb1c54f[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Mon Jun 19 19:24:09 2023 -0300
+
+    feat: Correção de título da página de login e sql de inserção de primeiro usuário
+
+[33mcommit f462a944dece913a2912eec381ed720067d5d81f[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 19 19:02:34 2023 -0300
+
+    finalizando t2, feito init
+
+[33mcommit 4237b02c8618cbc060824bcac71aab0e33b6ee70[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Mon Jun 19 17:42:43 2023 -0300
+
+    feat: Correção de título da página de login
+
+[33mcommit 1a22b66c723012af6e79d56a8949d1f533c1b88b[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Mon Jun 19 17:31:34 2023 -0300
+
+    feat: Recuperar usuário logado
+
+[33mcommit 27e01f8addb959d74a03035685d07fcf48feaf63[m
+Merge: cd5c316 0d05f24
+Author: Igor Sunderhus e Silva <40007423+igorssilva@users.noreply.github.com>
+Date:   Mon Jun 19 09:21:03 2023 -0300
+
+    Merge pull request #4 from dwws-ufes/correções
+    
+    Correções
+
+[33mcommit cd5c3165f1a562a3e256b77734818637c6285758[m
+Author: AbraaoAbe <79542473+AbraaoAbe@users.noreply.github.com>
+Date:   Tue Jun 13 17:13:25 2023 -0300
+
+    Update README.md
+
+[33mcommit 8e2aa4feafe4b7187ea069a24efbea68fd83d7e4[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Tue Jun 13 16:50:58 2023 -0300
+
+    modificado tela de login, merge com a main, readme acertado
+
+[33mcommit 1117b4d49deca9c7c163fc8ecb2e2eccabcf853f[m
+Merge: 1b2665e e41b4d0
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Tue Jun 13 16:12:34 2023 -0300
+
+    Merge remote-tracking branch 'origin/main' into abraaonew1
+    
+    # Conflicts:
+    #       src/main/java/br/com/ufes/labes/smartbid/admin/controller/ParticipanteController.java
+    #       src/main/java/br/com/ufes/labes/smartbid/admin/controller/PropostaController.java
+    #       src/main/java/br/com/ufes/labes/smartbid/admin/controller/RegisterPessoaController.java
+    #       src/main/java/br/com/ufes/labes/smartbid/admin/service/PropostaService.java
+    #       src/main/java/br/com/ufes/labes/smartbid/admin/service/impl/PropostaServiceImpl.java
+    #       src/main/webapp/smartbid/pregao/proposta-list.xhtml
+
+[33mcommit 1b2665ecf94196799e6d791f41e8102cb9ef0960[m[33m ([m[1;31morigin/abraao[m[33m)[m
+Merge: 5dcedeb 85d20ba
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 12 18:30:08 2023 -0300
+
+    Merge remote-tracking branch 'origin/abraao' into abraaonew1
+    
+    # Conflicts:
+    #       Dockerfile
+
+[33mcommit 5dcedebe874c5bfdaaed21d4ea346018b35303af[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 12 18:22:50 2023 -0300
+
+    jakarta security funcionando no docker
+
+[33mcommit ac7e269b7d145f4ee07a1b037e5d50cda1e0c7b9[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 12 18:22:15 2023 -0300
+
+    jakarta security funcionando no docker
+
+[33mcommit 85d20ba70be8073f57c68f914f574be54e169a82[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Mon Jun 12 09:37:33 2023 -0300
+
+    tentando docker
+
+[33mcommit 5dc825e48deba262183675bc579aa8e866950567[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Sun Jun 11 20:52:04 2023 -0300
+
+    login quase funcionando, ELY01177: Authorization failed
+
+[33mcommit 0ff199e437e0ad672cbc865f69af6379820121cd[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Fri Jun 9 20:47:56 2023 -0300
+
+    feat: Correção de config do admin e tela de pregão
+
+[33mcommit 0d05f24d9fa01ede763350fd464eeb88bd08f348[m[33m ([m[1;31morigin/correções[m[33m, [m[1;32mcorreções[m[33m)[m
+Author: Delma Assis <dassis.barboza@gmail.com>
+Date:   Sun Jun 11 19:10:47 2023 -0300
+
+    Adicionadas mensagens para validação das datas na tela de licitações
+
+[33mcommit e41b4d00a8aa1136029bbbf95e920adc85618cb8[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sun Jun 11 17:17:40 2023 -0300
+
+    feat: Adicionadas validações de permissão de gerenciamento de entidades.
+
+[33mcommit 448d47392036faff48490cc413723540b8c2f20e[m
+Author: Delma Assis <dassis.barboza@gmail.com>
+Date:   Sun Jun 11 12:06:04 2023 -0300
+
+    alteração da logo
+
+[33mcommit d0657f705e7b91c5838bcaff86db270dd80cc022[m
+Author: Delma Assis <dassis.barboza@gmail.com>
+Date:   Sun Jun 11 11:50:04 2023 -0300
+
+    Correções dos campos datepicker
+
+[33mcommit 3927b14e379fe950a5e8020ba0275c7af427de45[m
+Merge: 45d4133 9513215
+Author: Igor Sunderhus e Silva <40007423+igorssilva@users.noreply.github.com>
+Date:   Sun Jun 11 11:34:41 2023 -0300
+
+    Merge pull request #3 from dwws-ufes/feature/pregao
+    
+    feat: Correção de config do admin e tela de pregão
+
+[33mcommit 45d4133ba703fe4837cb47a892881afe273ea355[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Sat Jun 10 11:33:42 2023 -0300
+
+    adicionado sha512 em field senha Pessoa
+
+[33mcommit 95132157452c411bf5d11005a2c3cc4cdf20baa7[m[33m ([m[1;31morigin/feature/pregao[m[33m, [m[1;32mfeature/pregao[m[33m)[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Fri Jun 9 20:47:56 2023 -0300
+
+    feat: Correção de config do admin e tela de pregão
+
+[33mcommit 491767ac3ea26691f2bfa7410bae02ca4c78086a[m
+Merge: 67d00f2 b9a0718
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Fri Jun 9 16:26:49 2023 -0300
+
+    Merge branch 'feature/pregao' of https://github.com/dwws-ufes/2023-SmartBid into main
+
+[33mcommit b9a071828279d3252730aa109de78d3a19518605[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Thu Jun 8 17:41:17 2023 -0300
+
+    feat: refatoração de páginas e novas mensagens
+
+[33mcommit 67d00f2e955fcef14d91e67cd8ea86bd203d3f5d[m
+Author: Delma Assis dos Santos Barboza <108095426+delmabarboza@users.noreply.github.com>
+Date:   Thu Jun 8 12:10:54 2023 -0300
+
+    Update README.md
+
+[33mcommit 89ce9a0a9ac07947820ec16fb5f7e3ed769ff85c[m
+Author: Delma Assis dos Santos Barboza <108095426+delmabarboza@users.noreply.github.com>
+Date:   Thu Jun 8 12:06:06 2023 -0300
+
+    Update README.md
+
+[33mcommit 39d30b7c233f4740d6611cd658e516a777efdc83[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat Jun 3 15:25:22 2023 -0300
+
+    feat: refatoradas páginas e informaçoes de controllers
+
+[33mcommit f53f228dc47ba75787978b365be465e3b8c2a368[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat Jun 3 12:55:30 2023 -0300
+
+    feat: Adicionados validações de criação de proposta
+
+[33mcommit 3df00e1013b0129875431e45b63422703c48a921[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat Jun 3 11:47:13 2023 -0300
+
+    feat: Adicionados validações de criação de participante
+
+[33mcommit 499209f8766f216217b68a6d40954be213f1b249[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat Jun 3 11:16:30 2023 -0300
+
+    feat: Adicionados validações de criação de licitação e renomeação de controller.
+
+[33mcommit cbd7dfaf7cfb8b971cc5800b0f9ed1942e8b66c2[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat May 27 15:31:44 2023 -0300
+
+    feat: Adicionados página básica para pregão
+
+[33mcommit ce8f3cb5b15b1dd5ab8edb27e2f66ecbc2ece95c[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Fri May 26 09:00:38 2023 -0300
+
+    feat: correção de login
+
+[33mcommit daa0f23db64d487aa277223020810fbde4502d75[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Fri May 26 08:31:16 2023 -0300
+
+    feat: correção de máscaras
+
+[33mcommit 76a23fbd50a71c2f1883759e4cde5be1d10f1f78[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Thu May 25 23:46:19 2023 -0300
+
+    feat: correção de arquivos de regionalização e validação
+
+[33mcommit c91131f4be1de84b9d5005131975d7a44d354845[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Thu May 25 23:19:40 2023 -0300
+
+    feat: correção de validações
+
+[33mcommit ffeda00cb8a19c9d17a1066836f95b707e8937f9[m
+Merge: 50d5450 d090e7d
+Author: Igor Sunderhus e Silva <40007423+igorssilva@users.noreply.github.com>
+Date:   Thu May 25 21:40:32 2023 -0300
+
+    Merge pull request #2 from dwws-ufes/abraao
+    
+    Abraao
+
+[33mcommit d090e7d0b0d6527e71d90b8dcce5e0dd6ceb9a58[m
+Merge: 569c0c5 50d5450
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Thu May 25 21:39:54 2023 -0300
+
+    merge commit
+
+[33mcommit 50d545045f4d7ae41cff9fc40943cd8ba8213b3e[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Thu May 25 21:13:06 2023 -0300
+
+    feat: Máscaras e validações
+
+[33mcommit 569c0c5a89e662558129693c2aae2f6212db7385[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Thu May 25 18:40:53 2023 -0300
+
+    adicionando login baseado no marvin
+
+[33mcommit 304799c06eddf9059043260da773a2c2dbb5d628[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Thu May 25 17:30:58 2023 -0300
+
+    modificando estrutura dos arquivos
+
+[33mcommit 8358290d0b4af114ffbec261c0361310c9bc1ad6[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat May 20 21:13:48 2023 -0300
+
+    feat: Adicionada localização de dropdown
+
+[33mcommit 9eebbe349cceff00454c031e40fa038ee3ec4658[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat May 20 20:34:41 2023 -0300
+
+    feat: Adicionadas mais algumas validações
+
+[33mcommit 726e83a350e006b92c5b1a5f79e788bc05a9b62a[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat May 20 20:23:15 2023 -0300
+
+    feat: Adicionado cadastro de itens de licitação e alterado diálogos para painéis.
+
+[33mcommit c1970d8ec586d5d8432bf66b7a7abb64a7f0d460[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat May 13 21:57:06 2023 -0300
+
+    Classes básicas de serviço e dao
+    
+    Add::
+      - Tela básica de Licitação.
+
+[33mcommit b37570ae86554f014488d64b531a92400ab0ce60[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Sat May 13 19:04:27 2023 -0300
+
+    Tela básica de pessoa.
+    
+    Add:
+      - tela básica de pessoa;
+      - Validador de tipo de identificação.
+
+[33mcommit 313a4e1da04ab348836b80823e4412b5478be7ef[m
+Author: AbraaoAbe <abraao.santos@edu.ufes.br>
+Date:   Fri May 12 14:03:14 2023 -0300
+
+    adicionado docker-compose do banco e as entidades do dominio
+
+[33mcommit a4b9deb1262e2f9b46d9e5940baf2fd8df5a8a81[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Fri May 12 09:01:49 2023 -0300
+
+    add: Aplicado BaseProject
+    
+    Adicionada Entity de exemplo
+
+[33mcommit 0423bab7cf93ec826eadbb7661e948ebd0db03d2[m
+Author: Igor Sunderhus e Silva <igorsilvaspecial@gmail.com>
+Date:   Wed Apr 12 17:02:31 2023 -0300
+
+    add: Basic jakarta EE web application
+
+[33mcommit 73e78eb2fdc532b2814c30692aa1a9b0df336e23[m
+Author: Vitor E. Silva Souza <vitorsouza@gmail.com>
+Date:   Tue Apr 11 07:52:59 2023 -0300
+
+    Initial commit
