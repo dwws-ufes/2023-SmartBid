@@ -54,7 +54,7 @@
                                                  target="#{pregaoController.selectedEntity}"/>
                 </p:commandButton>
                 <p:commandButton ajax="false" value="RDF" icon="pi pi-file"
-                                 action="pregaoController.getOneGenerateRDF(entity)"
+                                 action="#{pregaoController.getOneGenerateRDF(entity)}"
                 />
                 <p:commandButton value="#{msgsParticipante['participante.register']}" icon="pi pi-plus"
                                  process="@this"
@@ -67,7 +67,7 @@
             <f:facet name="footer">
                 <div style="float:right; margin-top: -40px">
                     <p:commandButton ajax="false" value="RDF" icon="pi pi-file"
-                                     action="pregaoController.generateRDF()"
+                                     action="#{pregaoController.generateRDF()}"
                     />
                 </div>
             </f:facet>
