@@ -50,10 +50,12 @@
                 <p:commandButton value="#{msgs['jbutler.crud.button.retrieve']}" icon="pi pi-pencil"
                                  update=":form:listingPanel :form:listingItemPanel :form:listingPropostaPanel"
                 >
-
                     <f:setPropertyActionListener value="#{entity}"
                                                  target="#{pregaoController.selectedEntity}"/>
                 </p:commandButton>
+                <p:commandButton ajax="false" value="RDF" icon="pi pi-file"
+                                 action="pregaoController.getOneGenerateRDF(entity)"
+                />
                 <p:commandButton value="#{msgsParticipante['participante.register']}" icon="pi pi-plus"
                                  process="@this"
                                  rendered="#{pregaoController.canRegisterAsParticipante(entity)}}"
@@ -62,6 +64,13 @@
                                                  target="#{participanteController.licitacao}"/>
                 </p:commandButton>
             </p:column>
+            <f:facet name="footer">
+                <div style="float:right; margin-top: -40px">
+                    <p:commandButton ajax="false" value="RDF" icon="pi pi-file"
+                                     action="pregaoController.generateRDF()"
+                    />
+                </div>
+            </f:facet>
         </p:dataTable>
 
     </p:panel>

@@ -12,7 +12,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -23,7 +22,6 @@ import java.util.logging.Logger;
 @Named
 @ViewScoped
 public class PregaoController extends ListingController<Licitacao> {
-
     private static final Logger logger = Logger.getLogger(PregaoController.class.getName());
 
     private Pessoa pessoa;
@@ -34,12 +32,12 @@ public class PregaoController extends ListingController<Licitacao> {
     @EJB
     private PessoaService pessoaService;
 
-
     public PregaoController() {
 
         super();
 
     }
+
     @PostConstruct
     public void init() {
         logger.info("username:");
@@ -86,8 +84,18 @@ public class PregaoController extends ListingController<Licitacao> {
     }
 
     public boolean canRegisterAsParticipante(final Licitacao entity) {
-        logger.info("canRegisterAsParticipante " + entity.getDataLicitacao() + " " + entity.getCriterioJulgamento() + " " + entity.getObjeto() + " " + entity.getDataPublicacao());
+        logger.info(
+                "canRegisterAsParticipante " + entity.getDataLicitacao() + " " + entity.getCriterioJulgamento() + " "
+                        + entity.getObjeto() + " " + entity.getDataPublicacao());
         logger.info("pessoa " + this.pessoa.getNome());
         return this.licitacaoService.canRegisterAsParticipante(this.pessoa, entity);
+    }
+
+    public String getGenerateRDF() {
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/data/licitacao";
+    }
+
+    public String getOneGenerateRDF(final Licitacao entity) {
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/data/licitacao/" + entity.getId();
     }
 }
