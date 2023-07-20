@@ -149,7 +149,11 @@
                                 <p:outputLabel for="senhaField1" value="#{msgsPessoa['pessoa.field.senha']}"/>
                                 <h:panelGroup id="senhaGroup1">
                                     <p:password id="senhaField1" value="#{registerPessoaController.senha}" match="senhaField2" label="Password 1" required="true"/>
-                                    <p:message for="telefoneField"/>
+                                    <p:message for="senhaField1"/>
+                                </h:panelGroup>
+                                <p:outputLabel for="senhaField2" value="#{msgsPessoa['pessoa.field.repete-senha']}"/>
+                                <h:panelGroup id="senhaGroup2">
+                                    <p:password id="senhaField2" label="Password 2" required="true"/>
                                 </h:panelGroup>
 
                                 <p:outputLabel for="telefoneField" value="#{msgsPessoa['pessoa.field.telefone']}"/>
@@ -174,27 +178,33 @@
                                 <p:outputLabel for="cityField" value="#{msgsPessoa['pessoa.field.city']}"/>
                                 <h:panelGroup id="cityGroup">
                                     <p:inputText id="cityField" value="#{registerPessoaController.selectedEntity.city}" placeholder="Cidade" >
-                                        <p:ajax event="blur" process="@this" update="countryGroup stateGroup"
+
+                                        <p:ajax event="blur" process="@this" update="stateGroup countryGroup"
                                                 listener="#{registerPessoaController.search}"/>
                                     </p:inputText>
+
+                                    <p:message for="cityField"/>
                                 </h:panelGroup>
 
                                 <p:outputLabel for="stateField" value="#{msgsPessoa['pessoa.field.state']}"/>
                                 <h:panelGroup id="stateGroup">
                                     <p:inputText id="stateField" value="#{registerPessoaController.selectedEntity.state}" placeholder="Estado" >
                                     </p:inputText>
+                                    <p:message for="stateField"/>
                                 </h:panelGroup>
 
                                 <p:outputLabel for="countryField" value="#{msgsPessoa['pessoa.field.country']}"/>
                                 <h:panelGroup id="countryGroup">
                                     <p:inputText id="countryField" value="#{registerPessoaController.selectedEntity.country}" placeholder="País" >
                                     </p:inputText>
+                                    <p:message for="countryField"/>
                                 </h:panelGroup>
                             </p:panelGrid>
                         </p:outputPanel>
                     </p:outputPanel>
 
                     <f:facet name="footer">
+
                         <p:commandButton value="#{msgs['jbutler.crud.button.save']}" icon="pi pi-check"
                                          actionListener="#{registerPessoaController.save}"
                                          update="manage-entity-content"

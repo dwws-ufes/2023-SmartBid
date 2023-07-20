@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +28,6 @@ public class Pessoa extends PersistentObjectSupport {
     private String senha;
 
     @Size(max = 255)
-    @Null
     private String role;
 
     @Size(max = 255)
@@ -41,15 +39,12 @@ public class Pessoa extends PersistentObjectSupport {
     private String telefone;
 
     @Size(max = 255)
-    @Null
     private String city;
 
     @Size(max = 255)
-    @Null
     private String state;
 
     @Size(max = 255)
-    @Null
     private String country;
 
     @Enumerated
