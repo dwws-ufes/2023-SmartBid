@@ -54,7 +54,7 @@
                                                  target="#{pregaoController.selectedEntity}"/>
                 </p:commandButton>
                 <p:commandButton ajax="false" value="RDF" icon="pi pi-file"
-                                 action="#{pregaoController.getOneGenerateRDF(entity)}"
+                                 action="#{pregaoController.redirectToRDFPage(entity)}"
                 />
                 <p:commandButton value="#{msgsParticipante['participante.register']}" icon="pi pi-plus"
                                  process="@this"
@@ -66,11 +66,11 @@
             </p:column>
             <f:facet name="footer">
                 <div style="float:right; margin-top: -40px">
-                    <a style="float: right;" href="#{facesContext.externalContext.requestContextPath}/data/licitacao/">RDF/XML</a>
-<!--                    <p:commandButton ajax="false" value="RDF" icon="pi pi-file"-->
-<!--                                     action="#{pregaoController.redirectToRDFPage()}"-->
-<!--                                     outcome="#{pregaoController.generateRDF()}"-->
-<!--                    />-->
+                    <p:commandButton value="RDF" icon="pi pi-file"
+                                     action="#{pregaoController.redirectToRDFPage(null)}"
+                                     ajax="false" style="float: right;"
+                    />
+
                 </div>
             </f:facet>
         </p:dataTable>

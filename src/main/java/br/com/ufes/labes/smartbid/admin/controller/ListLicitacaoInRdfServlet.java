@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Set;
 
 // Configuração do servlet para a URL "/data/licitacao/"
-@WebServlet(urlPatterns = { "/data/licitacao/" })
+@WebServlet(urlPatterns = { "/data/licitacao/*" })
 public class ListLicitacaoInRdfServlet extends HttpServlet {
 
     // Prefixo do namespace usado na criação dos recursos RDF
@@ -52,30 +52,37 @@ public class ListLicitacaoInRdfServlet extends HttpServlet {
         // Obtém o parâmetro "id" da requisição
         final String idStr = request.getParameter("id");
 
-        // Lista de licitações que será preenchida a seguir
-        final List<Licitacao> licitacaoList;
-
         // Verifica se o parâmetro "id" está presente na requisição
         if (!StringUtils.isBlank(idStr)) {
             // Se estiver, converte o valor para Long e recupera a licitação correspondente
             final Long id = Long.parseLong(idStr);
             final Licitacao licitacao = licitacaoService.retrieve(id);
-            licitacaoList = List.of(licitacao);
-        } else {
-            // Caso contrário, lista todas as licitações
-            licitacaoList = licitacaoService.list();
+
+            // Verifica se a licitação foi encontrada
+            if (licitacao != null) {
+                // Cria um novo modelo RDF
+                final Model model = ModelFactory.createDefaultModel();
+
+                // Define um prefixo de namespace para o modelo RDF
+                model.setNsPrefix("ns", MY_NS);
+
+                // Adiciona a licitação ao modelo RDF
+                getLicitacaoResource(model, licitacao);
+
+                // Escreve o modelo RDF como resposta da requisição no formato RDF/XML
+                try (PrintWriter out = resp.getWriter()) {
+                    model.write(out, "RDF/XML");
+                }
+                return; // Retorna para evitar a listagem de todas as licitações abaixo
+            }
         }
 
-        // Cria um novo modelo RDF
+        // Caso contrário, lista todas as licitações
+        final List<Licitacao> licitacaoList = licitacaoService.list();
         final Model model = ModelFactory.createDefaultModel();
-
-        // Define um prefixo de namespace para o modelo RDF
         model.setNsPrefix("ns", MY_NS);
-
-        // Adiciona cada licitação ao modelo RDF
         licitacaoList.forEach(licitacao -> getLicitacaoResource(model, licitacao));
 
-        // Escreve o modelo RDF como resposta da requisição no formato RDF/XML
         try (PrintWriter out = resp.getWriter()) {
             model.write(out, "RDF/XML");
         }

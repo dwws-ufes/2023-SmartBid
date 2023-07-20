@@ -10,10 +10,14 @@ import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.MultiplePersistentOb
 import br.ufes.inf.labes.jbutler.ejb.persistence.exceptions.PersistentObjectNotFoundException;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
@@ -92,10 +96,27 @@ public class PregaoController extends ListingController<Licitacao> {
     }
 
     public String getGenerateRDF() {
-        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/data/licitacao";
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/data/licitacao/";
     }
 
     public String getOneGenerateRDF(final Licitacao entity) {
-        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/data/licitacao/" + entity.getId();
+        Long id = entity.getId();
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/data/licitacao/?id=" + id;
     }
+
+
+    public void redirectToRDFPage(Licitacao entity) throws IOException {
+        String rdfURL;
+
+        if (entity == null) {
+            rdfURL = getGenerateRDF();
+        } else {
+            rdfURL = getOneGenerateRDF(entity);
+        }
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.redirect(rdfURL);
+    }
+
+
 }
